@@ -8,6 +8,6 @@ package QLCHTP.model;
  *
  * @author pducn
  */
-public class KhachHang {
+public class SanPhamModel {
     
 }
