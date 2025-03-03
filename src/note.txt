@@ -1,0 +1,20 @@
+
+hello đây là ghi chú 
+
+3-3-2025:uplên github để cài đặt
+
+/src
+│── /com/projectname
+│   │── /database       → Chứa kết nối CSDL
+│   │   │── DatabaseConnection.java  → Quản lý kết nối
+│   │── /dao           → Chứa truy vấn dữ liệu (CRUD) creatẻ table đồ
+│   │   │── SanPhamDAO.java
+│   │   │── KhachHangDAO.java
+│   │── /model         → Chứa lớp mô hình (Entity) (lưu thông tin san phẩm đồ á) ,với có mấy cái hàm
+│   │   │── SanPham.java
+│   │   │── KhachHang.java
+│   │── /service       → Xử lý logic liên quan
+│   │── /gui           → Chứa giao diện (JFrame, JPanel)
+│   └── /main          → Chứa main class
+
+(Cấu trúc tham khảo)
