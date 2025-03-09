@@ -4,10 +4,12 @@
  */
 package com.mycompany.VIEW;
 
+import com.mycompany.DTO.NhanVienDTO;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +21,19 @@ public class AdminFrame extends javax.swing.JFrame {
      * Creates new form AdminFrame
      */
     ArrayList<MenuItem> itemList = new ArrayList<>();
+    NhanVienDTO user ;
+    
+    public AdminFrame(NhanVienDTO user) {
+        initComponents();
+        
+        this.user = user ;
+        
+        userName.setText(user.getFullName());
+        
+        initMenuItem();
+        addMenuItemEvent();
+    }
+    
     public AdminFrame() {
         initComponents();
         
@@ -112,7 +127,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        userName = new javax.swing.JLabel();
         btnSignOut = new javax.swing.JButton();
         leftPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -122,12 +137,17 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Item label");
-        jPanel3.add(jLabel1);
+        userName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        userName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        userName.setText("Item label");
+        jPanel3.add(userName);
 
         btnSignOut.setText("Đăng xuất");
+        btnSignOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSignOutMouseClicked(evt);
+            }
+        });
         jPanel3.add(btnSignOut);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_START);
@@ -153,6 +173,15 @@ public class AdminFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSignOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignOutMouseClicked
+        // TODO add your handling code here:
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn đăng xuất?", "Đăng xuất", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            new LoginFrame().setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_btnSignOutMouseClicked
 
     /**
      * @param args the command line arguments
@@ -191,10 +220,10 @@ public class AdminFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSignOut;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel leftPanel;
+    private javax.swing.JLabel userName;
     // End of variables declaration//GEN-END:variables
 }
