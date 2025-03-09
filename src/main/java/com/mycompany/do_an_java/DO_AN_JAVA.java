@@ -4,6 +4,8 @@
 
 package com.mycompany.do_an_java;
 
+import com.mycompany.VIEW.LoginFrame;
+
 /**
  *
  * @author pducn
@@ -11,6 +13,6 @@ package com.mycompany.do_an_java;
 public class DO_AN_JAVA {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        new LoginFrame().setVisible(true);
     }
 }
