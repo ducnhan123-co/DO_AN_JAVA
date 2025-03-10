@@ -5,6 +5,8 @@
 package com.mycompany.VIEW;
 
 import com.mycompany.DTO.NhanVienDTO;
+import com.mycompany.VIEW.WorkSpace.WorkPanel;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,24 +28,34 @@ public class AdminFrame extends javax.swing.JFrame {
      */
     ArrayList<MenuItem> itemList = new ArrayList<>();
     NhanVienDTO user ;
+    CardLayout cardLayout;
     
     public AdminFrame(NhanVienDTO user) {
         initComponents();
         initTile();
+        
+        cardLayout = (CardLayout) rightPanel.getLayout();
 
         this.user = user ;
-        
         userName.setText(user.getFullName());
         
         initMenuItem();
         addMenuItemEvent();
+        
+        initWorkSpace();
     }
     
     public AdminFrame() {
         initComponents();
+        
+        cardLayout = (CardLayout) rightPanel.getLayout();
+
         initTile();
+        
         initMenuItem();
         addMenuItemEvent();
+        
+        initWorkSpace();
     }
     
     public final void initTile() {
@@ -88,6 +100,10 @@ public class AdminFrame extends javax.swing.JFrame {
         
 //       render
         addMenuItem(sp, qlsp, qlhh, qllsp, tksp, nv, qlnv, tknv, kh, qlkh, hd, qlhd, nh, qlnh, km, qlkm);
+    }
+    
+    private void initWorkSpace() {
+        rightPanel.add(new WorkPanel()) ;
     }
     
     private void addMenuItem(MenuItem... items) {
@@ -140,7 +156,7 @@ public class AdminFrame extends javax.swing.JFrame {
         userName = new javax.swing.JLabel();
         btnSignOut = new javax.swing.JButton();
         leftPanel = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        rightPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cửa hàng thực phẩm");
@@ -170,18 +186,8 @@ public class AdminFrame extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 421, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 347, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+        rightPanel.setLayout(new java.awt.CardLayout());
+        getContentPane().add(rightPanel, java.awt.BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
@@ -250,9 +256,9 @@ public class AdminFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSignOut;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel leftPanel;
+    private javax.swing.JPanel rightPanel;
     private javax.swing.JLabel userName;
     // End of variables declaration//GEN-END:variables
 }
