@@ -8,7 +8,11 @@ import com.mycompany.DTO.NhanVienDTO;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,7 +29,8 @@ public class AdminFrame extends javax.swing.JFrame {
     
     public AdminFrame(NhanVienDTO user) {
         initComponents();
-        
+        initTile();
+
         this.user = user ;
         
         userName.setText(user.getFullName());
@@ -36,9 +41,14 @@ public class AdminFrame extends javax.swing.JFrame {
     
     public AdminFrame() {
         initComponents();
-        
+        initTile();
         initMenuItem();
         addMenuItemEvent();
+    }
+    
+    public final void initTile() {
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("Images/desktop32.png"));
+        setIconImage(icon.getImage());
     }
     
     private void initMenuItem() {
@@ -133,6 +143,7 @@ public class AdminFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cửa hàng thực phẩm");
         setPreferredSize(new java.awt.Dimension(1280, 720));
 
         jPanel1.setLayout(new java.awt.BorderLayout());
@@ -152,6 +163,8 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
+        leftPanel.setToolTipText("");
+        leftPanel.setName("Cửa hàng thực phẩm"); // NOI18N
         leftPanel.setLayout(new javax.swing.BoxLayout(leftPanel, javax.swing.BoxLayout.Y_AXIS));
         jPanel1.add(leftPanel, java.awt.BorderLayout.CENTER);
 
@@ -182,6 +195,22 @@ public class AdminFrame extends javax.swing.JFrame {
             dispose();
         }
     }//GEN-LAST:event_btnSignOutMouseClicked
+
+    @Override
+    public synchronized void addWindowListener(WindowListener l) {
+        super.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                int closeConfirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắc muốn đóng chưa trình?", "Đóng chương trình", JOptionPane.YES_NO_OPTION);
+                if (closeConfirm == JOptionPane.YES_OPTION) {
+                    dispose();
+                }
+                // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            }
+            
+        }); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
 
     /**
      * @param args the command line arguments

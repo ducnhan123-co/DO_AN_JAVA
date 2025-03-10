@@ -59,6 +59,8 @@ public class LoginFrame extends javax.swing.JFrame {
         btnSignIn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Đăng nhập");
+        setName(" Đăng nhập"); // NOI18N
         setPreferredSize(new java.awt.Dimension(400, 250));
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
