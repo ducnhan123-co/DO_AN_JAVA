@@ -195,6 +195,7 @@ public class AdminFrame extends javax.swing.JFrame {
         rightPanel.setLayout(new java.awt.CardLayout());
         getContentPane().add(rightPanel, java.awt.BorderLayout.CENTER);
 
+        leftPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(50, 1, 1, 1));
         leftPanel.setPreferredSize(new java.awt.Dimension(200, 0));
         leftPanel.setLayout(new javax.swing.BoxLayout(leftPanel, javax.swing.BoxLayout.Y_AXIS));
         getContentPane().add(leftPanel, java.awt.BorderLayout.WEST);
