@@ -4,13 +4,14 @@
  */
 package com.mycompany.VIEW.WorkSpace;
 
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author ASUS-PC
  */
-public class WorkPanel extends javax.swing.JPanel {
+public abstract class WorkPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form WorkPanel
@@ -27,6 +28,24 @@ public class WorkPanel extends javax.swing.JPanel {
             tableModel.addColumn(column);
         }
     }
+    
+    public void refresh() {
+        tableModel.setRowCount(0);
+        addRows();
+    }
+    
+    public void addRightPanels(JPanel... items) {
+        for (JPanel item: items) {
+            rightPanel.add(item);
+        }
+    }
+    
+    public abstract void addRows();
+    
+    public abstract void insert();
+    public abstract void delete();
+    public abstract void update();
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,36 +57,36 @@ public class WorkPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnInsert = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
+        rightPanel = new javax.swing.JPanel();
+        btnRefresh = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
-        jButton4.setText("Thêm");
-        jPanel4.add(jButton4);
+        btnInsert.setText("Thêm");
+        jPanel4.add(btnInsert);
 
-        jButton5.setText("Xoá");
-        jPanel4.add(jButton5);
+        btnDelete.setText("Xoá");
+        jPanel4.add(btnDelete);
 
-        jButton6.setText("Cập nhật");
-        jPanel4.add(jButton6);
+        btnUpdate.setText("Cập nhật");
+        jPanel4.add(btnUpdate);
 
         add(jPanel4, java.awt.BorderLayout.PAGE_START);
 
         jPanel5.setLayout(new java.awt.BorderLayout());
 
-        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.Y_AXIS));
+        rightPanel.setLayout(new javax.swing.BoxLayout(rightPanel, javax.swing.BoxLayout.Y_AXIS));
 
-        jButton7.setText("Làm mới");
-        jPanel6.add(jButton7);
+        btnRefresh.setText("Làm mới");
+        rightPanel.add(btnRefresh);
 
-        jPanel5.add(jPanel6, java.awt.BorderLayout.LINE_END);
+        jPanel5.add(rightPanel, java.awt.BorderLayout.LINE_END);
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,14 +108,14 @@ public class WorkPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnInsert;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel rightPanel;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

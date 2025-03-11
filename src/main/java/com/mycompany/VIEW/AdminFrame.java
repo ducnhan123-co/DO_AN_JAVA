@@ -5,6 +5,8 @@
 package com.mycompany.VIEW;
 
 import com.mycompany.DTO.NhanVienDTO;
+import com.mycompany.VIEW.WorkSpace.RightPanelItems.LoaiSanPhamWork;
+import com.mycompany.VIEW.WorkSpace.SanPhamWorkSpace;
 import com.mycompany.VIEW.WorkSpace.WorkPanel;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -103,7 +105,8 @@ public class AdminFrame extends javax.swing.JFrame {
     }
     
     private void initWorkSpace() {
-        rightPanel.add(new WorkPanel()) ;
+        rightPanel.add(new SanPhamWorkSpace(), "qlsp");
+        rightPanel.add(new LoaiSanPhamWork(), "qllsp");
     }
     
     private void addMenuItem(MenuItem... items) {
@@ -134,6 +137,17 @@ public class AdminFrame extends javax.swing.JFrame {
                             if (childItemitem.getParentItem() == item) {
                                 childItemitem.setVisible(item.isSelected());
                             }
+                        }
+                    } else {
+                        switch(item.getId()) {
+                            case "qlsp" :
+                                cardLayout.show(rightPanel, "qlsp");
+                                break;
+                            case "qllsp":
+                                cardLayout.show(rightPanel, "qllsp");
+                                break;
+                            default:
+                                break;
                         }
                     }
                 }
