@@ -10,6 +10,7 @@ import com.mycompany.VIEW.WorkSpace.SanPhamWorkSpace;
 import com.mycompany.VIEW.WorkSpace.WorkPanel;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -101,12 +102,8 @@ public class AdminFrame extends javax.swing.JFrame {
         km.addSubItems(qlkm);
         
 //       render
-        addMenuItem(sp, qlsp, qlhh, qllsp, tksp, nv, qlnv, tknv, kh, qlkh, hd, qlhd, nh, qlnh, km, qlkm);
-    }
-    
-    private void initWorkSpace() {
-        rightPanel.add(new SanPhamWorkSpace(), "qlsp");
-        rightPanel.add(new LoaiSanPhamWork(), "qllsp");
+        addMenuItem(qlsp, qlhh, qllsp, tksp, qlnv, tknv, qlkh, qlhd, qlnh, qlkm);
+        addNavItems(sp, nv, kh, hd, nh, km);
     }
     
     private void addMenuItem(MenuItem... items) {
@@ -118,6 +115,19 @@ public class AdminFrame extends javax.swing.JFrame {
         }
     }
     
+    private void addNavItems(MenuItem... items) {
+        for(MenuItem item: items) {
+            itemList.add(item);
+            item.setMaximumSize(new Dimension(100, 30));
+            navPane.add(item);
+        }
+    }
+    
+    private void initWorkSpace() {
+        rightPanel.add(new SanPhamWorkSpace(), "qlsp");
+        rightPanel.add(new LoaiSanPhamWork(), "qllsp");
+    }
+    
     private void addMenuItemEvent() {
         for (MenuItem item: itemList) {
             item.addMouseListener(new MouseAdapter(){
@@ -125,17 +135,20 @@ public class AdminFrame extends javax.swing.JFrame {
                 public void mouseClicked(MouseEvent e) {
                     super.mouseClicked(e); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
                     
-                    for (MenuItem childItem: itemList) {
-                        childItem.setFontColor(new java.awt.Color(30,30,30));
-                    }
-                    item.setFontColor(new java.awt.Color(204,255,51));
-                    
                     if (item.getId().equals("")) {
+                        for (MenuItem childItem: itemList) 
+                            if (childItem.getParentItem() == null)
+                                childItem.setFontColor(new java.awt.Color(30,30,30));
+                            else 
+                                childItem.setVisible(false);
+                        
+                        item.setFontColor(new java.awt.Color(204,255,51));
+                        
                         item.setSelected(!item.isSelected());
                         
                         for (MenuItem childItemitem: itemList) {
                             if (childItemitem.getParentItem() == item) {
-                                childItemitem.setVisible(item.isSelected());
+                                childItemitem.setVisible(true);
                             }
                         }
                     } else {
@@ -165,24 +178,36 @@ public class AdminFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        rightPanel = new javax.swing.JPanel();
+        leftPanel = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        navPane = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         userName = new javax.swing.JLabel();
         btnSignOut = new javax.swing.JButton();
-        leftPanel = new javax.swing.JPanel();
-        rightPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cửa hàng thực phẩm");
         setPreferredSize(new java.awt.Dimension(1280, 720));
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        rightPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 0)));
+        rightPanel.setLayout(new java.awt.CardLayout());
+        getContentPane().add(rightPanel, java.awt.BorderLayout.CENTER);
+
+        leftPanel.setPreferredSize(new java.awt.Dimension(200, 0));
+        leftPanel.setLayout(new javax.swing.BoxLayout(leftPanel, javax.swing.BoxLayout.Y_AXIS));
+        getContentPane().add(leftPanel, java.awt.BorderLayout.WEST);
+
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        navPane.setLayout(new javax.swing.BoxLayout(navPane, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel4.add(navPane, java.awt.BorderLayout.CENTER);
 
         userName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         userName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         userName.setText("Item label");
-        jPanel3.add(userName);
+        jPanel5.add(userName);
 
         btnSignOut.setText("Đăng xuất");
         btnSignOut.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -190,19 +215,13 @@ public class AdminFrame extends javax.swing.JFrame {
                 btnSignOutMouseClicked(evt);
             }
         });
-        jPanel3.add(btnSignOut);
+        jPanel5.add(btnSignOut);
 
-        jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_START);
+        jPanel3.add(jPanel5);
 
-        leftPanel.setToolTipText("");
-        leftPanel.setName("Cửa hàng thực phẩm"); // NOI18N
-        leftPanel.setLayout(new javax.swing.BoxLayout(leftPanel, javax.swing.BoxLayout.Y_AXIS));
-        jPanel1.add(leftPanel, java.awt.BorderLayout.CENTER);
+        jPanel4.add(jPanel3, java.awt.BorderLayout.WEST);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
-
-        rightPanel.setLayout(new java.awt.CardLayout());
-        getContentPane().add(rightPanel, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanel4, java.awt.BorderLayout.PAGE_START);
 
         pack();
         setLocationRelativeTo(null);
@@ -210,10 +229,10 @@ public class AdminFrame extends javax.swing.JFrame {
 
     private void btnSignOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignOutMouseClicked
         // TODO add your handling code here:
-        int confirm = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn đăng xuất?", "Đăng xuất", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắc muốn đăng xuất?", "Đăng xuất", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            new LoginFrame().setVisible(true);
             dispose();
+            new LoginFrame().setVisible(true);
         }
     }//GEN-LAST:event_btnSignOutMouseClicked
 
@@ -242,9 +261,11 @@ public class AdminFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSignOut;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel leftPanel;
+    private javax.swing.JPanel navPane;
     private javax.swing.JPanel rightPanel;
     private javax.swing.JLabel userName;
     // End of variables declaration//GEN-END:variables
