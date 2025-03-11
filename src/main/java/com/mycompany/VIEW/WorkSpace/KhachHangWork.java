@@ -2,26 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.VIEW.WorkSpace.RightPanelItems;
+package com.mycompany.VIEW.WorkSpace;
 
+import com.mycompany.VIEW.WorkSpace.RightPanelItems.ComboBoxPanel;
+import com.mycompany.VIEW.WorkSpace.RightPanelItems.TextPanel;
 import com.mycompany.VIEW.WorkSpace.WorkPanel;
 
 /**
  *
  * @author ASUS-PC
  */
-public class LoaiSanPhamWork extends WorkPanel {
+public class KhachHangWork extends WorkPanel {
     TextPanel searchPanel = new TextPanel("Tìm kiếm");
     ComboBoxPanel sort = new ComboBoxPanel("Sắp xếp");
     
-    public LoaiSanPhamWork() {
+    public KhachHangWork() {
         super();
         
         renderComboboxs();
         
         addRightPanels(searchPanel, sort);
         
-        addColumns("Mã", "Tên loại", "Mô tả");
+        addColumns("maKH", "Họ", "Tên lót", "Tên", "phái", "Ngày sinh", "SDT", "Tỉnh", "Địa chỉ", "Ngày tham gia", "Điểm", "Trạng thái");
 
     }
     

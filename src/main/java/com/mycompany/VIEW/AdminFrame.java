@@ -5,7 +5,7 @@
 package com.mycompany.VIEW;
 
 import com.mycompany.DTO.NhanVienDTO;
-import com.mycompany.VIEW.WorkSpace.RightPanelItems.LoaiSanPhamWork;
+import com.mycompany.VIEW.WorkSpace.LoaiSanPhamWork;
 import com.mycompany.VIEW.WorkSpace.SanPhamWorkSpace;
 import com.mycompany.VIEW.WorkSpace.WorkPanel;
 import java.awt.CardLayout;
