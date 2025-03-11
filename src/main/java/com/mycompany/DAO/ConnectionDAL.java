@@ -26,14 +26,42 @@ public class ConnectionDAL {
     public static void main(String[] args) {
         try{
             Connection conn = getConnection();
-            String query = "select * from tinhthanh";
+            String query = "select * from sanpham";
             
             PreparedStatement st = conn.prepareStatement(query);
             ResultSet rs = st.executeQuery();
+            System.out.printf("%-12s| %-25s| %-5s| %-10s| %-8s| %-30s| %-10s| %-10s|\n",
+                    "MaSP", "TenSP", "Loai", "DonViTinh", "HSDung", "MoTa", "Gia", "SoLuongTon");
+            System.out.println(
+                    "-----------------------------------------------------------------------------------------------------------------------------");
+
+            // In dữ liệu từng dòng
             while (rs.next()) {
-                System.out.println(rs.getString(2));
+                System.out.printf("%-12s| %-25s| %-5d| %-10d| %-8d| %-30s| %-10d| %-10d|\n",
+                        rs.getString("MaSP"),
+                        rs.getString("TenSP"),
+                        rs.getInt("Loai"),
+                        rs.getInt("DonViTinh"),
+                        rs.getInt("HSDung"),
+                        rs.getString("MoTa"),
+                        rs.getInt("Gia"),
+                        rs.getInt("SoLuongTon"));
             }
+            System.out.println("-----------------------------------------------------------------------------------------------------------------------------");
         } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        
+    }
+    
+    //Ngắt kết nối jdbc
+    public static void closeConnection(Connection cn) {
+        try {
+            if(cn!=null) {
+                cn.close();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
