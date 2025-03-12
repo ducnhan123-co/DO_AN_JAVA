@@ -12,18 +12,18 @@ import com.mycompany.VIEW.WorkSpace.WorkPanel;
  *
  * @author ASUS-PC
  */
-public class KhachHangWork extends WorkPanel {
-    private TextPanel searchPanel = new TextPanel("Tìm kiếm");
-    private ComboBoxPanel sort = new ComboBoxPanel("Sắp xếp");
+public class NhanVienWork extends WorkPanel {
+    TextPanel searchPanel = new TextPanel("Tìm kiếm");
+    ComboBoxPanel sort = new ComboBoxPanel("Sắp xếp");
     
-    public KhachHangWork() {
+    public NhanVienWork() {
         super();
         
         renderComboboxs();
         
         addRightPanels(searchPanel, sort);
         
-        addColumns("Mã khách hàng", "Họ", "Tên lót", "Tên", "phái", "Ngày sinh", "SDT", "Tỉnh", "Địa chỉ", "Ngày tham gia", "Điểm", "Trạng thái");
+        addColumns("Mã NV", "Họ", "Tên lót", "Tên", "Phái", "Ngày sinh", "SĐT", "Tỉnh", "Địa chỉ", "Lương", "Chức vụ");
 
     }
     

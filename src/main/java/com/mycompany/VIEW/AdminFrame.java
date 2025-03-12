@@ -5,8 +5,12 @@
 package com.mycompany.VIEW;
 
 import com.mycompany.DTO.NhanVienDTO;
+import com.mycompany.VIEW.WorkSpace.HangWork;
+import com.mycompany.VIEW.WorkSpace.KhachHangWork;
 import com.mycompany.VIEW.WorkSpace.LoaiSanPhamWork;
+import com.mycompany.VIEW.WorkSpace.NhanVienWork;
 import com.mycompany.VIEW.WorkSpace.SanPhamWorkSpace;
+import com.mycompany.VIEW.WorkSpace.Welcome;
 import com.mycompany.VIEW.WorkSpace.WorkPanel;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -124,8 +128,12 @@ public class AdminFrame extends javax.swing.JFrame {
     }
     
     private void initWorkSpace() {
+        rightPanel.add(new Welcome());
         rightPanel.add(new SanPhamWorkSpace(), "qlsp");
         rightPanel.add(new LoaiSanPhamWork(), "qllsp");
+        rightPanel.add(new HangWork(), "qlhh");
+        rightPanel.add(new NhanVienWork(), "qlnv");
+        rightPanel.add(new KhachHangWork(), "qlkh");
     }
     
     private void addMenuItemEvent() {
@@ -158,6 +166,15 @@ public class AdminFrame extends javax.swing.JFrame {
                                 break;
                             case "qllsp":
                                 cardLayout.show(rightPanel, "qllsp");
+                                break;
+                            case "qlhh":
+                                cardLayout.show(rightPanel, "qlhh");
+                                break;
+                            case "qlnv":
+                                cardLayout.show(rightPanel, "qlnv");
+                                break;
+                            case "qlkh":
+                                cardLayout.show(rightPanel, "qlkh");
                                 break;
                             default:
                                 break;

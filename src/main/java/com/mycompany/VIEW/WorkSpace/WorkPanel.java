@@ -16,7 +16,7 @@ public abstract class WorkPanel extends javax.swing.JPanel {
     /**
      * Creates new form WorkPanel
      */
-    private DefaultTableModel tableModel = new DefaultTableModel();
+    protected DefaultTableModel tableModel = new DefaultTableModel();
     public WorkPanel() {
         initComponents();
         
