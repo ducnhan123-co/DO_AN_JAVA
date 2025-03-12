@@ -4,6 +4,12 @@
  */
 package com.mycompany.VIEW.WorkSpace;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.Random;
+import javax.swing.JFrame;
+import javax.swing.Timer;
+
 /**
  *
  * @author Tran Dinh Khanh Du
@@ -13,8 +19,25 @@ public class Welcome extends javax.swing.JPanel {
     /**
      * Creates new form Welcome
      */
+    private Random random = new Random();
     public Welcome() {
         initComponents();
+        Timer timer = new Timer(300, e -> changeColor());
+        timer.start();
+    }
+    
+    private void changeColor() {
+        Color newColor = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+        setBackground(newColor);
+        repaint();
+    }
+    
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.add(new Welcome());
+        frame.setVisible(true);
+        frame.setSize(new Dimension(400,400));
+        frame.setLocationRelativeTo(null);
     }
 
     /**
@@ -35,7 +58,7 @@ public class Welcome extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 255, 153));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Chào mừng đến với cửa hàng");
+        jLabel1.setText("Chào mừng đến với cửa hàng thực phẩm LGBT");
         add(jLabel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 

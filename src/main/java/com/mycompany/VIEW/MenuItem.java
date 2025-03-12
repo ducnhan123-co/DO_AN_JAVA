@@ -80,6 +80,7 @@ public class MenuItem extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(51, 153, 0));
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         setMaximumSize(new java.awt.Dimension(2147483647, 50));
         setPreferredSize(new java.awt.Dimension(200, 50));
         setLayout(new java.awt.BorderLayout());
