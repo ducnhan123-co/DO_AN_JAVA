@@ -6,7 +6,7 @@ package com.mycompany.VIEW;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public class MenuItem extends javax.swing.JPanel {
 

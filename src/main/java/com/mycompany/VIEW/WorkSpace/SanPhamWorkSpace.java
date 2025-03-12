@@ -14,7 +14,7 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public class SanPhamWorkSpace extends WorkPanel {
     TextPanel searchPanel = new TextPanel("Tìm kiếm");

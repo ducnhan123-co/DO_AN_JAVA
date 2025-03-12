@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public abstract class WorkPanel extends javax.swing.JPanel {
 
@@ -84,6 +84,11 @@ public abstract class WorkPanel extends javax.swing.JPanel {
         rightPanel.setLayout(new javax.swing.BoxLayout(rightPanel, javax.swing.BoxLayout.Y_AXIS));
 
         btnRefresh.setText("Làm mới");
+        btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRefreshMouseClicked(evt);
+            }
+        });
         rightPanel.add(btnRefresh);
 
         jPanel5.add(rightPanel, java.awt.BorderLayout.LINE_END);
@@ -105,6 +110,11 @@ public abstract class WorkPanel extends javax.swing.JPanel {
 
         add(jPanel5, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshMouseClicked
+        // TODO add your handling code here:
+        refresh();
+    }//GEN-LAST:event_btnRefreshMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

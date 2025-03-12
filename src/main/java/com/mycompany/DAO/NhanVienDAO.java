@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public class NhanVienDAO {
     public static NhanVienDTO timNhanVien(String id) throws Exception {

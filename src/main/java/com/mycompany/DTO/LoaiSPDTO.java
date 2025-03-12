@@ -6,7 +6,7 @@ package com.mycompany.DTO;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public class LoaiSPDTO {
     private String maLoai;

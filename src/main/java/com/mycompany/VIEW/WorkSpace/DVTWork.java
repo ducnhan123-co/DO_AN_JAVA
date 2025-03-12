@@ -4,27 +4,31 @@
  */
 package com.mycompany.VIEW.WorkSpace;
 
+import com.mycompany.BLL.LoaiSPBLL;
+import com.mycompany.DTO.LoaiSPDTO;
 import com.mycompany.VIEW.WorkSpace.RightPanelItems.ComboBoxPanel;
 import com.mycompany.VIEW.WorkSpace.RightPanelItems.TextPanel;
 import com.mycompany.VIEW.WorkSpace.WorkPanel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Tran Dinh Khanh Du
  */
-public class NhanVienWork extends WorkPanel {
+public class DVTWork extends WorkPanel {
     TextPanel searchPanel = new TextPanel("Tìm kiếm");
     ComboBoxPanel sort = new ComboBoxPanel("Sắp xếp");
     
-    public NhanVienWork() {
+    public DVTWork() {
         super();
         
         renderComboboxs();
         
         addRightPanels(searchPanel, sort);
         
-        addColumns("Mã NV", "Họ", "Tên lót", "Tên", "Phái", "Ngày sinh", "SĐT", "Tỉnh", "Địa chỉ", "Lương", "Chức vụ");
-
+        addColumns("Mã", "Tên loại", "Mô tả");
+        
+        addRows();
     }
     
     public void renderComboboxs() {
@@ -34,7 +38,17 @@ public class NhanVienWork extends WorkPanel {
     
     @Override
     public void addRows() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            for (LoaiSPDTO loai: LoaiSPBLL.getDanhSachLoaiSP()) {
+                tableModel.addRow(new Object[] {
+                    loai.getMaLoai(),
+                    loai.getTenLoai(),
+                    loai.getMota()
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 
     @Override

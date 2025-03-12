@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public class SanPhamDAO {
     public static ArrayList<SanPhamDTO> getDanhSachSanPham() throws Exception{

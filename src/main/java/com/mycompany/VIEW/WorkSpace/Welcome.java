@@ -6,7 +6,7 @@ package com.mycompany.VIEW.WorkSpace;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public class Welcome extends javax.swing.JPanel {
 

@@ -10,7 +10,7 @@ import com.mycompany.VIEW.WorkSpace.WorkPanel;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public class HangWork extends WorkPanel {
     TextPanel searchPanel = new TextPanel("Tìm kiếm");

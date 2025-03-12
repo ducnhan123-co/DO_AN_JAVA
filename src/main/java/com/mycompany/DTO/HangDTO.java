@@ -8,7 +8,7 @@ import java.sql.Date;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public class HangDTO {
     private String maHang;

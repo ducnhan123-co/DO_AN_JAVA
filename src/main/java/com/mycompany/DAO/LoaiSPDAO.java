@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public class LoaiSPDAO {
     public static ArrayList<LoaiSPDTO> getDanhSachLoaiSP() throws Exception {

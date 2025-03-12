@@ -6,7 +6,7 @@ package com.mycompany.BLL;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public class NhanVienBLL {
     

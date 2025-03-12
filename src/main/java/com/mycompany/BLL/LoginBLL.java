@@ -11,7 +11,7 @@ import com.mycompany.VIEW.AdminFrame;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public class LoginBLL {
     public static NhanVienDTO checkLogin(String id, String password) throws Exception {

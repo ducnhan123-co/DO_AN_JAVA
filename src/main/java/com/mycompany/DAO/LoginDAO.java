@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public class LoginDAO {
     public static String getMatKhau(String id) throws Exception {

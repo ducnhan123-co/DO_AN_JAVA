@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author ASUS-PC
+ * @author Tran Dinh Khanh Du
  */
 public class LoaiSanPhamWork extends WorkPanel {
     TextPanel searchPanel = new TextPanel("Tìm kiếm");
