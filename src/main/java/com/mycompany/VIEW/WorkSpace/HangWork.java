@@ -4,9 +4,12 @@
  */
 package com.mycompany.VIEW.WorkSpace;
 
+import com.mycompany.BLL.HangBLL;
+import com.mycompany.DTO.HangDTO;
 import com.mycompany.VIEW.WorkSpace.RightPanelItems.ComboBoxPanel;
 import com.mycompany.VIEW.WorkSpace.RightPanelItems.TextPanel;
 import com.mycompany.VIEW.WorkSpace.WorkPanel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +28,7 @@ public class HangWork extends WorkPanel {
         
         addColumns("Mã", "Tên sản phẩm", "Số lượng", "Ngày sản xuất", "Giảm giá");
 
+        addRows();
     }
     
     public void renderComboboxs() {
@@ -34,7 +38,19 @@ public class HangWork extends WorkPanel {
     
     @Override
     public void addRows() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            for (HangDTO hang: HangBLL.getHangs()) {
+                tableModel.addRow(new Object[]{
+                    hang.getMaHang(),
+                    hang.getTenSP(),
+                    hang.getSoLuong(),
+                    hang.getNgaySanXuat(),
+                    hang.getGiamGia()
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 
     @Override
