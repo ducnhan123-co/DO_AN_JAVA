@@ -4,6 +4,9 @@
  */
 package do_an_java_new.VIEW;
 
+import do_an_java_new.VIEW.POPUPS.SuaSanPhamPopUp;
+import do_an_java_new.VIEW.POPUPS.ThemSanPhamPopUp;
+
 /**
  *
  * @author pducn
@@ -105,6 +108,11 @@ public class ButtonPanel extends javax.swing.JPanel {
         jLabel28.setToolTipText("");
         jLabel28.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel28.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel28.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel28MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
@@ -215,18 +223,25 @@ public class ButtonPanel extends javax.swing.JPanel {
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
         // TODO add your handling code here:
-  
+        ThemSanPhamPopUp popup = new ThemSanPhamPopUp();
+        popup.setVisible(true);
+        
+               
 
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
-
+       
       
     }//GEN-LAST:event_jLabel27MouseClicked
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel28MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
