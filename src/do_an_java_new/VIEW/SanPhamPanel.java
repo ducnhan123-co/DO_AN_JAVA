@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class SanPhamPanel extends javax.swing.JPanel {
      private SanPhamBLL sanPhamBLL;
      private LoaiSPBLL loaiSPBLL;
+      private String currentSubMode;
     /**
      * Creates new form NhanVienPanel
      */
@@ -25,7 +26,20 @@ public class SanPhamPanel extends javax.swing.JPanel {
         initComponents();
         sanPhamBLL = new SanPhamBLL();
         loaiSPBLL = new LoaiSPBLL();
+         currentSubMode = "SANPHAM";
          loadDataToTable();
+    }
+    
+   public int getSelectedTabIndex() {
+    return jTabbedPane1.getSelectedIndex();
+}
+
+      public String getCurrentSubMode() {
+        return currentSubMode;
+    }
+
+    public void setCurrentSubMode(String mode) {
+        this.currentSubMode = mode;
     }
        private void loadDataToTable() throws Exception {
         // Gọi hàm BLL để lấy danh sách sản phẩm
@@ -60,6 +74,53 @@ public class SanPhamPanel extends javax.swing.JPanel {
         });
     }
     }
+       
+       public SanPhamDTO getSelectedSanPham() {
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            // Người dùng chưa chọn dòng
+            return null;
+        }
+
+        // Lấy dữ liệu từng cột
+        String maSP       = (String) jTable1.getValueAt(selectedRow, 0);
+        String tenSP      = (String) jTable1.getValueAt(selectedRow, 1);
+        String loai       = (String) jTable1.getValueAt(selectedRow, 2);
+        String donViTinh  = (String) jTable1.getValueAt(selectedRow, 3);
+        int hanSuDung  = (int) jTable1.getValueAt(selectedRow, 4);
+        String moTa       = (String) jTable1.getValueAt(selectedRow, 5);
+        int gia        = (int) jTable1.getValueAt(selectedRow, 6);
+        Integer soLuong   = (Integer) jTable1.getValueAt(selectedRow, 7);
+
+        // Tạo SanPhamDTO
+        SanPhamDTO sp = new SanPhamDTO(maSP, tenSP, loai, donViTinh, 0, moTa, 0, 0);
+        sp.setMaSP(maSP);
+        sp.setTenSP(tenSP);
+        sp.setLoaiSP(loai);
+        sp.setDonViTinh(donViTinh);
+        sp.setHanSuDung(hanSuDung);
+        sp.setMoTa(moTa);
+        sp.setGia(gia);
+        sp.setSoLuongTon(soLuong);
+
+        return sp;
+    }
+       
+       public LoaiSPDTO getSelectedLoaiSanPham() {
+    int selectedRow = jTable2.getSelectedRow();
+    if (selectedRow == -1) {
+        return null; // chưa chọn dòng
+    }
+    String maLoai = (String) jTable2.getValueAt(selectedRow, 0);
+    String tenLoai = (String) jTable2.getValueAt(selectedRow, 1);
+    String moTa = (String) jTable2.getValueAt(selectedRow, 2);
+
+    LoaiSPDTO loaiSP = new LoaiSPDTO();
+    loaiSP.setMaLoai(maLoai);
+    loaiSP.setTenLoai(tenLoai);
+    loaiSP.setMota(moTa);
+    return loaiSP;
+}
 
     /**
      * This method is called from within the constructor to initialize the form.

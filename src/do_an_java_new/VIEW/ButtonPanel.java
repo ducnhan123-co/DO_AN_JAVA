@@ -4,8 +4,15 @@
  */
 package do_an_java_new.VIEW;
 
+import do_an_java_new.DTO.LoaiSPDTO;
+import do_an_java_new.DTO.SanPhamDTO;
+import do_an_java_new.VIEW.POPUPS.SuaLoaiSpPopUp;
 import do_an_java_new.VIEW.POPUPS.SuaSanPhamPopUp;
+import do_an_java_new.VIEW.POPUPS.ThemLoaiSPPopUp;
 import do_an_java_new.VIEW.POPUPS.ThemSanPhamPopUp;
+import javax.swing.DefaultButtonModel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -223,16 +230,76 @@ public class ButtonPanel extends javax.swing.JPanel {
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
         // TODO add your handling code here:
-        ThemSanPhamPopUp popup = new ThemSanPhamPopUp();
-        popup.setVisible(true);
         
-               
+       // Lấy MainFrame
+    MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
+
+    // Kiểm tra xem MainFrame đang ở panel nào (bạn đã có getCurrentPanel())
+    if ("SANPHAM".equals(mainFrame.getCurrentPanel())) {
+        // Lấy đối tượng SanPhamPanel
+        SanPhamPanel spPanel = mainFrame.getSanPhamPanel();
+        // Lấy tab đang chọn
+        int selectedIndex = spPanel.getSelectedTabIndex(); 
+        // Dựa vào selectedIndex để mở popup phù hợp
+        switch (selectedIndex) {
+            case 0:
+                // Tab “Quản lý sản phẩm”
+                ThemSanPhamPopUp popupSP = new ThemSanPhamPopUp();
+                popupSP.setVisible(true);
+                break;
+            case 1:
+                // Tab “Quản lý loại sản phẩm”
+                ThemLoaiSPPopUp popupLoai = new ThemLoaiSPPopUp();
+                popupLoai.setVisible(true);
+                break;
+            case 2:
+                // Tab “Quản lý hàng hoá”
+                // Mở popup “Thêm hàng hoá” (nếu có) hoặc xử lý gì khác
+                // ThemHangHoaPopUp popupHH = new ThemHangHoaPopUp();
+                // popupHH.setVisible(true);
+                break;
+        }
+    }
 
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
-       
-      
+     MainFrame mainFrame = (MainFrame) SwingUtilities.getWindowAncestor(this);
+    if ("SANPHAM".equals(mainFrame.getCurrentPanel())) {
+        SanPhamPanel spPanel = mainFrame.getSanPhamPanel();
+        int selectedIndex = spPanel.getSelectedTabIndex(); 
+        
+        switch (selectedIndex) {
+            case 0:
+                // Tab “Quản lý sản phẩm”
+                // => Sửa Sản phẩm
+                SanPhamDTO sp = spPanel.getSelectedSanPham();
+                if (sp == null) {
+                    JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 sản phẩm!");
+                    return;
+                }
+                SuaSanPhamPopUp suaSPPopup = new SuaSanPhamPopUp(sp);
+                suaSPPopup.setVisible(true);
+                break;
+                
+            case 1:
+                // Tab “Quản lý loại sản phẩm”
+                // => Sửa Loại sản phẩm
+                LoaiSPDTO loaiSP= spPanel.getSelectedLoaiSanPham();
+                if (loaiSP == null) {
+                    JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 loại sản phẩm!");
+                    return;
+                }
+                SuaLoaiSpPopUp suaLoaiPopup = new SuaLoaiSpPopUp(loaiSP);
+                suaLoaiPopup.setVisible(true);
+                break;
+                
+            case 2:
+                // Tab “Quản lý hàng hóa” (nếu có)
+                // => Xử lý sửa hàng hóa, v.v.
+                break;
+        }
+    }
     }//GEN-LAST:event_jLabel27MouseClicked
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed

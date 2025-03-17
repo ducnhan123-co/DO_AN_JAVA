@@ -17,6 +17,7 @@ import javax.swing.SwingUtilities;
  * @author pducn
  */
 public class MainFrame extends javax.swing.JFrame {
+    private String currentPanel;
     private CardLayout cardLayout;
     private SanPhamPanel sanPhamPanel;
     private final NhanVienPanel nhanVienPanel;
@@ -30,6 +31,9 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
+       public String getCurrentPanel() {
+        return currentPanel;
+    }
     public MainFrame() throws Exception {
         initComponents();
         cardLayout = (CardLayout) pnCenter.getLayout();
@@ -509,6 +513,7 @@ public class MainFrame extends javax.swing.JFrame {
          SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "SANPHAM");
+        currentPanel="SANPHAM";
 
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
@@ -520,7 +525,7 @@ public class MainFrame extends javax.swing.JFrame {
          SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "SANPHAM");
-
+    currentPanel="SANPHAM";
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
     });
@@ -531,7 +536,7 @@ public class MainFrame extends javax.swing.JFrame {
          SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "TRANGCHU");
-
+        
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
     });
@@ -553,7 +558,7 @@ public class MainFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "NHANVIEN");
-
+currentPanel="NHANVIEN";
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
     });
@@ -564,6 +569,7 @@ public class MainFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "NHANVIEN");
+        currentPanel="NHANVIEN";
 
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
@@ -575,7 +581,7 @@ public class MainFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "KHACHHANG");
-
+    currentPanel="KHACHHANG";
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
     });
@@ -586,7 +592,7 @@ public class MainFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "KHACHHANG");
-
+ currentPanel="KHACHHANG";
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
     });
@@ -597,7 +603,7 @@ public class MainFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "HOADON");
-
+ currentPanel="HOADON";
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
     });
@@ -608,6 +614,7 @@ public class MainFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "HOADON");
+ currentPanel="HOADON";
 
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
@@ -619,6 +626,7 @@ public class MainFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "NHAPHANG");
+ currentPanel="NHAPHANG";
 
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
@@ -630,6 +638,7 @@ public class MainFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "NHAPHANG");
+ currentPanel="NHAPHANG";
 
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
@@ -641,6 +650,7 @@ public class MainFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "KHUYENMAI");
+ currentPanel="KHUYENMAI";
 
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
@@ -652,6 +662,7 @@ public class MainFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "KHUYENMAI");
+ currentPanel="KHUYENMAI";
 
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
@@ -663,6 +674,7 @@ public class MainFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "THONGKE");
+ currentPanel="THONGKE";
 
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
@@ -674,6 +686,7 @@ public class MainFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "THONGKE");
+ currentPanel="THONGKE";
 
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
@@ -754,4 +767,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pnCenter;
     private javax.swing.JPanel pnLeft;
     // End of variables declaration//GEN-END:variables
+
+    SanPhamPanel getSanPhamPanel() {
+        return sanPhamPanel;
+    }
 }

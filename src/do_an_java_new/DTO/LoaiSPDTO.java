@@ -45,4 +45,6 @@ public class LoaiSPDTO {
     public void setMota(String mota) {
         this.mota = mota;
     }
+    
+    
 }
