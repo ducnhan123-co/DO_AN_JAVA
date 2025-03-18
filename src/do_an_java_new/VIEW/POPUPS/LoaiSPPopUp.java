@@ -49,17 +49,23 @@ public abstract class LoaiSPPopUp extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Loại Sản phẩm");
+        setPreferredSize(new java.awt.Dimension(300, 300));
 
+        jPanel1.setBackground(new java.awt.Color(153, 255, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 10, 1));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(46, 125, 50));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Thêm loại sản phẩm");
         jPanel1.add(jLabel1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
+        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
+
+        jButton1.setBackground(new java.awt.Color(102, 187, 106));
         jButton1.setText("Xác nhận");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -68,6 +74,7 @@ public abstract class LoaiSPPopUp extends javax.swing.JFrame {
         });
         jPanel3.add(jButton1);
 
+        jButton2.setBackground(new java.awt.Color(165, 214, 167));
         jButton2.setText("Huỷ");
         jButton2.setToolTipText("");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -79,35 +86,41 @@ public abstract class LoaiSPPopUp extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
+        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
         java.awt.GridBagLayout jPanel2Layout = new java.awt.GridBagLayout();
         jPanel2Layout.columnWidths = new int[] {0, 10, 0, 10, 0};
         jPanel2Layout.rowHeights = new int[] {0, 10, 0, 10, 0};
         jPanel2.setLayout(jPanel2Layout);
 
+        lbID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbID.setText("Mã loại");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         jPanel2.add(lbID, gridBagConstraints);
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Mô tả");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         jPanel2.add(jLabel4, gridBagConstraints);
 
+        txtId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtId.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         jPanel2.add(txtId, gridBagConstraints);
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Tên loại");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         jPanel2.add(jLabel5, gridBagConstraints);
 
+        txtTenLoai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtTenLoai.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;

@@ -9,7 +9,7 @@ import java.sql.Date;
  * @author Administrator
  */
 public class KhachHangDTO {
-     String maKH;
+    String maKH;
     String ho;
     String tenlot;
     String ten;

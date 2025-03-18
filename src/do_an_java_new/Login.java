@@ -5,6 +5,7 @@ package do_an_java_new;
 import do_an_java_new.BLL.LoginBLL;
 import do_an_java_new.DTO.NhanVienDTO;
 import do_an_java_new.VIEW.MainFrame;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /*
@@ -23,6 +24,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        txtUserName.requestFocus();
     }
     
     
@@ -30,8 +32,8 @@ public class Login extends javax.swing.JFrame {
 
      try {
         // Lấy dữ liệu từ giao diện
-        String id = jTextField2.getText().trim();
-        String password = new String(jPasswordField1.getPassword()).trim();
+        String id = txtUserName.getText().trim();
+        String password = new String(txtPassword.getPassword()).trim();
         
         // Debug để kiểm tra giá trị nhập vào
         System.out.println("ID nhập vào: " + id);
@@ -73,11 +75,11 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        txtUserName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtPassword = new javax.swing.JPasswordField();
         jPanel8 = new javax.swing.JPanel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
@@ -140,7 +142,13 @@ public class Login extends javax.swing.JFrame {
 
         jPanel7.setPreferredSize(new java.awt.Dimension(250, 50));
         jPanel7.setLayout(new java.awt.BorderLayout(0, 4));
-        jPanel7.add(jTextField2, java.awt.BorderLayout.CENTER);
+
+        txtUserName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUserNameKeyPressed(evt);
+            }
+        });
+        jPanel7.add(txtUserName, java.awt.BorderLayout.CENTER);
 
         jLabel3.setText("Tên tài khoản");
         jPanel7.add(jLabel3, java.awt.BorderLayout.PAGE_START);
@@ -153,12 +161,17 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("Mật khẩu");
         jPanel6.add(jLabel2, java.awt.BorderLayout.PAGE_START);
 
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                txtPasswordActionPerformed(evt);
             }
         });
-        jPanel6.add(jPasswordField1, java.awt.BorderLayout.CENTER);
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
+        jPanel6.add(txtPassword, java.awt.BorderLayout.CENTER);
 
         jPanel5.add(jPanel6);
 
@@ -226,11 +239,12 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -244,6 +258,19 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         signIn();
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void txtUserNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserNameKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtPassword.requestFocus();
+        }
+    }//GEN-LAST:event_txtUserNameKeyPressed
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+            signIn();
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
     /**
      * @param args the command line arguments
@@ -302,7 +329,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
 }

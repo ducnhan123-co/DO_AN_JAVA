@@ -25,7 +25,8 @@ public class NhanVienDTO {
     public NhanVienDTO() {
     }
 
-    public NhanVienDTO(String maNV, String ho, String holot, String ten, String phai, Date ngaysinh, String sdt, String tinh, String diachi, int luong, String chucVu, String trangthai) {
+    public NhanVienDTO(String maNV, String ho, String holot, String ten, String phai,
+            Date ngaysinh, String sdt, String tinh, String diachi, int luong, String chucVu, String trangthai) {
         this.maNV = maNV;
         this.ho = ho;
         this.tenLot = holot;
