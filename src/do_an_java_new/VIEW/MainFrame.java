@@ -4,6 +4,7 @@
  */
 package do_an_java_new.VIEW;
 
+import do_an_java_new.Login;
 import do_an_java_new.VIEW.WorkSpaces.NhapHangPanel;
 import do_an_java_new.VIEW.WorkSpaces.TrangChuPanel;
 import do_an_java_new.VIEW.WorkSpaces.ThongKePanel;
@@ -15,6 +16,7 @@ import do_an_java_new.VIEW.WorkSpaces.HoaDonPanel;
 import java.awt.CardLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -480,6 +482,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel36.setText("Đăng Xuất");
+        jLabel36.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel36MouseClicked(evt);
+            }
+        });
         TrangChu10.add(jLabel36);
 
         pnLeft.add(TrangChu10);
@@ -682,6 +689,15 @@ currentPanel="NHANVIEN";
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
     });
     }//GEN-LAST:event_jLabel14MouseClicked
+
+    private void jLabel36MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel36MouseClicked
+        // TODO add your handling code here:
+        int confirm = JOptionPane.showConfirmDialog(null, "Chắc chắn muốn đăng xuất?", "Đăng xuất", JOptionPane.YES_NO_OPTION) ;
+        if (confirm != JOptionPane.YES_OPTION)
+            return ;
+        dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_jLabel36MouseClicked
 
     /**
      * @param args the command line arguments
