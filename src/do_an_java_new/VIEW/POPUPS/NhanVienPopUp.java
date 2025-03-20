@@ -8,6 +8,7 @@ package do_an_java_new.VIEW.POPUPS;
 import do_an_java_new.BLL.TinhThanhBLL;
 import do_an_java_new.DTO.NhanVienDTO;
 import java.sql.Date;
+import java.time.LocalDate;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -26,6 +27,8 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
         initComponents();
         
         initComboboxs();
+        
+        txtNgaySinh.setDate(Date.valueOf(LocalDate.now()));
     }
     
     public NhanVienPopUp(NhanVienDTO nv) {
@@ -134,7 +137,8 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
         buttonGroupChucVu.add(NV);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(431, 550));
+        setMinimumSize(new java.awt.Dimension(430, 550));
+        setPreferredSize(new java.awt.Dimension(430, 550));
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
 
@@ -147,7 +151,7 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(232, 245, 233));
         java.awt.GridBagLayout jPanel2Layout = new java.awt.GridBagLayout();
-        jPanel2Layout.columnWidths = new int[] {0, 10, 0, 10, 0};
+        jPanel2Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0};
         jPanel2Layout.rowHeights = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
         jPanel2.setLayout(jPanel2Layout);
 
@@ -242,7 +246,7 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
         txtHo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtHo.setMinimumSize(new java.awt.Dimension(130, 26));
         txtHo.setName(""); // NOI18N
-        txtHo.setPreferredSize(new java.awt.Dimension(130, 30));
+        txtHo.setPreferredSize(new java.awt.Dimension(130, 32));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -252,7 +256,7 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
         txtId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtId.setMinimumSize(new java.awt.Dimension(130, 26));
         txtId.setName(""); // NOI18N
-        txtId.setPreferredSize(new java.awt.Dimension(130, 30));
+        txtId.setPreferredSize(new java.awt.Dimension(130, 32));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -262,7 +266,7 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
         txtTenLot.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtTenLot.setMinimumSize(new java.awt.Dimension(130, 26));
         txtTenLot.setName(""); // NOI18N
-        txtTenLot.setPreferredSize(new java.awt.Dimension(130, 30));
+        txtTenLot.setPreferredSize(new java.awt.Dimension(130, 32));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
@@ -272,7 +276,7 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
         txtTen.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtTen.setMinimumSize(new java.awt.Dimension(130, 26));
         txtTen.setName(""); // NOI18N
-        txtTen.setPreferredSize(new java.awt.Dimension(130, 30));
+        txtTen.setPreferredSize(new java.awt.Dimension(130, 32));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 6;
@@ -282,7 +286,7 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
         txtSDT.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtSDT.setMinimumSize(new java.awt.Dimension(130, 26));
         txtSDT.setName(""); // NOI18N
-        txtSDT.setPreferredSize(new java.awt.Dimension(130, 30));
+        txtSDT.setPreferredSize(new java.awt.Dimension(130, 32));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 12;
@@ -292,7 +296,7 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
         txtDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtDiaChi.setMinimumSize(new java.awt.Dimension(130, 26));
         txtDiaChi.setName(""); // NOI18N
-        txtDiaChi.setPreferredSize(new java.awt.Dimension(130, 30));
+        txtDiaChi.setPreferredSize(new java.awt.Dimension(130, 32));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 16;
@@ -367,15 +371,15 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
         spnLuong.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 100000));
         spnLuong.setMinimumSize(new java.awt.Dimension(130, 26));
         spnLuong.setName(""); // NOI18N
-        spnLuong.setPreferredSize(new java.awt.Dimension(130, 30));
+        spnLuong.setPreferredSize(new java.awt.Dimension(130, 32));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 18;
         gridBagConstraints.gridwidth = 3;
         jPanel2.add(spnLuong, gridBagConstraints);
 
-        txtNgaySinh.setMinimumSize(new java.awt.Dimension(140, 30));
-        txtNgaySinh.setPreferredSize(new java.awt.Dimension(120, 30));
+        txtNgaySinh.setMinimumSize(new java.awt.Dimension(130, 29));
+        txtNgaySinh.setPreferredSize(new java.awt.Dimension(130, 29));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 10;

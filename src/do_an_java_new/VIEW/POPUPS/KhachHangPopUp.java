@@ -6,6 +6,8 @@ package do_an_java_new.VIEW.POPUPS;
 
 import do_an_java_new.BLL.TinhThanhBLL;
 import do_an_java_new.DTO.KhachHangDTO;
+import java.time.LocalDate;
+import java.sql.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -24,6 +26,8 @@ public abstract class KhachHangPopUp extends javax.swing.JFrame {
         initComponents();
         
         initComboboxs();
+        
+        txtNgaySinh.setDate(Date.valueOf(LocalDate.now()));
     }     
     
     public KhachHangPopUp(KhachHangDTO khachHang) {

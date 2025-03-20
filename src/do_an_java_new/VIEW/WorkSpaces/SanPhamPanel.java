@@ -421,6 +421,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 SanPhamDTO sanpham = getSelectedSanPham();
                 if (sanpham == null) {
                     JOptionPane.showMessageDialog(null, "Hãy chọn sản phẩm để cập nhật");
+                    return;
                 }
                 popUp = new SuaSanPhamPopUp(sanpham);
                 break;
@@ -428,6 +429,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 LoaiSPDTO loai = getSelectedLoaiSanPham();
                 if (loai == null) {
                     JOptionPane.showMessageDialog(null, "Hãy chọn loại để cập nhật");
+                    return;
                 }
                 popUp = new SuaLoaiSpPopUp(loai);
                 break;

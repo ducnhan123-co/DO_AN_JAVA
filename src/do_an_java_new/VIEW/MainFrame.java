@@ -4,6 +4,7 @@
  */
 package do_an_java_new.VIEW;
 
+import do_an_java_new.DTO.NhanVienDTO;
 import do_an_java_new.Login;
 import do_an_java_new.VIEW.WorkSpaces.NhapHangPanel;
 import do_an_java_new.VIEW.WorkSpaces.TrangChuPanel;
@@ -62,6 +63,28 @@ public class MainFrame extends javax.swing.JFrame {
         pnCenter.add(khuyenMaiPanel,"KHUYENMAI");
         pnCenter.add(thongKePanel,"THONGKE");
     }
+    
+    public MainFrame(NhanVienDTO nhanVien) throws Exception {
+        initComponents();
+        cardLayout = (CardLayout) pnCenter.getLayout();
+        sanPhamPanel = new SanPhamPanel();
+        nhanVienPanel = new NhanVienPanel();
+        trangChuPanel = new TrangChuPanel();
+        khachHangPanel = new KhachHangPanel();
+        hoaDonPanel = new HoaDonPanel();
+        nhapHAngPanel = new NhapHangPanel();
+        khuyenMaiPanel = new KhuyenMaiPanel();
+        thongKePanel = new ThongKePanel();
+        
+        pnCenter.add(trangChuPanel,"TRANGCHU");
+        pnCenter.add(sanPhamPanel,"SANPHAM");
+        pnCenter.add(nhanVienPanel,"NHANVIEN");
+        pnCenter.add(khachHangPanel,"KHACHHANG");
+        pnCenter.add(hoaDonPanel,"HOADON");
+        pnCenter.add(nhapHAngPanel,"NHAPHANG");
+        pnCenter.add(khuyenMaiPanel,"KHUYENMAI");
+        pnCenter.add(thongKePanel,"THONGKE");
+    }    
 
     /**
      * This method is called from within the constructor to initialize the form.
