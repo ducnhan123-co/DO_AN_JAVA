@@ -14,7 +14,7 @@ public class ThongKePanel extends javax.swing.JPanel {
      * Creates new form NhanVienPanel
      */
     public ThongKePanel() {
-        initComponents();
+        initComponents();//chua lam
     }
 
     /**
