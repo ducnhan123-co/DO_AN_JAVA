@@ -104,6 +104,8 @@ public class KhachHangPanel extends javax.swing.JPanel {
 
         add(tabs, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 255, 0), 3));
         jPanel1.setMaximumSize(new java.awt.Dimension(0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(976, 97));

@@ -114,7 +114,6 @@ public abstract class KhachHangPopUp extends javax.swing.JFrame {
         cbbTinh = new javax.swing.JComboBox<>();
         lbDiem = new javax.swing.JLabel();
         spnDiem = new javax.swing.JSpinner();
-        txtNgaySinh = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         btnXacNhan = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
@@ -319,15 +318,6 @@ public abstract class KhachHangPopUp extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 3;
         jPanel2.add(spnDiem, gridBagConstraints);
 
-        txtNgaySinh.setMinSelectableDate(new java.util.Date(-62135791108000L));
-        txtNgaySinh.setMinimumSize(new java.awt.Dimension(140, 26));
-        txtNgaySinh.setPreferredSize(new java.awt.Dimension(120, 26));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 3;
-        jPanel2.add(txtNgaySinh, gridBagConstraints);
-
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         jPanel3.setBackground(new java.awt.Color(232, 245, 233));
@@ -342,7 +332,6 @@ public abstract class KhachHangPopUp extends javax.swing.JFrame {
         jPanel3.add(btnXacNhan);
 
         btnHuy.setBackground(new java.awt.Color(165, 214, 167));
-        btnHuy.setForeground(new java.awt.Color(0, 0, 0));
         btnHuy.setText("Huy");
         btnHuy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -400,7 +389,6 @@ public abstract class KhachHangPopUp extends javax.swing.JFrame {
     protected javax.swing.JTextField txtDiaChi;
     protected javax.swing.JTextField txtHo;
     protected javax.swing.JTextField txtId;
-    protected com.toedter.calendar.JDateChooser txtNgaySinh;
     protected javax.swing.JTextField txtSDT;
     protected javax.swing.JTextField txtTen;
     protected javax.swing.JTextField txtTenLot;

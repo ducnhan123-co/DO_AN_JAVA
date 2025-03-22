@@ -71,4 +71,18 @@ public class SanPhamDAO {
             throw new SQLException("Không tìm thấy sản phẩm để cập nhật!");
     }
 }
+    
+        public static void xoaSanPham(String maSP) throws SQLException {
+    Connection con = ConnectionDAL.getConnection();
+    String query = "DELETE FROM SanPham WHERE MaSP = ?";
+    
+    PreparedStatement st = con.prepareStatement(query);
+    st.setString(1, maSP);
+    
+    int rowsDeleted = st.executeUpdate();
+    if (rowsDeleted == 0) {
+        throw new SQLException("Không tìm thấy sản phẩm để xóa!");
+    }
+}
+
 }

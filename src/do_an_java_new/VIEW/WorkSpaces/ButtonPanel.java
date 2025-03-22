@@ -54,6 +54,7 @@ public class ButtonPanel extends javax.swing.JPanel {
         jTextField6 = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(0, 0));
         setMinimumSize(new java.awt.Dimension(0, 0));
         setPreferredSize(new java.awt.Dimension(976, 97));

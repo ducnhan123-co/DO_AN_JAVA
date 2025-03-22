@@ -33,4 +33,12 @@ public class LoaiSPBLL {
     public static int getMaLoai(String ten) {
         return LoaiSPDAO.getMaLoai(ten);
     }
+    
+    public static void xoaLoaiSanPham(String maLoai) throws Exception {
+    if (maLoai == null || maLoai.isBlank()) {
+        throw new Exception("Mã loại sản phẩm không được để trống.");
+    }
+    LoaiSPDAO.xoaLoaiSanPham(maLoai);
+}
+
 }

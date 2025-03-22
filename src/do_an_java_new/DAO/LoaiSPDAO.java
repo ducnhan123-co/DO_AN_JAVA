@@ -83,4 +83,17 @@ public class LoaiSPDAO {
         
         st.executeUpdate();
     }
+    
+    public static void xoaLoaiSanPham(String maLoai) throws SQLException {
+    Connection con = ConnectionDAL.getConnection();
+    String sql = "DELETE FROM Loai WHERE MaLoai = ?";
+    PreparedStatement st = con.prepareStatement(sql);
+    st.setString(1, maLoai);
+
+    int rowsDeleted = st.executeUpdate();
+    if (rowsDeleted == 0) {
+        throw new SQLException("Không tìm thấy loại sản phẩm để xóa!");
+    }
+}
+
 }

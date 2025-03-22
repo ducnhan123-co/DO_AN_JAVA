@@ -55,6 +55,12 @@ public class SanPhamBLL {
         
         SanPhamDAO.suaSanPham(sanPham, maloai, maDVT);
     }
+    public static void xoaSanPham(String maSP) throws Exception {
+    if (maSP == null || maSP.isBlank()) 
+        throw new Exception("Mã sản phẩm không được để trống.");
+    SanPhamDAO.xoaSanPham(maSP);
+}
+
     
     
 }

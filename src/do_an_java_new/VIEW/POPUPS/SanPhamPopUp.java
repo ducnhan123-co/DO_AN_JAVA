@@ -289,8 +289,8 @@ public abstract class SanPhamPopUp extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXacNhanMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnHuy;
-    private javax.swing.JButton btnXacNhan;
+    public javax.swing.JButton btnHuy;
+    public javax.swing.JButton btnXacNhan;
     protected javax.swing.JComboBox<String> cbbDVT;
     protected javax.swing.JComboBox<String> cbbLoai;
     private javax.swing.JLabel jLabel10;

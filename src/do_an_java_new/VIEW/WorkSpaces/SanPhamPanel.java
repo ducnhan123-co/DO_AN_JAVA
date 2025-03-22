@@ -8,17 +8,25 @@ import do_an_java_new.BLL.LoaiSPBLL;
 import do_an_java_new.BLL.SanPhamBLL;
 import do_an_java_new.DTO.LoaiSPDTO;
 import do_an_java_new.DTO.SanPhamDTO;
+import do_an_java_new.VIEW.POPUPS.ChiTietLoaiSanPhamPopUp;
+import do_an_java_new.VIEW.POPUPS.ChiTietSanPhamPopUp;
 import do_an_java_new.VIEW.POPUPS.SuaLoaiSpPopUp;
 import do_an_java_new.VIEW.POPUPS.SuaSanPhamPopUp;
 import do_an_java_new.VIEW.POPUPS.ThemLoaiSPPopUp;
 import do_an_java_new.VIEW.POPUPS.ThemSanPhamPopUp;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -209,6 +217,8 @@ public class SanPhamPanel extends javax.swing.JPanel {
 
         add(tabs, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 255, 0), 3));
         jPanel1.setMaximumSize(new java.awt.Dimension(0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(976, 97));
@@ -239,6 +249,11 @@ public class SanPhamPanel extends javax.swing.JPanel {
         btnDelete.setToolTipText("");
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -453,11 +468,86 @@ public class SanPhamPanel extends javax.swing.JPanel {
 
     private void btnDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailMouseClicked
         // TODO add your handling code here:
+         JFrame popUp = null ;
+        switch(tabs.getSelectedIndex()) {
+            case 0:
+                SanPhamDTO sanpham = getSelectedSanPham();
+                if (sanpham == null) {
+                    JOptionPane.showMessageDialog(null, "Hãy chọn sản phẩm để xem chi tiết");
+                    return;
+                }
+                popUp = new ChiTietSanPhamPopUp(sanpham);
+                break;
+            case 1:  
+                LoaiSPDTO loai = getSelectedLoaiSanPham();
+                if (loai == null) {
+                    JOptionPane.showMessageDialog(null, "Hãy chọn loại sản phẩm để xem chi tiết");
+                    return;
+                }
+                popUp = new ChiTietLoaiSanPhamPopUp(loai);
+                break;
+            case 2:
+                break;
+            default:
+                break;
+        }
+        
+        popUp.setVisible(true);
+        
+        popUp.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                super.windowClosed(e); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                loadDataToTable();
+            }
+            
+        });
     }//GEN-LAST:event_btnDetailMouseClicked
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
+
+
+
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        // TODO add your handling code here:
+         int tab = tabs.getSelectedIndex();
+         javax.swing.JTable table = (tab== 0 ? jTable1 : tab==1 ? jTable2 : null);
+         if(table == null) return;
+         int selectedRow = table.getSelectedRow();
+         if(selectedRow<0){
+             JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 bản ghi để xoá.","Chưa chọn", JOptionPane.WARNING_MESSAGE);
+             return;
+         }
+         String id = table.getValueAt(selectedRow, 0).toString();
+       int confirm = JOptionPane.showConfirmDialog(
+        this,
+        "Bạn có chắc muốn xoá bản ghi có mã = " + id + " không?",
+        "Xác nhận xoá",
+        JOptionPane.YES_NO_OPTION
+    );
+
+        if(confirm==JOptionPane.YES_OPTION)
+        {
+            try{
+                switch(tab){
+                    case 0:
+                        SanPhamBLL.xoaSanPham(id);
+                        break;
+                    case 1:
+                        LoaiSPBLL.xoaLoaiSanPham(id);
+                        break;
+                }
+                loadDataToTable();
+                JOptionPane.showMessageDialog(this, "Đã xóa thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+            } catch(Exception ex){
+                 JOptionPane.showMessageDialog(this, "Lỗi khi xóa: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }
+    }//GEN-LAST:event_btnDeleteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -478,8 +568,8 @@ public class SanPhamPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    public javax.swing.JTable jTable1;
+    public javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;

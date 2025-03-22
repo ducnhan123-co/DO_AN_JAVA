@@ -104,6 +104,8 @@ public class NhanVienPanel extends javax.swing.JPanel {
 
         add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 255, 0), 3));
         jPanel4.setMaximumSize(new java.awt.Dimension(0, 0));
         jPanel4.setMinimumSize(new java.awt.Dimension(0, 0));
         jPanel4.setPreferredSize(new java.awt.Dimension(976, 97));
