@@ -14,8 +14,9 @@ import java.util.ArrayList;
  * @author Administrator
  */
 public class SanPhamBLL {
-     public static ArrayList<SanPhamDTO> getDanhSachSanPham() throws Exception {
-        return SanPhamDAO.getDanhSachSanPham();
+    public static ArrayList<SanPhamDTO> getDanhSachSanPham(String sortOption, String[] searchOptions, String keyWord) throws Exception {
+        
+        return SanPhamDAO.getDanhSachSanPham(sortOption, searchOptions, keyWord);
     }
     
     public static void themSanPham(SanPhamDTO sanPham) throws Exception {

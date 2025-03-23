@@ -14,6 +14,7 @@ import do_an_java_new.VIEW.POPUPS.ThemLoaiSPPopUp;
 import do_an_java_new.VIEW.POPUPS.ThemSanPhamPopUp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,13 +47,49 @@ public class SanPhamPanel extends javax.swing.JPanel {
         // Gọi hàm BLL để lấy danh sách sản phẩm
         List<SanPhamDTO> listSP = null;
         List<LoaiSPDTO> dsLoai = null;
+        
+        String[] searchOptions = new String[0];
+        String keyWord = txtKeyWord.getText().trim();
+        String sortOption = "";
+        
+        if (searchOption_ten.isSelected()) {
+            searchOptions = Arrays.copyOf(searchOptions, searchOptions.length+1);
+            searchOptions[searchOptions.length-1] = "TenSP";
+        }
+        if (searchOption_ma.isSelected()) {
+            searchOptions = Arrays.copyOf(searchOptions, searchOptions.length+1);
+            searchOptions[searchOptions.length-1] = "MaSP";
+        }
+        if (searchOption_loai.isSelected()) {
+            searchOptions = Arrays.copyOf(searchOptions, searchOptions.length+1);
+            searchOptions[searchOptions.length-1] = "TenLoai";
+        }
+
+        switch((String) cbbSortOptions.getSelectedItem()) {
+            case "A-Z":
+                sortOption = "TenSP";
+                break;
+            case "Z-A":
+                sortOption = "TenSP desc";
+                break;
+            case "Giá tăng dần":
+                sortOption = "Gia";
+                break;
+            case "Giá giảm dần":
+                sortOption = "Gia desc";
+                break;
+            default:
+                break;
+        }
+        
         try {
-            listSP = sanPhamBLL.getDanhSachSanPham();
+            listSP = sanPhamBLL.getDanhSachSanPham(sortOption, searchOptions, keyWord);
             dsLoai = loaiSPBLL.getDanhSachLoaiSP();
         } catch (Exception ex) {
             Logger.getLogger(SanPhamPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        txtResultCount.setText(String.format("Tìm thấy %d kết quả", listSP.size()));
         // Lấy model của jTable
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         DefaultTableModel model2 = (DefaultTableModel) jTable2.getModel();
@@ -148,14 +185,13 @@ public class SanPhamPanel extends javax.swing.JPanel {
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jTextField5 = new javax.swing.JTextField();
+        cbbSortOptions = new javax.swing.JComboBox<>();
+        txtKeyWord = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
-        jRadioButton7 = new javax.swing.JRadioButton();
-        jRadioButton8 = new javax.swing.JRadioButton();
-        jRadioButton9 = new javax.swing.JRadioButton();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel31 = new javax.swing.JLabel();
+        searchOption_ma = new javax.swing.JRadioButton();
+        searchOption_loai = new javax.swing.JRadioButton();
+        searchOption_ten = new javax.swing.JRadioButton();
+        txtResultCount = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 800));
@@ -312,76 +348,69 @@ public class SanPhamPanel extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sắp xếp", "A-Z", "Z-A", "Giá tăng dần", " " }));
+        cbbSortOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "A-Z", "Z-A", "Giá tăng dần", "Giá giảm dần", " ", " " }));
+        cbbSortOptions.setPreferredSize(null);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel2.add(jComboBox5, gridBagConstraints);
+        jPanel2.add(cbbSortOptions, gridBagConstraints);
 
-        jTextField5.setText("Nhập từ khoá tìm kiếm");
-        jTextField5.setMinimumSize(new java.awt.Dimension(148, 22));
+        txtKeyWord.setMinimumSize(new java.awt.Dimension(148, 22));
+        txtKeyWord.setPreferredSize(new java.awt.Dimension(150, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel2.add(jTextField5, gridBagConstraints);
+        jPanel2.add(txtKeyWord, gridBagConstraints);
 
-        jButton3.setText("Click");
+        jButton3.setText("Refresh");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel2.add(jButton3, gridBagConstraints);
 
-        jRadioButton7.setText("Mã");
-        jRadioButton7.setMargin(new java.awt.Insets(2, 0, 3, 0));
+        searchOption_ma.setText("Mã");
+        searchOption_ma.setMargin(new java.awt.Insets(2, 0, 3, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        jPanel2.add(jRadioButton7, gridBagConstraints);
+        jPanel2.add(searchOption_ma, gridBagConstraints);
 
-        jRadioButton8.setText("Loại");
-        jRadioButton8.setMargin(new java.awt.Insets(2, 0, 3, 0));
+        searchOption_loai.setText("Loại");
+        searchOption_loai.setMargin(new java.awt.Insets(2, 0, 3, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.weightx = 0.1;
-        jPanel2.add(jRadioButton8, gridBagConstraints);
+        jPanel2.add(searchOption_loai, gridBagConstraints);
 
-        jRadioButton9.setText("Tên");
-        jRadioButton9.setMargin(new java.awt.Insets(2, 0, 3, 0));
+        searchOption_ten.setText("Tên");
+        searchOption_ten.setMargin(new java.awt.Insets(2, 0, 3, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel2.add(jRadioButton9, gridBagConstraints);
+        jPanel2.add(searchOption_ten, gridBagConstraints);
 
-        jTextField6.setText("Tim thấy 50 sản phẩm");
-        jTextField6.setMinimumSize(new java.awt.Dimension(120, 22));
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
-            }
-        });
+        txtResultCount.setText("jLabel1");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
-        jPanel2.add(jTextField6, gridBagConstraints);
+        jPanel2.add(txtResultCount, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 60, 0, 0);
         jPanel1.add(jPanel2, gridBagConstraints);
-
-        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel31.setText("KẾT QUẢ: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(jLabel31, gridBagConstraints);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
@@ -455,9 +484,10 @@ public class SanPhamPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDetailMouseClicked
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+        loadDataToTable();
+    }//GEN-LAST:event_jButton3MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -465,24 +495,23 @@ public class SanPhamPanel extends javax.swing.JPanel {
     private javax.swing.JLabel btnDetail;
     private javax.swing.JLabel btnInsert;
     private javax.swing.JLabel btnUpdate;
+    private javax.swing.JComboBox<String> cbbSortOptions;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton7;
-    private javax.swing.JRadioButton jRadioButton8;
-    private javax.swing.JRadioButton jRadioButton9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JRadioButton searchOption_loai;
+    private javax.swing.JRadioButton searchOption_ma;
+    private javax.swing.JRadioButton searchOption_ten;
     private javax.swing.JTabbedPane tabs;
+    private javax.swing.JTextField txtKeyWord;
+    private javax.swing.JLabel txtResultCount;
     // End of variables declaration//GEN-END:variables
 }
