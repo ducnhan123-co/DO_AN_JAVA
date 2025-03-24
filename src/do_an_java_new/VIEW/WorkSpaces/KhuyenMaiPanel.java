@@ -27,7 +27,6 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -45,7 +44,6 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         jRadioButton8 = new javax.swing.JRadioButton();
         jRadioButton9 = new javax.swing.JRadioButton();
         jTextField6 = new javax.swing.JTextField();
-        jLabel31 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 800));
@@ -65,9 +63,7 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jTabbedPane1.addTab("Quản lý khuyến mãi", jScrollPane1);
-
-        add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jPanel1.setMaximumSize(new java.awt.Dimension(0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -237,12 +233,6 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 60, 0, 0);
         jPanel1.add(jPanel2, gridBagConstraints);
 
-        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel31.setText("KẾT QUẢ: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(jLabel31, gridBagConstraints);
-
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -272,14 +262,12 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButton7;
     private javax.swing.JRadioButton jRadioButton8;
     private javax.swing.JRadioButton jRadioButton9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;

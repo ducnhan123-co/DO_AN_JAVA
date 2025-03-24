@@ -13,8 +13,11 @@ import java.util.ArrayList;
  * @author Administrator
  */
 public class HangBLL {
-        public static ArrayList<HangDTO> getHangs() throws SQLException {
+    public static ArrayList<HangDTO> getHangs() throws SQLException {
         return HangDAO.getHangs();
     }
 
+    public static void xoaHang(String mahang) throws SQLException {
+        HangDAO.xoaHang(mahang);
+    }
 }

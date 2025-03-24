@@ -57,5 +57,7 @@ public class SanPhamBLL {
         SanPhamDAO.suaSanPham(sanPham, maloai, maDVT);
     }
     
-    
+    public static void xoaSanPham(String maSP) throws SQLException {
+        SanPhamDAO.xoaSanPham(maSP);
+    }
 }

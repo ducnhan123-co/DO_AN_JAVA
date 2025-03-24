@@ -13,6 +13,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -30,11 +32,48 @@ public class KhachHangPanel extends javax.swing.JPanel {
     }
     
     private void renderTable() {
+        String sortOption = "";
+        String[] searchOptions = new String[0];
+        String keyWord = txtKeyWord.getText().trim();
+        
+        switch(cbbSortOption.getSelectedIndex()) {
+            case 1:
+                sortOption = "Ten";
+                break;
+            case 2:
+                sortOption = "Ten desc";                
+                break;
+            case 3:
+                sortOption = "Diem";
+                break;
+            case 4:
+                sortOption = "Diem desc";
+                break;
+            default:
+                break;
+        }
+        
+        if (searchOption_ma.isSelected()) {
+            searchOptions = Arrays.copyOf(searchOptions, searchOptions.length+1);
+            searchOptions[searchOptions.length-1] = "MaKH";
+        }
+        if (searchOption_ten.isSelected()) {
+            searchOptions = Arrays.copyOf(searchOptions, searchOptions.length+1);
+            searchOptions[searchOptions.length-1] = "Ten";
+        }
+        if (searchOption_ho.isSelected()) {
+            searchOptions = Arrays.copyOf(searchOptions, searchOptions.length+1);
+            searchOptions[searchOptions.length-1] = "Ho";
+        }
+        
         DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
         model.setRowCount(0);
         
+        
         try {
-            for(KhachHangDTO khachHang: KhachHangBLL.getDanhSachKhachHang()) {
+            ArrayList<KhachHangDTO> listKhachHang = KhachHangBLL.getDanhSachKhachHang(sortOption, searchOptions, keyWord);
+            txtResultCount.setText(String.format("Tìm thấy %d kết quả", listKhachHang.size()));
+            for(KhachHangDTO khachHang: listKhachHang) {
                 model.addRow(new Object[] {
                     khachHang.getMaKH(),
                     khachHang.getHo(),
@@ -65,7 +104,6 @@ public class KhachHangPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabs = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbKhachHang = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -76,14 +114,13 @@ public class KhachHangPanel extends javax.swing.JPanel {
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jTextField5 = new javax.swing.JTextField();
+        cbbSortOption = new javax.swing.JComboBox<>();
+        txtKeyWord = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
-        jRadioButton7 = new javax.swing.JRadioButton();
-        jRadioButton8 = new javax.swing.JRadioButton();
-        jRadioButton9 = new javax.swing.JRadioButton();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel31 = new javax.swing.JLabel();
+        searchOption_ma = new javax.swing.JRadioButton();
+        searchOption_ten = new javax.swing.JRadioButton();
+        searchOption_ho = new javax.swing.JRadioButton();
+        txtResultCount = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 800));
@@ -100,9 +137,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tbKhachHang);
 
-        tabs.addTab("Quản lý khách hàng", jScrollPane1);
-
-        add(tabs, java.awt.BorderLayout.CENTER);
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jPanel1.setMaximumSize(new java.awt.Dimension(0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -134,6 +169,11 @@ public class KhachHangPanel extends javax.swing.JPanel {
         btnDelete.setToolTipText("");
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -207,76 +247,68 @@ public class KhachHangPanel extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sắp xếp", "A-Z", "Z-A", "Giá tăng dần", " " }));
+        cbbSortOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "A-Z", "Z-A", "Điểm tăng dần", "Điểm giảm dần", "" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel2.add(jComboBox5, gridBagConstraints);
+        jPanel2.add(cbbSortOption, gridBagConstraints);
 
-        jTextField5.setText("Nhập từ khoá tìm kiếm");
-        jTextField5.setMinimumSize(new java.awt.Dimension(148, 22));
+        txtKeyWord.setMinimumSize(new java.awt.Dimension(148, 22));
+        txtKeyWord.setPreferredSize(new java.awt.Dimension(150, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel2.add(jTextField5, gridBagConstraints);
+        jPanel2.add(txtKeyWord, gridBagConstraints);
 
-        jButton3.setText("Click");
+        jButton3.setText("Refresh");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel2.add(jButton3, gridBagConstraints);
 
-        jRadioButton7.setText("Mã");
-        jRadioButton7.setMargin(new java.awt.Insets(2, 0, 3, 0));
+        searchOption_ma.setText("Mã");
+        searchOption_ma.setMargin(new java.awt.Insets(2, 0, 3, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        jPanel2.add(jRadioButton7, gridBagConstraints);
+        jPanel2.add(searchOption_ma, gridBagConstraints);
 
-        jRadioButton8.setText("Loại");
-        jRadioButton8.setMargin(new java.awt.Insets(2, 0, 3, 0));
+        searchOption_ten.setText("Tên");
+        searchOption_ten.setMargin(new java.awt.Insets(2, 0, 3, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.weightx = 0.1;
-        jPanel2.add(jRadioButton8, gridBagConstraints);
+        jPanel2.add(searchOption_ten, gridBagConstraints);
 
-        jRadioButton9.setText("Tên");
-        jRadioButton9.setMargin(new java.awt.Insets(2, 0, 3, 0));
+        searchOption_ho.setText("Họ");
+        searchOption_ho.setMargin(new java.awt.Insets(2, 0, 3, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel2.add(jRadioButton9, gridBagConstraints);
+        jPanel2.add(searchOption_ho, gridBagConstraints);
 
-        jTextField6.setText("Tim thấy 50 sản phẩm");
-        jTextField6.setMinimumSize(new java.awt.Dimension(120, 22));
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
-            }
-        });
+        txtResultCount.setText("Tìm thấy ... kết quả");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
-        jPanel2.add(jTextField6, gridBagConstraints);
+        jPanel2.add(txtResultCount, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 60, 0, 0);
         jPanel1.add(jPanel2, gridBagConstraints);
-
-        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel31.setText("KẾT QUẢ: ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(jLabel31, gridBagConstraints);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
@@ -299,10 +331,6 @@ public class KhachHangPanel extends javax.swing.JPanel {
     private void btnDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDetailMouseClicked
-
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
         // TODO add your handling code here:
@@ -342,26 +370,48 @@ public class KhachHangPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnUpdateMouseClicked
 
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = tbKhachHang.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Chọn khách hàng muốn xoá");
+            return;
+        } 
+        
+        if (JOptionPane.showConfirmDialog(null, "Bạn thật sự muốn xoá khách hàng?", "Xoá khách hàng", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            try {
+                KhachHangBLL.xoaKhachHang((String) tbKhachHang.getValueAt(selectedRow, 0));
+                JOptionPane.showMessageDialog(null, "Xoá khách hàng thành công");
+                renderTable();
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+        renderTable();
+    }//GEN-LAST:event_jButton3MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnDelete;
     private javax.swing.JLabel btnDetail;
     private javax.swing.JLabel btnInsert;
     private javax.swing.JLabel btnUpdate;
+    private javax.swing.JComboBox<String> cbbSortOption;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton7;
-    private javax.swing.JRadioButton jRadioButton8;
-    private javax.swing.JRadioButton jRadioButton9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTabbedPane tabs;
+    private javax.swing.JRadioButton searchOption_ho;
+    private javax.swing.JRadioButton searchOption_ma;
+    private javax.swing.JRadioButton searchOption_ten;
     private javax.swing.JTable tbKhachHang;
+    private javax.swing.JTextField txtKeyWord;
+    private javax.swing.JLabel txtResultCount;
     // End of variables declaration//GEN-END:variables
 }

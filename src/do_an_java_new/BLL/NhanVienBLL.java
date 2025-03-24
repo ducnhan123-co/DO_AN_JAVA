@@ -6,6 +6,7 @@ package do_an_java_new.BLL;
 
 import do_an_java_new.DAO.NhanVienDAO;
 import do_an_java_new.DTO.NhanVienDTO;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -13,8 +14,8 @@ import java.util.ArrayList;
  * @author Administrator
  */
 public class NhanVienBLL {
-    public static ArrayList<NhanVienDTO> getDanhSachNhanVien() throws Exception {
-        return NhanVienDAO.getDanhSachNhanVien();
+    public static ArrayList<NhanVienDTO> getDanhSachNhanVien(String sortOption, String[] searchOptions, String keyWord) throws Exception {
+        return NhanVienDAO.getDanhSachNhanVien(sortOption, searchOptions, keyWord);
     }
     
     public static void themNhanVien(NhanVienDTO nhanvien) throws Exception {
@@ -41,4 +42,8 @@ public class NhanVienBLL {
         int matinh = TinhThanhBLL.getMaTinh(nhanVien.getTinh());
         NhanVienDAO.suaNhanVien(nhanVien, matinh);
     }    
+    
+    public static void xoaNhanVien(String manv) throws SQLException {
+        NhanVienDAO.xoaNhanVien(manv);
+    }
 }

@@ -4,7 +4,7 @@
  */
 package do_an_java_new.DAO;
 
-import do_an_java_new.DAO.ConnectionDAL;
+import do_an_java_new.DAO.ConnectionDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +19,7 @@ public class DonViTinhDAO {
     public static ArrayList<String> getDanhSachDVT() throws SQLException {
         ArrayList<String> res = new ArrayList<>();
         
-        Connection con = ConnectionDAL.getConnection();
+        Connection con = ConnectionDAO.getConnection();
         String query = "select TenDonVi\n" +
             "from DonVi";
         PreparedStatement st = con.prepareStatement(query);
@@ -35,7 +35,7 @@ public class DonViTinhDAO {
     
     public static int getMaDVT(String ten) {
         try {
-            Connection con = ConnectionDAL.getConnection();
+            Connection con = ConnectionDAO.getConnection();
             String query = "select MaDonVi\n" +
                 "from DonVi\n" +
                 "where TenDonVi = ?";

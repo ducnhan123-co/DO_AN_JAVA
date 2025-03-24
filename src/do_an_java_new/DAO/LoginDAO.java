@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 public class LoginDAO {
       public static String getMatKhau(String id) throws Exception {
-        Connection conn = ConnectionDAL.getConnection();
+        Connection conn = ConnectionDAO.getConnection();
         String query = "select MatKhau \n" +
             "from nhanvien \n" +
             "where MaNV = ?";

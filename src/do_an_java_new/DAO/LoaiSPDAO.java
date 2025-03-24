@@ -24,7 +24,7 @@ import java.sql.SQLException;
 public class LoaiSPDAO {
     public static ArrayList<LoaiSPDTO> getDanhSachLoaiSP() throws Exception {
         ArrayList<LoaiSPDTO> res = new ArrayList<>();
-        Connection conn = ConnectionDAL.getConnection();
+        Connection conn = ConnectionDAO.getConnection();
         String query = "select * from Loai";
         PreparedStatement st = conn.prepareStatement(query);
 
@@ -37,7 +37,7 @@ public class LoaiSPDAO {
     
     public static int getMaLoai(String ten) {
         try {
-            Connection conn = ConnectionDAL.getConnection();
+            Connection conn = ConnectionDAO.getConnection();
             String query = "SELECT MaLoai FROM loai \n" +
                     "where TenLoai = ?";
             
@@ -56,7 +56,7 @@ public class LoaiSPDAO {
     }
     
     public static void themLoaiSP(LoaiSPDTO loai) throws SQLException {
-        Connection con = ConnectionDAL.getConnection();
+        Connection con = ConnectionDAO.getConnection();
         String query = "insert into Loai\n" +
             "values (?, ?, ?)";
         
@@ -69,7 +69,7 @@ public class LoaiSPDAO {
     }
     
     public static void suaLoaiSP(LoaiSPDTO loai) throws Exception {
-        Connection con = ConnectionDAL.getConnection();
+        Connection con = ConnectionDAO.getConnection();
         String query = "update Loai\n" +
             "set \n" +
             "	TenLoai = ?,\n" +
@@ -81,6 +81,15 @@ public class LoaiSPDAO {
         st.setString(2, loai.getMota());
         st.setString(3, loai.getMaLoai());
         
+        st.executeUpdate();
+    }
+    
+    public static void xoaLoaiSP(String maloai) throws SQLException {
+        Connection con = ConnectionDAO.getConnection();
+        String query = "DELETE FROM loai\n" +
+                "WHERE MaLoai = ?";
+        PreparedStatement st = con.prepareStatement(query);
+        st.setInt(1, Integer.parseInt(maloai));
         st.executeUpdate();
     }
 }

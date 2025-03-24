@@ -4,8 +4,10 @@
  */
 package do_an_java_new.VIEW.WorkSpaces;
 
+import do_an_java_new.BLL.HangBLL;
 import do_an_java_new.BLL.LoaiSPBLL;
 import do_an_java_new.BLL.SanPhamBLL;
+import do_an_java_new.DTO.HangDTO;
 import do_an_java_new.DTO.LoaiSPDTO;
 import do_an_java_new.DTO.SanPhamDTO;
 import do_an_java_new.VIEW.POPUPS.SuaLoaiSpPopUp;
@@ -14,6 +16,7 @@ import do_an_java_new.VIEW.POPUPS.ThemLoaiSPPopUp;
 import do_an_java_new.VIEW.POPUPS.ThemSanPhamPopUp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
@@ -47,6 +50,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
         // Gọi hàm BLL để lấy danh sách sản phẩm
         List<SanPhamDTO> listSP = null;
         List<LoaiSPDTO> dsLoai = null;
+        List<HangDTO> dsHang = null;
         
         String[] searchOptions = new String[0];
         String keyWord = txtKeyWord.getText().trim();
@@ -64,19 +68,25 @@ public class SanPhamPanel extends javax.swing.JPanel {
             searchOptions = Arrays.copyOf(searchOptions, searchOptions.length+1);
             searchOptions[searchOptions.length-1] = "TenLoai";
         }
-
-        switch((String) cbbSortOptions.getSelectedItem()) {
-            case "A-Z":
+        
+        switch(cbbSortOptions.getSelectedIndex()) {
+            case 1:
                 sortOption = "TenSP";
                 break;
-            case "Z-A":
+            case 2:
                 sortOption = "TenSP desc";
                 break;
-            case "Giá tăng dần":
+            case 3:
                 sortOption = "Gia";
                 break;
-            case "Giá giảm dần":
+            case 4:
                 sortOption = "Gia desc";
+                break;
+            case 5:
+                sortOption = "SoLuongTon";
+                break;
+            case 6:
+                sortOption = "SoLuongTon desc";
                 break;
             default:
                 break;
@@ -85,17 +95,20 @@ public class SanPhamPanel extends javax.swing.JPanel {
         try {
             listSP = sanPhamBLL.getDanhSachSanPham(sortOption, searchOptions, keyWord);
             dsLoai = loaiSPBLL.getDanhSachLoaiSP();
+            dsHang = HangBLL.getHangs();
         } catch (Exception ex) {
             Logger.getLogger(SanPhamPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         txtResultCount.setText(String.format("Tìm thấy %d kết quả", listSP.size()));
         // Lấy model của jTable
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        DefaultTableModel model2 = (DefaultTableModel) jTable2.getModel();
+        DefaultTableModel model = (DefaultTableModel) tbSanPham.getModel();
+        DefaultTableModel model2 = (DefaultTableModel) tbLoaiSP.getModel();
+        DefaultTableModel model3 = (DefaultTableModel) tbHang.getModel();
 
         model.setRowCount(0); // Xóa trắng dữ liệu cũ trước khi thêm
         model2.setRowCount(0); 
+        model3.setRowCount(0);
 
         // Duyệt danh sách sản phẩm và thêm vào model
         for (SanPhamDTO sp : listSP) {
@@ -117,24 +130,33 @@ public class SanPhamPanel extends javax.swing.JPanel {
                     loai.getMota()
             });
         }
+        for (HangDTO hang: dsHang) {
+            model3.addRow(new Object[] {
+                hang.getMaHang(),
+                hang.getTenSP(),
+                hang.getSoLuong(),
+                hang.getNgaySanXuat(),
+                hang.getGiamGia()
+            });
+        }
     }
        
     public SanPhamDTO getSelectedSanPham() {
-        int selectedRow = jTable1.getSelectedRow();
+        int selectedRow = tbSanPham.getSelectedRow();
         if (selectedRow == -1) {
             // Người dùng chưa chọn dòng
             return null;
         }
 
         // Lấy dữ liệu từng cột
-        String maSP       = (String) jTable1.getValueAt(selectedRow, 0);
-        String tenSP      = (String) jTable1.getValueAt(selectedRow, 1);
-        String loai       = (String) jTable1.getValueAt(selectedRow, 2);
-        String donViTinh  = (String) jTable1.getValueAt(selectedRow, 3);
-        int hanSuDung  = (int) jTable1.getValueAt(selectedRow, 4);
-        String moTa       = (String) jTable1.getValueAt(selectedRow, 5);
-        int gia        = (int) jTable1.getValueAt(selectedRow, 6);
-        int soLuong   = (int) jTable1.getValueAt(selectedRow, 7);
+        String maSP       = (String) tbSanPham.getValueAt(selectedRow, 0);
+        String tenSP      = (String) tbSanPham.getValueAt(selectedRow, 1);
+        String loai       = (String) tbSanPham.getValueAt(selectedRow, 2);
+        String donViTinh  = (String) tbSanPham.getValueAt(selectedRow, 3);
+        int hanSuDung  = (int) tbSanPham.getValueAt(selectedRow, 4);
+        String moTa       = (String) tbSanPham.getValueAt(selectedRow, 5);
+        int gia        = (int) tbSanPham.getValueAt(selectedRow, 6);
+        int soLuong   = (int) tbSanPham.getValueAt(selectedRow, 7);
 
         // Tạo SanPhamDTO
         SanPhamDTO sp = new SanPhamDTO(maSP, tenSP, loai, donViTinh, hanSuDung, moTa, gia, soLuong);
@@ -143,14 +165,14 @@ public class SanPhamPanel extends javax.swing.JPanel {
     }
        
     public LoaiSPDTO getSelectedLoaiSanPham() {
-        int selectedRow = jTable2.getSelectedRow();
+        int selectedRow = tbLoaiSP.getSelectedRow();
         if (selectedRow == -1) {
             return null; // chưa chọn dòng
         }
         
-        String maLoai = (String) jTable2.getValueAt(selectedRow, 0);
-        String tenLoai = (String) jTable2.getValueAt(selectedRow, 1);
-        String moTa = (String) jTable2.getValueAt(selectedRow, 2);
+        String maLoai = (String) tbLoaiSP.getValueAt(selectedRow, 0);
+        String tenLoai = (String) tbLoaiSP.getValueAt(selectedRow, 1);
+        String moTa = (String) tbLoaiSP.getValueAt(selectedRow, 2);
 
         LoaiSPDTO loaiSP = new LoaiSPDTO();
         loaiSP.setMaLoai(maLoai);
@@ -172,11 +194,11 @@ public class SanPhamPanel extends javax.swing.JPanel {
 
         tabs = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbSanPham = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tbLoaiSP = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tbHang = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnInsert = new javax.swing.JLabel();
         btnDelete = new javax.swing.JLabel();
@@ -198,7 +220,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1080, 800));
         setLayout(new java.awt.BorderLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -209,11 +231,11 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 "Mã sản phẩm", "Tên sản phẩm", "Loại", "Đơn vị tính", "Hạn sử dụng", "Mô tả", "Giá", "Số lượng tồn"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbSanPham);
 
         tabs.addTab("Quản lý sản phẩm", jScrollPane1);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbLoaiSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -224,11 +246,11 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 "Mã sản phẩm", "Tên loại", "Mô tả"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tbLoaiSP);
 
         tabs.addTab("Quản lý loại sản phẩm", jScrollPane2);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tbHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -239,7 +261,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 "Mã hàng", "Tên sản phẩm", "Số lượng", "Ngày sản xuất", "Giảm giá"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tbHang);
 
         tabs.addTab("Quản lý hàng hoá", jScrollPane3);
 
@@ -275,6 +297,11 @@ public class SanPhamPanel extends javax.swing.JPanel {
         btnDelete.setToolTipText("");
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -348,8 +375,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        cbbSortOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "A-Z", "Z-A", "Giá tăng dần", "Giá giảm dần", " ", " " }));
-        cbbSortOptions.setPreferredSize(null);
+        cbbSortOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "A-Z", "Z-A", "Giá tăng dần", "Giá giảm dần", "Số lượng tồn tăng dần", "Số lượng tồn giảm dần", " " }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
@@ -489,6 +515,65 @@ public class SanPhamPanel extends javax.swing.JPanel {
         loadDataToTable();
     }//GEN-LAST:event_jButton3MouseClicked
 
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        // TODO add your handling code here:
+        switch(tabs.getSelectedIndex()) {
+            case 0:
+                SanPhamDTO sanpham = getSelectedSanPham();
+                if (sanpham == null) {
+                    JOptionPane.showMessageDialog(null, "Hãy chọn sản phẩm để xoá");
+                    return;
+                }
+                
+                if (JOptionPane.showConfirmDialog(null, "Bạn thật sự muốn xoá sản phẩm này?", "Xoá sản phẩm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    try {
+                        sanPhamBLL.xoaSanPham(sanpham.getMaSP());
+                        JOptionPane.showMessageDialog(null, "Xoá sản phẩm thành công");
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                }
+                break;
+            case 1:
+                LoaiSPDTO loai = getSelectedLoaiSanPham();
+                if (loai == null) {
+                    JOptionPane.showMessageDialog(null, "Hãy chọn loại sản phẩm để xoá");
+                    return;
+                }
+                
+                if (JOptionPane.showConfirmDialog(null, "Bạn thật sự muốn xoá loại sản phẩm này?", "Xoá loại sản phẩm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    try {
+                        loaiSPBLL.xoaLoaiSP(loai.getMaLoai());
+                        JOptionPane.showMessageDialog(null, "Xoá loại sản phẩm thành công");
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                }                
+                break;
+            case 2:
+                int selectedHang = tbHang.getSelectedRow();
+                if (selectedHang < 0) {
+                    JOptionPane.showMessageDialog(null, "Hãy chọn hàng cần xoá!");
+                    return;
+                }
+                
+                if (JOptionPane.showConfirmDialog(null, "Bạn thật sự muốn xoá hàng này?", "Xoá hàng", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    String maHang = (String) tbHang.getValueAt(selectedHang, 0);
+                    try {
+                        HangBLL.xoaHang(maHang);
+                        JOptionPane.showMessageDialog(null, "Xoá hàng thành công");
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                } 
+                break;
+            default:
+                break;
+        }
+        
+        loadDataToTable();
+    }//GEN-LAST:event_btnDeleteMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnDelete;
@@ -504,13 +589,13 @@ public class SanPhamPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JRadioButton searchOption_loai;
     private javax.swing.JRadioButton searchOption_ma;
     private javax.swing.JRadioButton searchOption_ten;
     private javax.swing.JTabbedPane tabs;
+    private javax.swing.JTable tbHang;
+    private javax.swing.JTable tbLoaiSP;
+    private javax.swing.JTable tbSanPham;
     private javax.swing.JTextField txtKeyWord;
     private javax.swing.JLabel txtResultCount;
     // End of variables declaration//GEN-END:variables

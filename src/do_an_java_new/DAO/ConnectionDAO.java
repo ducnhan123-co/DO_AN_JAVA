@@ -23,13 +23,16 @@ import java.sql.SQLException;
  *
  * @author ASUS-PC
  */
-public class ConnectionDAL {
+public class ConnectionDAO {
     private static final String URL = "jdbc:mysql://localhost:3306/cuahangthucpham";
     private static final String USER = "root"; 
     private static final String PASSWORD = ""; 
+    private static Connection conn = null;
     
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        if (conn == null)
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        return conn;
     }
     
     public static void main(String[] args) {
@@ -62,17 +65,6 @@ public class ConnectionDAL {
         }
 
         
-    }
-    
-    //Ngắt kết nối jdbc
-    public static void closeConnection(Connection cn) {
-        try {
-            if(cn!=null) {
-                cn.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
 

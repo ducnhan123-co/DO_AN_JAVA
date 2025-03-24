@@ -33,4 +33,8 @@ public class LoaiSPBLL {
     public static int getMaLoai(String ten) {
         return LoaiSPDAO.getMaLoai(ten);
     }
+    
+    public static void xoaLoaiSP(String maloai) throws SQLException {
+        LoaiSPDAO.xoaLoaiSP(maloai);
+    }
 }

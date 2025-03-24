@@ -7,6 +7,7 @@ package do_an_java_new.BLL;
 
 import do_an_java_new.DAO.KhachHangDAO;
 import do_an_java_new.DTO.KhachHangDTO;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -14,8 +15,8 @@ import java.util.ArrayList;
  * @author Tran Dinh Khanh Du
  */
 public class KhachHangBLL {
-    public static ArrayList<KhachHangDTO> getDanhSachKhachHang() throws Exception {
-        return KhachHangDAO.getDanhSachKhachHang();
+    public static ArrayList<KhachHangDTO> getDanhSachKhachHang(String sortOption, String[] searchOptions, String keyWord) throws Exception {
+        return KhachHangDAO.getDanhSachKhachHang(sortOption, searchOptions, keyWord);
     }
     
     public static void themKhacHang(KhachHangDTO khachhang) throws Exception {
@@ -43,4 +44,8 @@ public class KhachHangBLL {
         
         KhachHangDAO.suaKhachHang(khachhang, maTinh);
     }    
+    
+    public static void xoaKhachHang(String makh) throws SQLException {
+        KhachHangDAO.xoaKhachHang(makh);
+    }
 }

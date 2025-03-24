@@ -20,7 +20,7 @@ public class ChiTietHoaDonDAO {
     public int insert(ChiTietHoaDonDTO chiTietHoaDon) {
         int result=0;
         try {
-            Connection cn = ConnectionDAL.getConnection();
+            Connection cn = ConnectionDAO.getConnection();
             String sql = "insert into chitiethoadon(Mahd, Mahang, soluong, dongia) value=(?,?,?,?)";
             PreparedStatement st = cn.prepareStatement(sql);
             st.setString(1, chiTietHoaDon.getMaHD());
@@ -30,7 +30,6 @@ public class ChiTietHoaDonDAO {
             result = st.executeUpdate();
             System.out.println("Số dòng bị thay đổi: "+result);
 
-            ConnectionDAL.closeConnection(cn);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,7 +39,7 @@ public class ChiTietHoaDonDAO {
     public int update(ChiTietHoaDonDTO chiTietHoaDon) {
         int result=0;
         try {
-            Connection cn = ConnectionDAL.getConnection();
+            Connection cn = ConnectionDAO.getConnection();
             String sql = "update chitiethoadon set mahang=?, soluong=?, dongia=? where mahd=?";
             PreparedStatement st = cn.prepareStatement(sql);
             st.setString(1, chiTietHoaDon.getMaHD());
@@ -50,7 +49,6 @@ public class ChiTietHoaDonDAO {
             
             result = st.executeUpdate();
             System.out.println("Số dòng bị thay đổi: " + result);
-            ConnectionDAL.closeConnection(cn);
         } catch (Exception e) {
             e.printStackTrace();
         }
