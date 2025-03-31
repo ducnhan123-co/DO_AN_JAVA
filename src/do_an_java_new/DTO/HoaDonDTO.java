@@ -9,7 +9,7 @@ import java.sql.Date;
  * @author Administrator
  */
 public class HoaDonDTO {
-      private String MaHD;
+    private String MaHD;
     private String maKH;
     private String maNV;
     private int tongTien;

@@ -8,6 +8,9 @@ package do_an_java_new.DAO;
 import do_an_java_new.DTO.ChiTietHoaDonDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.sql.ResultSet;
 /**
  *
  * @author Administrator
@@ -15,6 +18,27 @@ import java.sql.PreparedStatement;
 public class ChiTietHoaDonDAO {
     public static ChiTietHoaDonDAO getInsance() {
         return new ChiTietHoaDonDAO();
+    }
+    
+    public static ArrayList<ChiTietHoaDonDTO> getDanhSachCTHD() throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "SELECT * FROM chitiethoadon";
+        
+        PreparedStatement st = conn.prepareStatement(query);
+        ResultSet rs = st.executeQuery();
+        
+        ArrayList<ChiTietHoaDonDTO> res = new ArrayList<>();
+        
+        while (rs.next()) {
+            res.add(new ChiTietHoaDonDTO(
+                    rs.getString("MaHD"),
+                    rs.getString("MaHang"),
+                    rs.getInt("DonGia"),
+                    rs.getInt("SoLuong")
+            ));
+        }
+        
+        return res;
     }
 
     public int insert(ChiTietHoaDonDTO chiTietHoaDon) {

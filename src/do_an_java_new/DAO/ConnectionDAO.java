@@ -18,6 +18,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,9 +32,13 @@ public class ConnectionDAO {
     private static final String PASSWORD = ""; 
     private static Connection conn = null;
     
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() {
         if (conn == null)
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            try {
+                conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Có vấn đề với database");
+        }
         return conn;
     }
     

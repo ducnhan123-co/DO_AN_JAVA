@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author Tran Dinh Khanh Du
  */
 public class KhachHangDAO {
-    public static ArrayList<KhachHangDTO> getDanhSachKhachHang(String sortOption, String[] searchOptions, String keyWord) throws Exception {
+    public static ArrayList<KhachHangDTO> getDanhSachKhachHang() throws Exception {
         ArrayList<KhachHangDTO> res = new ArrayList<>();
         Connection conn = ConnectionDAO.getConnection();
         Statement st = conn.createStatement();
@@ -27,18 +27,6 @@ public class KhachHangDAO {
             "FROM KhachHang\n" +
             "left join TinhThanh on MaTThanh = TinhThanh\n";
         
-        if (searchOptions.length > 0) {
-            query += String.format("Where %s like '%%%s%%'", searchOptions[0], keyWord);
-            for (int i = 1 ; i < searchOptions.length ; i++) 
-                query += String.format("or %s like '%%%s%%'", searchOptions[i], keyWord);
-            query += "\n";
-        }
-        
-        if (!sortOption.isBlank()) {
-            query += String.format("ORDER BY %s", sortOption);
-        }
-        
-        System.out.println(query);
         ResultSet rs = st.executeQuery(query);
         while (rs.next()) {
             res.add(new KhachHangDTO(

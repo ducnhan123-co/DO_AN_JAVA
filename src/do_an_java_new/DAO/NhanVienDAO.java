@@ -11,37 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class NhanVienDAO {
-    public static NhanVienDTO timNhanVien(String id) throws Exception {
-        Connection conn = ConnectionDAO.getConnection();
-        String query = "select MaNV, Ho, TenLot, Ten, Phai, NgaySinh, SDT, TinhThanh, DiaChi, Luong, chucVu, TrangThai\n" +
-            "from nhanvien\n" +
-            "where MaNV = ?";
-        
-        PreparedStatement st = conn.prepareStatement(query) ;
-        st.setString(1, id);
-        
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            return new NhanVienDTO(
-                            rs.getString("MaNV"),
-                            rs.getString("Ho"),
-                            rs.getString("TenLot"),
-                            rs.getString("Ten"),
-                            rs.getString("Phai"),
-                            rs.getDate("NgaySinh"),
-                            rs.getString("SDT"),
-                            rs.getString("TinhThanh"),
-                            rs.getString("DiaChi"),
-                            rs.getInt("Luong"),
-                            rs.getString("chucVu"),
-                            rs.getString("TrangThai")
-            );
-        } else 
-            throw new Exception("Không tìm thấy nhân viên");
-    }
-      
-    public static void themNhanVien(NhanVienDTO nhanvien, int maTinh) throws Exception {
-                
+    public static void themNhanVien(NhanVienDTO nhanvien, int maTinh) throws Exception {                
         Connection con = ConnectionDAO.getConnection();
         String query = "insert into NhanVien(MaNV, Ho, TenLot, Ten, Phai, NgaySinh, SDT,"
                 + " TinhThanh, DiaChi, Luong, chucVu, TrangThai, MatKhau)\n" +
@@ -86,7 +56,7 @@ public class NhanVienDAO {
         st.setString(12, nhanVien.getMaNV());
         int res = st.executeUpdate();
     }
-    public static ArrayList<NhanVienDTO> getDanhSachNhanVien(String sortOption, String[] searchOptions, String keyWord) throws Exception {
+    public static ArrayList<NhanVienDTO> getDanhSachNhanVien() throws Exception {
         ArrayList<NhanVienDTO> res = new ArrayList<>();
         Connection conn = ConnectionDAO.getConnection();
         Statement st = conn.createStatement();
@@ -94,20 +64,7 @@ public class NhanVienDAO {
         String query = "SELECT MaNV, Ho, TenLot, Ten, Phai, NgaySinh, SDT, TenTThanh, DiaChi, Luong, chucVu, TrangThai \n" +
                 "FROM NhanVien\n" +
                 "left join TinhThanh on MaTThanh = TinhThanh\n";
-        
-        if (searchOptions.length > 0) {
-            query += String.format("Where %s like '%%%s%%'", searchOptions[0], keyWord);
-            for (int i = 1 ; i < searchOptions.length ; i++) 
-                query += String.format("or %s like '%%%s%%'", searchOptions[i], keyWord);
-            query += "\n";
-        }
-        
-        if (!sortOption.isBlank()) {
-            query += String.format("ORDER BY %s", sortOption);
-        }
-        
-//        System.out.println(query);
-        
+                
         ResultSet rs = st.executeQuery(query);
         while (rs.next()) {
             res.add(new NhanVienDTO(

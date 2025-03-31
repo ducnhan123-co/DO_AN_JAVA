@@ -4,7 +4,6 @@
  */
 package do_an_java_new.BLL;
 
-import do_an_java_new.DAO.LoginDAO;
 import do_an_java_new.DAO.NhanVienDAO;
 import do_an_java_new.DTO.NhanVienDTO;
 
@@ -13,15 +12,15 @@ import do_an_java_new.DTO.NhanVienDTO;
  * @author Administrator
  */
 public class LoginBLL {
-      public static NhanVienDTO checkLogin(String id, String password) throws Exception {
-        if (id.isBlank())
-            throw new Exception("Tên người dùng không được rỗng!");
-        if (password.isBlank())
-            throw new Exception("Mật khẩu không được rỗng!");
+    public static NhanVienDTO checkLogin(String id, String password) throws Exception {
+        if (id.isBlank() || password.isBlank())
+            throw new Exception("Hãy nhập đầy đủ thông tin!");
         
-        if (!LoginDAO.getMatKhau(id).equals(password)) 
-            throw new Exception("Sai mật khẩu!!");
+        NhanVienDTO nhanvien = NhanVienBLL.getNhanVien(id);
         
-        return NhanVienDAO.timNhanVien(id);
+        if (nhanvien == null || !nhanvien.getMaNV().equals(password))
+            throw new Exception("Sai tài khoản đăng nhập hoặc mật khẩu");
+        
+        return nhanvien;
     }
 }

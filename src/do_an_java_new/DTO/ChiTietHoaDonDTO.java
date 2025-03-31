@@ -9,7 +9,7 @@ package do_an_java_new.DTO;
  * @author Administrator
  */
 public class ChiTietHoaDonDTO {
-      private String maHD;
+    private String maHD;
     private String maHang;
     private int soLuong;
     private int donGia;

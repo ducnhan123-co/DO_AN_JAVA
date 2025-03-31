@@ -4,7 +4,7 @@
  */
 package do_an_java_new;
 
-import do_an_java_new.VIEW.MainFrame;
+import do_an_java_new.VIEW.AdminFrame;
 import java.awt.Font;
 import javax.swing.UIManager;
 

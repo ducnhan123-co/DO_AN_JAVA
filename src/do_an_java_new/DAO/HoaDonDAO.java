@@ -69,13 +69,12 @@ public class HoaDonDAO {
     }
 
     //Lấy tất cả dl của hoadon từ database
-    public ArrayList<HoaDonDTO> selectAll() {
+    public static ArrayList<HoaDonDTO> getDanhSachHoaDon() {
         ArrayList<HoaDonDTO> result = new ArrayList<HoaDonDTO>();
         try {
             Connection cn = ConnectionDAO.getConnection();
             String sql = "select * from hoadon";
             PreparedStatement st = cn.prepareStatement(sql);
-            System.out.println("Chạy câu lệnh: "+sql);
             ResultSet rs = st.executeQuery();
 
             while(rs.next()) {
