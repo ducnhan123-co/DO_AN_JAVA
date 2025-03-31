@@ -86,6 +86,12 @@ public class SanPhamBLL {
         if (sanPham.getGia() < 0) 
             throw new Exception("Giá sản phẩm không được âm.");
         
+        for (SanPhamDTO sp : listOf_product) {
+            if (sp.getMaSP().equals(sanPham.getMaSP())) {
+                throw new Exception("Mã sản phẩm đã tồn tại. Vui lòng nhập mã khác.");
+            }
+        }
+        
         int maDVT = DonViTinhBLL.getMaDVT(sanPham.getDonViTinh());
         int maloai = LoaiSPBLL.getMaLoai(sanPham.getLoaiSP());
         
