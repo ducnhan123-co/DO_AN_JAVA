@@ -22,6 +22,7 @@ public class SuaNhanVienPopUp extends NhanVienPopUp {
         this.oldNhanVien = nhanVien;
         lbID.setVisible(false);
         txtId.setVisible(false);
+        setLabel("Sửa nhân viên");
     }
     @Override
     public void xacNhan() {

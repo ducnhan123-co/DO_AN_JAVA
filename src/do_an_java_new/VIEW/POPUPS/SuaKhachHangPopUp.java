@@ -25,6 +25,7 @@ public class SuaKhachHangPopUp extends KhachHangPopUp {
         lbID.setVisible(false);
         
         this.oldKhachHang = khachHang;
+        setLabel("Sửa khách hàng");
     }
 
     @Override

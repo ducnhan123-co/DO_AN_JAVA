@@ -3,9 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/Study/university/Nam2/Java/Doan_nhom2/src/do_an_java_new/DAO/SanPhamDAO.java</file>
-            <file>file:/F:/Study/university/Nam2/Java/Doan_nhom2/src/do_an_java_new/VIEW/WorkSpaces/SanPhamPanel.java</file>
-            <file>file:/F:/Study/university/Nam2/Java/Doan_nhom2/src/do_an_java_new/BLL/SanPhamBLL.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/Do_An_JAVA/src/do_an_java_new/BLL/DonViTinhBLL.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/Do_An_JAVA/src/do_an_java_new/DAO/HoaDonDAO.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/Do_An_JAVA/src/do_an_java_new/VIEW/POPUPS/ThemNhanVienPopUp.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/Do_An_JAVA/src/do_an_java_new/DAO/ConnectionDAO.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/Do_An_JAVA/src/do_an_java_new/VIEW/StaffFrame.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/Do_An_JAVA/src/do_an_java_new/VIEW/AdminFrame.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/Do_An_JAVA/src/do_an_java_new/Login.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/Do_An_JAVA/src/do_an_java_new/BLL/NhanVienBLL.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/Do_An_JAVA/src/do_an_java_new/DO_AN_JAVA_new.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/Do_An_JAVA/src/do_an_java_new/BLL/HoaDonBLL.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/Do_An_JAVA/src/do_an_java_new/BLL/SanPhamBLL.java</file>
         </group>
     </open-files>
 </project-private>

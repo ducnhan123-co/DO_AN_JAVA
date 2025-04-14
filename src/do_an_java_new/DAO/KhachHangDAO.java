@@ -9,6 +9,7 @@ import do_an_java_new.DTO.KhachHangDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -17,14 +18,14 @@ import java.util.ArrayList;
  * @author Tran Dinh Khanh Du
  */
 public class KhachHangDAO {
-    public static ArrayList<KhachHangDTO> getDanhSachKhachHang () throws Exception {
+    public static ArrayList<KhachHangDTO> getDanhSachKhachHang() throws Exception {
         ArrayList<KhachHangDTO> res = new ArrayList<>();
-        Connection conn = ConnectionDAL.getConnection();
+        Connection conn = ConnectionDAO.getConnection();
         Statement st = conn.createStatement();
         
         String query = "SELECT MaKH, Ho, TenLot, Ten, Phai, NgaySinh, SDT, TenTThanh, DiaChi, NgayThamGia, Diem, TrangThai\n" +
             "FROM KhachHang\n" +
-            "left join TinhThanh on MaTThanh = TinhThanh";
+            "left join TinhThanh on MaTThanh = TinhThanh\n";
         
         ResultSet rs = st.executeQuery(query);
         while (rs.next()) {
@@ -43,12 +44,11 @@ public class KhachHangDAO {
                 rs.getString("TrangThai")
             ));
         }
-        ConnectionDAL.closeConnection(conn);
         return res;
     }
     
     public static void themKhachHang(KhachHangDTO khachHang, int maTinh) throws Exception {
-        Connection conn = ConnectionDAL.getConnection();
+        Connection conn = ConnectionDAO.getConnection();
         
         String query = "INSERT INTO KhachHang (MaKH, Ho, TenLot, Ten, Phai, NgaySinh, SDT, TinhThanh, DiaChi, NgayThamGia, Diem, TrangThai)  \n" +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -72,7 +72,7 @@ public class KhachHangDAO {
     }
     
     public static void suaKhachHang(KhachHangDTO khachhang, int maTinh) throws Exception {
-        Connection con = ConnectionDAL.getConnection();
+        Connection con = ConnectionDAO.getConnection();
         String query = "UPDATE KhachHang\n" +
             "SET Ho = ?, \n" +
             "    TenLot = ?, \n" +
@@ -100,6 +100,17 @@ public class KhachHangDAO {
         st.setInt(10, khachhang.getDiem());
         st.setString(11, khachhang.getTrangthai());
         st.setString(12, khachhang.getMaKH());
+        
+        st.executeUpdate();
+    }
+    
+    public static void xoaKhachHang(String makh) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "DELETE FROM khachhang\n" +
+                "WHERE MaKH = ?";
+        
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, makh);
         
         st.executeUpdate();
     }

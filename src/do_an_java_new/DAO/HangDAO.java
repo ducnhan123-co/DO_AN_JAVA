@@ -17,9 +17,9 @@ import java.util.Date;
  * @author Administrator
  */
 public class HangDAO {
-     public static ArrayList<HangDTO> getHangs() throws SQLException {
+    public static ArrayList<HangDTO> getHangs() throws SQLException {
         ArrayList<HangDTO> res = new ArrayList<>();
-        Connection conn = ConnectionDAL.getConnection();
+        Connection conn = ConnectionDAO.getConnection();
         String query = "select MaHang, hang.MaSP, TenSP, SoLuong, NgaySanXuat, GiamGia\n" +
                 "from hang\n" +
                 "inner join SanPham on SanPham.MaSP = hang.MaSP";
@@ -39,5 +39,16 @@ public class HangDAO {
         }
         
         return res ;
+    }
+    
+    public static void xoaHang(String mahang) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "DELETE FROM hang \n" +
+                "WHERE MaHang = ?";
+        
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, mahang);
+        
+        st.executeUpdate();
     }
 }

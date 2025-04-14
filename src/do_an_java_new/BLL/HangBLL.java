@@ -13,8 +13,28 @@ import java.util.ArrayList;
  * @author Administrator
  */
 public class HangBLL {
-        public static ArrayList<HangDTO> getHangs() throws SQLException {
-        return HangDAO.getHangs();
+    private static ArrayList<HangDTO> listOf_hang = null;
+    
+    public static ArrayList<HangDTO> getHangs() throws SQLException {
+        if (listOf_hang == null) 
+            listOf_hang = HangDAO.getHangs();
+        
+        return listOf_hang;
     }
 
+    public static void xoaHang(String mahang) throws SQLException {
+        HangDAO.xoaHang(mahang);
+        
+        for (int i = 0 ; i < listOf_hang.size() ; i++) 
+            if (listOf_hang.get(i).getMaHang().equals(mahang))
+                listOf_hang.remove(i);
+    }
+    
+    public static HangDTO getHang(String mahang) {
+        for (HangDTO hang: listOf_hang) 
+            if (hang.getMaHang().equals(mahang))
+                return hang;
+        
+        return null;
+    }
 }

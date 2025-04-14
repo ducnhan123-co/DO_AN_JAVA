@@ -22,7 +22,7 @@ public class HoaDonDAO {
     public int insert(HoaDonDTO hoaDon) {
         int result = 0;
         try {
-            Connection cn = ConnectionDAL.getConnection();
+            Connection cn = ConnectionDAO.getConnection();
             String sql = "insert into hoaDon(MaHD, MaKH, MaNV, tongTien, thoiGian) (?,?,?,?,?)";
             PreparedStatement st = cn.prepareStatement(sql);
             st.setString(1, hoaDon.getMaHD());
@@ -39,7 +39,7 @@ public class HoaDonDAO {
     public int update(HoaDonDTO hoaDon) {
         int result = 0;
         try {
-            Connection cn = ConnectionDAL.getConnection();
+            Connection cn = ConnectionDAO.getConnection();
             String sql = "update hoaDon set MaHD=?, MaKH=?, MaNV=?, tongTien=?";
             PreparedStatement st = cn.prepareStatement(sql);
             st.setString(1, hoaDon.getMaHD());
@@ -57,12 +57,11 @@ public class HoaDonDAO {
     public int delete(int maHD) {
         int result=0;
         try {
-            Connection cn = ConnectionDAL.getConnection();
+            Connection cn = ConnectionDAO.getConnection();
             String sql = ("delete from hoaDon where MaHD="+maHD);
             PreparedStatement st = cn.prepareStatement(sql);
             result = st.executeUpdate();
             System.out.println("Số dòng đã bị thay đổi: "+result);
-            ConnectionDAL.closeConnection(cn);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,13 +69,12 @@ public class HoaDonDAO {
     }
 
     //Lấy tất cả dl của hoadon từ database
-    public ArrayList<HoaDonDTO> selectAll() {
+    public static ArrayList<HoaDonDTO> getDanhSachHoaDon() {
         ArrayList<HoaDonDTO> result = new ArrayList<HoaDonDTO>();
         try {
-            Connection cn = ConnectionDAL.getConnection();
+            Connection cn = ConnectionDAO.getConnection();
             String sql = "select * from hoadon";
             PreparedStatement st = cn.prepareStatement(sql);
-            System.out.println("Chạy câu lệnh: "+sql);
             ResultSet rs = st.executeQuery();
 
             while(rs.next()) {
@@ -99,7 +97,7 @@ public class HoaDonDAO {
     public HoaDonDTO selectByid(String id) {
         HoaDonDTO result=null;
         try {
-            Connection cn = ConnectionDAL.getConnection();
+            Connection cn = ConnectionDAO.getConnection();
             String sql = "select * from hoadon where MaHD=?";
             PreparedStatement st = cn.prepareStatement(sql);
             st.setString(1, id);

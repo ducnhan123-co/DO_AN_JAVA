@@ -17,27 +17,14 @@ import java.sql.SQLException;
  * @author pducn
  */
 public class SanPhamDAO {
-    public static ArrayList<SanPhamDTO> getDanhSachSanPham(String sortOption, String[] searchOptions, String keyWord) throws Exception{
+    public static ArrayList<SanPhamDTO> getDanhSachSanPham() throws Exception{
         ArrayList<SanPhamDTO> res = new ArrayList<>();
-        Connection conn = ConnectionDAL.getConnection();
+        Connection conn = ConnectionDAO.getConnection();
         String query = "select MaSP, TenSP, TenLoai, TenDonVi, HSDung, SanPham.MoTa, gia, SoLuongTon\n" +
             "from SanPham \n" +
             "inner join Loai on Loai.MaLoai = SanPham.Loai\n" +
             "inner join DonVi on MaDonVi = SanPham.DonViTinh\n";
-        
-        if (searchOptions.length > 0) {
-            query += String.format("where %s like '%%%s%%'", searchOptions[0], keyWord);
-            for (int i = 1 ; i < searchOptions.length ; i++) 
-                query += String.format(" or %%%s like '%%%s'", searchOptions[i], keyWord);
-            query += "\n";
-        }
-            
-        if (!sortOption.isBlank()) {
-            query += String.format("order by %s", sortOption);
-        }
-        
-//        System.out.println(query);
-        
+                        
         PreparedStatement st = conn.prepareStatement(query);
         ResultSet rs = st.executeQuery(query);
         
@@ -52,7 +39,7 @@ public class SanPhamDAO {
 
     public static ArrayList<SanPhamDTO> timSanPham(String keyWord) throws Exception{
         ArrayList<SanPhamDTO> res = new ArrayList<>();
-        Connection conn = ConnectionDAL.getConnection();
+        Connection conn = ConnectionDAO.getConnection();
         String query = "select MaSP, TenSP, TenLoai, TenDonVi, HSDung, SanPham.MoTa, gia, SoLuongTon\n" +
             "from SanPham \n" +
             "inner join Loai on Loai.MaLoai = SanPham.Loai\n" +
@@ -70,7 +57,7 @@ public class SanPhamDAO {
     }    
     
     public static void themSanPham(SanPhamDTO sanPham, int maLoai, int maDVT) throws SQLException {
-        Connection con = ConnectionDAL.getConnection();
+        Connection con = ConnectionDAO.getConnection();
         String query = "insert into SanPham\n" +
             "values (?, ?, ?, ?, ?, ?, ?, 0)";
         
@@ -87,7 +74,7 @@ public class SanPhamDAO {
     }
     
     public static void suaSanPham(SanPhamDTO sanPham, int maLoai, int maDVT) throws SQLException {
-        Connection con = ConnectionDAL.getConnection();
+        Connection con = ConnectionDAO.getConnection();
         String query = "UPDATE SanPham "
                 + "SET TenSP = ?, Loai = ?, DonViTinh = ?, HSDung = ?, MoTa = ?, Gia = ? "
                 + "WHERE MaSP = ?";
@@ -105,5 +92,16 @@ public class SanPhamDAO {
         if (rowsUpdated == 0) {
             throw new SQLException("Không tìm thấy sản phẩm để cập nhật!");
         }
+    }
+    
+    public static void xoaSanPham(String maSP) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "DELETE FROM sanpham \n" +
+                "WHERE MaSP = ?" ;
+        
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, maSP);
+        
+        st.executeUpdate();
     }
 }

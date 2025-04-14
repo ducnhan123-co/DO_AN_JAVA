@@ -20,7 +20,7 @@ public class TinhThanhDAL {
     public static ArrayList<String> getDanhSachTinh() {
         ArrayList<String> res = new ArrayList<>();
         try{
-            Connection conn = ConnectionDAL.getConnection();
+            Connection conn = ConnectionDAO.getConnection();
             Statement st = conn.createStatement();
             String query = "select * from TinhThanh";
 
@@ -36,7 +36,7 @@ public class TinhThanhDAL {
 
     public static int getMaTinh(String tenTinh) {
         try {
-            Connection con = ConnectionDAL.getConnection();
+            Connection con = ConnectionDAO.getConnection();
             String query = "select MaTThanh\n" +
                 "from TinhThanh\n" +
                 "where TenTThanh = ?";

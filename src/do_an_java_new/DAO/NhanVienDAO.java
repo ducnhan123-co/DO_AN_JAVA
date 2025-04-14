@@ -7,41 +7,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class NhanVienDAO {
-    public static NhanVienDTO timNhanVien(String id) throws Exception {
-        Connection conn = ConnectionDAL.getConnection();
-        String query = "select MaNV, Ho, TenLot, Ten, Phai, NgaySinh, SDT, TinhThanh, DiaChi, Luong, chucVu, TrangThai\n" +
-            "from nhanvien\n" +
-            "where MaNV = ?";
-        
-        PreparedStatement st = conn.prepareStatement(query) ;
-        st.setString(1, id);
-        
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            return new NhanVienDTO(
-                            rs.getString("MaNV"),
-                            rs.getString("Ho"),
-                            rs.getString("TenLot"),
-                            rs.getString("Ten"),
-                            rs.getString("Phai"),
-                            rs.getDate("NgaySinh"),
-                            rs.getString("SDT"),
-                            rs.getString("TinhThanh"),
-                            rs.getString("DiaChi"),
-                            rs.getInt("Luong"),
-                            rs.getString("chucVu"),
-                            rs.getString("TrangThai")
-            );
-        } else 
-            throw new Exception("Không tìm thấy nhân viên");
-    }
-      
-    public static void themNhanVien(NhanVienDTO nhanvien, int maTinh) throws Exception {
-                
-        Connection con = ConnectionDAL.getConnection();
+    public static void themNhanVien(NhanVienDTO nhanvien, int maTinh) throws Exception {                
+        Connection con = ConnectionDAO.getConnection();
         String query = "insert into NhanVien(MaNV, Ho, TenLot, Ten, Phai, NgaySinh, SDT,"
                 + " TinhThanh, DiaChi, Luong, chucVu, TrangThai, MatKhau)\n" +
                 "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -64,7 +35,7 @@ public class NhanVienDAO {
         st.executeUpdate();
     }
     public static void suaNhanVien(NhanVienDTO nhanVien, int matinh) throws Exception {
-        Connection con = ConnectionDAL.getConnection();
+        Connection con = ConnectionDAO.getConnection();
         String query = "UPDATE NhanVien \n" +
             "SET Ho = ?, TenLot = ?, Ten = ?, Phai = ?, NgaySinh = ?, SDT = ?,\n" +
             "    TinhThanh = ?, DiaChi = ?, Luong = ?, ChucVu = ?, TrangThai = ?\n" +
@@ -87,12 +58,13 @@ public class NhanVienDAO {
     }
     public static ArrayList<NhanVienDTO> getDanhSachNhanVien() throws Exception {
         ArrayList<NhanVienDTO> res = new ArrayList<>();
-        Connection conn = ConnectionDAL.getConnection();
+        Connection conn = ConnectionDAO.getConnection();
         Statement st = conn.createStatement();
-        String query = "SELECT MaNV, Ho, TenLot, Ten, Phai, NgaySinh, SDT, TenTThanh, DiaChi, Luong, chucVu, TrangThai \n" +
-            "FROM NhanVien\n" +
-            "left join TinhThanh on MaTThanh = TinhThanh";
         
+        String query = "SELECT MaNV, Ho, TenLot, Ten, Phai, NgaySinh, SDT, TenTThanh, DiaChi, Luong, chucVu, TrangThai \n" +
+                "FROM NhanVien\n" +
+                "left join TinhThanh on MaTThanh = TinhThanh\n";
+                
         ResultSet rs = st.executeQuery(query);
         while (rs.next()) {
             res.add(new NhanVienDTO(
@@ -113,4 +85,14 @@ public class NhanVienDAO {
         return res;
     }
       
+    public static void xoaNhanVien(String manv) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "DELETE FROM nhanvien\n" +
+                "WHERE MaNV = ?";
+        
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, manv);
+        
+        st.executeUpdate();
+    }
 }

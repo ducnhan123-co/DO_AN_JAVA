@@ -4,7 +4,8 @@ package do_an_java_new;
 
 import do_an_java_new.BLL.LoginBLL;
 import do_an_java_new.DTO.NhanVienDTO;
-import do_an_java_new.VIEW.MainFrame;
+import do_an_java_new.VIEW.AdminFrame;
+import do_an_java_new.VIEW.StaffFrame;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -30,32 +31,25 @@ public class Login extends javax.swing.JFrame {
     
     public void signIn() {
 
-     try {
-        // Lấy dữ liệu từ giao diện
-        String id = txtUserName.getText().trim();
-        String password = new String(txtPassword.getPassword()).trim();
-        
-        // Debug để kiểm tra giá trị nhập vào
-        System.out.println("ID nhập vào: " + id);
-        System.out.println("Password nhập vào: " + password);
+        try {
+            String id = txtUserName.getText().trim();
+            String password = new String(txtPassword.getPassword()).trim();
 
-        // Kiểm tra đăng nhập
-        NhanVienDTO nhanVien = LoginBLL.checkLogin(id, password);
-        if (nhanVien != null) {
-            System.out.println("Đăng nhập thành công!");
-            // Mở giao diện chính (MainFrame) sau khi đăng nhập thành công
-            new MainFrame().setVisible(true);
-            dispose();
-        } else {
-            // Thông báo cho người dùng khi đăng nhập thất bại
-            JOptionPane.showMessageDialog(this, "Thông tin đăng nhập không hợp lệ!", "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Đăng nhập thất bại!");
-        }
-    } catch (Exception e) {
-        // Hiển thị thông báo lỗi nếu có exception
-        JOptionPane.showMessageDialog(this, "Có lỗi xảy ra: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
-    }         
+            NhanVienDTO nhanVien = LoginBLL.checkLogin(id, password);
+            switch(nhanVien.getChucVu()) {
+                case "NV":
+                    new StaffFrame(nhanVien).setVisible(true);
+                    break;
+                case "QL":
+                    new AdminFrame(nhanVien).setVisible(true);
+                default:
+                    break;
+            }
+            
+        } catch (Exception e) {
+           JOptionPane.showMessageDialog(this, "Có lỗi xảy ra: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+           e.printStackTrace();
+        }         
             
     }
 
@@ -200,11 +194,6 @@ public class Login extends javax.swing.JFrame {
                 jButton2MouseClicked(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
         jPanel9.add(jButton2);
 
         jPanel1.add(jPanel9);
@@ -229,7 +218,7 @@ public class Login extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(102, 204, 0));
         jLabel7.setText("JAVA_SWING");
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(230, 70, 120, 40);
+        jLabel7.setBounds(250, 40, 120, 40);
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/thumb-1920-37864_1.jpg"))); // NOI18N
         jLabel8.setText("jLabel8");
@@ -249,10 +238,6 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
