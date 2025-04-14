@@ -8,6 +8,7 @@ import do_an_java_new.BLL.ChiTietHoaDonBLL;
 import do_an_java_new.BLL.HangBLL;
 import do_an_java_new.BLL.HoaDonBLL;
 import do_an_java_new.DTO.ChiTietHoaDonDTO;
+import do_an_java_new.DTO.HangDTO;
 import do_an_java_new.DTO.HoaDonDTO;
 import do_an_java_new.VIEW.POPUPS.StaffPopUps.ChangeAmountPopUp;
 import do_an_java_new.VIEW.POPUPS.StaffPopUps.TimHangPopUp;
@@ -322,13 +323,24 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
         
         HoaDonDTO hoaDon = new HoaDonDTO(maHD, maKH, maNhanVien, tongTien, Date.valueOf(LocalDate.now()));
         
-        for (ChiTietHoaDonDTO ct: dsChiTietHoaDon)
+        for (ChiTietHoaDonDTO ct: dsChiTietHoaDon) {
             ct.setMaHD(maHD);
+        }
         
         try {
+            for (ChiTietHoaDonDTO ct: dsChiTietHoaDon) {    
+                HangDTO hang = HangBLL.timHang(ct.getMaHang());
+                if (ct.getSoLuong() > hang.getSoLuong())
+                    throw new Exception("Vượt quá số lượng cho phép");
+            }   
             
             HoaDonBLL.themHoaDon(hoaDon);
+            
+            for (ChiTietHoaDonDTO ct: dsChiTietHoaDon) 
+                HangBLL.updateSoLuong(ct.getMaHang(), -ct.getSoLuong());
+            
             ChiTietHoaDonBLL.themCTHD(dsChiTietHoaDon);
+            
             JOptionPane.showMessageDialog(null, "Lập hoá đơn thành công");
             
             clearData();

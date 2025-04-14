@@ -53,10 +53,27 @@ public class HangBLL {
         return null;
     }
     
-    public static void themHang(ArrayList<HangDTO> dsHang) throws SQLException {
+    public static void themHang(ArrayList<HangDTO> dsHang) throws SQLException, Exception {
         if (listOf_hang == null)
             listOf_hang = HangDAO.getHangs();
+        
         HangDAO.themHang(dsHang);
         listOf_hang.addAll(dsHang);
+        
+        for (HangDTO hang: dsHang)
+            SanPhamBLL.updateSoLuong(hang.getMaSP(), hang.getSoLuong());
     }
+    
+    public static void updateSoLuong(String maHang, int n) throws SQLException, Exception {
+        if (listOf_hang == null)
+            listOf_hang = HangDAO.getHangs();
+
+        HangDAO.updateSoLuong(maHang, n);
+        for (HangDTO hang: listOf_hang)
+            if (hang.getMaHang().equals(maHang)) {
+                hang.setSoLuong(hang.getSoLuong()+n);
+                SanPhamBLL.updateSoLuong(hang.getMaSP(), n);
+                return;
+            }
+    }    
 }

@@ -143,8 +143,17 @@ public class SanPhamBLL {
         return null;
     }
     
-    public static void updateSoLuong(String maSP, int n) throws SQLException {
+    public static void updateSoLuong(String maSP, int n) throws SQLException, Exception {
+        if (listOf_product == null) {
+            listOf_product = SanPhamDAO.getDanhSachSanPham();
+        }
+        
         SanPhamDAO.updateSoLuong(maSP, n);
+        for (SanPhamDTO sanPham: listOf_product)
+            if (sanPham.getMaSP().equals(maSP)) {
+                sanPham.setSoLuongTon(sanPham.getSoLuongTon() + n);
+                return;
+            }
     }    
     
     public static ArrayList<ThongKeSanPhamDTO> getDanhSachThongKe(Date beginDate, Date endDate) throws SQLException, Exception {

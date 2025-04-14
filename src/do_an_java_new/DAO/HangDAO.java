@@ -11,7 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 /**
  *
  * @author Administrator
@@ -79,6 +78,19 @@ public class HangDAO {
                 );
         
         PreparedStatement st = conn.prepareStatement(query);
+        st.executeUpdate();
+    }
+    
+    public static void updateSoLuong(String maHang, int n) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "UPDATE `hang` \n" +
+                "SET `SoLuong` = SoLuong + ?\n" +
+                "WHERE `hang`.`MaHang` = ?";
+        
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setInt(1, n);
+        st.setString(2, maHang);
+        
         st.executeUpdate();
     }
 }

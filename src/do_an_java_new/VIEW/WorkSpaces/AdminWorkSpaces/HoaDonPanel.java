@@ -476,8 +476,8 @@ public class HoaDonPanel extends javax.swing.JPanel {
                 model.addRow(new Object[] {
                     cthd.getMaHang(),
                     hang.getTenSP(),
-                    cthd.getDonGia(),
-                    cthd.getSoLuong()
+                    cthd.getSoLuong(),
+                    cthd.getDonGia()
                 });
             }            
         } catch (Exception e) {
