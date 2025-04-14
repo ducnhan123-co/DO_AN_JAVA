@@ -33,8 +33,8 @@ public class ChiTietHoaDonDAO {
             res.add(new ChiTietHoaDonDTO(
                     rs.getString("MaHD"),
                     rs.getString("MaHang"),
-                    rs.getInt("DonGia"),
-                    rs.getInt("SoLuong")
+                    rs.getInt("SoLuong"),
+                    rs.getInt("DonGia")
             ));
         }
         

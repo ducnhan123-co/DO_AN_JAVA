@@ -317,44 +317,45 @@ public class NhapHangPanel extends javax.swing.JPanel {
         jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jPanel4.setBackground(new java.awt.Color(153, 255, 153));
+        jPanel4.setPreferredSize(new java.awt.Dimension(250, 52));
         java.awt.GridBagLayout jPanel4Layout = new java.awt.GridBagLayout();
-        jPanel4Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
-        jPanel4Layout.rowHeights = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
+        jPanel4Layout.columnWidths = new int[] {0, 10, 0, 10, 0};
+        jPanel4Layout.rowHeights = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
         jPanel4.setLayout(jPanel4Layout);
 
         txtMaNH.setEditable(false);
         txtMaNH.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
         jPanel4.add(txtMaNH, gridBagConstraints);
 
         txtMaNCC.setEditable(false);
         txtMaNCC.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 4;
         jPanel4.add(txtMaNCC, gridBagConstraints);
 
         txtMaNV.setEditable(false);
         txtMaNV.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 8;
         jPanel4.add(txtMaNV, gridBagConstraints);
 
         txtTongTien.setEditable(false);
         txtTongTien.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 16;
         jPanel4.add(txtTongTien, gridBagConstraints);
 
         txtThoiGian.setEditable(false);
         txtThoiGian.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 12;
         jPanel4.add(txtThoiGian, gridBagConstraints);
 
         jLabel1.setText("Mã phiếu");
@@ -366,25 +367,25 @@ public class NhapHangPanel extends javax.swing.JPanel {
         jLabel2.setText("Mã nhà cung cấp");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 4;
         jPanel4.add(jLabel2, gridBagConstraints);
 
         jLabel3.setText("Mã nhân viên");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 8;
         jPanel4.add(jLabel3, gridBagConstraints);
 
         jLabel4.setText("Tổng tiền");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 16;
         jPanel4.add(jLabel4, gridBagConstraints);
 
         jLabel5.setText("Thời gian");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 12;
         jPanel4.add(jLabel5, gridBagConstraints);
 
         jPanel3.add(jPanel4, java.awt.BorderLayout.WEST);
