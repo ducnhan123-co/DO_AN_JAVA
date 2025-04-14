@@ -41,6 +41,10 @@ public class KhachHangBLL {
                     for (KhachHangDTO khachhang: listOf_khachHang) 
                         if (khachhang.getHo().contains(keyWord))
                             res.add(khachhang);
+                case 4: 
+                    for (KhachHangDTO khachhang: listOf_khachHang) 
+                        if (khachhang.getSdt().contains(keyWord))
+                            res.add(khachhang);
                     break;
             }   
         } else 
@@ -67,6 +71,9 @@ public class KhachHangBLL {
     }
     
     public static void themKhacHang(KhachHangDTO khachhang) throws Exception {
+        if (listOf_khachHang == null)
+            listOf_khachHang = KhachHangDAO.getDanhSachKhachHang();
+        
         if (khachhang.getMaKH().isBlank()) 
             throw new Exception("Ma khach hang khong dc rong");
         if (khachhang.getHo().isBlank()) 
@@ -75,7 +82,14 @@ public class KhachHangBLL {
             throw new Exception("Ten khach hang khong dc rong");
         if (khachhang.getPhai().isBlank()) 
             throw new Exception("Hay chon gioi tinh");
+        for (KhachHangDTO khach: listOf_khachHang) 
+            if (khach.getMaKH().equals(khachhang.getMaKH()))
+                throw new Exception("Mã khách hàng đã được sử dụng");
         
+        for (KhachHangDTO khachHang: listOf_khachHang) {
+            if (khachHang.getSdt().equals(khachhang.getSdt()))
+                throw new Exception("Số điện thoại đã được dùng");
+        }
         int maTinh = TinhThanhBLL.getMaTinh(khachhang.getTinh());
         
         KhachHangDAO.themKhachHang(khachhang, maTinh);
@@ -83,6 +97,9 @@ public class KhachHangBLL {
     }
     
     public static void suaKhachHang(KhachHangDTO khachhang) throws Exception {
+        if (listOf_khachHang == null)
+            listOf_khachHang = KhachHangDAO.getDanhSachKhachHang();
+        
         if(khachhang.getHo().isBlank())
             throw new Exception("Ho khong duoc rong!");
         if(khachhang.getTen().isBlank())
@@ -97,7 +114,10 @@ public class KhachHangBLL {
         }
     }    
     
-    public static void xoaKhachHang(String makh) throws SQLException {
+    public static void xoaKhachHang(String makh) throws SQLException, Exception {
+        if (listOf_khachHang == null)
+            listOf_khachHang = KhachHangDAO.getDanhSachKhachHang();
+        
         KhachHangDAO.xoaKhachHang(makh);
         
         for (int i = 0 ; i < listOf_khachHang.size() ; i++) 

@@ -6,16 +6,14 @@ package do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces;
 
 import do_an_java_new.BLL.NhanVienBLL;
 import do_an_java_new.DTO.NhanVienDTO;
-import do_an_java_new.VIEW.POPUPS.SuaNhanVienPopUp;
-import do_an_java_new.VIEW.POPUPS.ThemNhanVienPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.SuaNhanVienPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.ThemNhanVienPopUp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  *

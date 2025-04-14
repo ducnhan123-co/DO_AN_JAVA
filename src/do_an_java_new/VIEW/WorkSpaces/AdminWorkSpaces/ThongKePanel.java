@@ -15,6 +15,7 @@ public class ThongKePanel extends javax.swing.JPanel {
      */
     public ThongKePanel() {
         initComponents();
+        sanpham.add(new ThongKeSanPhamPanel());
     }
 
     /**
@@ -27,27 +28,32 @@ public class ThongKePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        sanpham = new javax.swing.JPanel();
+        nhanvien = new javax.swing.JPanel();
+        khachhang = new javax.swing.JPanel();
 
         setMaximumSize(new java.awt.Dimension(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 800));
         setPreferredSize(new java.awt.Dimension(1080, 800));
         setLayout(new java.awt.BorderLayout());
 
-        jTabbedPane1.addTab("Sản phẩm", jPanel1);
-        jTabbedPane1.addTab("Nhân viên", jPanel2);
-        jTabbedPane1.addTab("Khách hàng", jPanel3);
+        sanpham.setLayout(new java.awt.CardLayout());
+        jTabbedPane1.addTab("Sản phẩm", sanpham);
+
+        nhanvien.setLayout(new java.awt.CardLayout());
+        jTabbedPane1.addTab("Nhân viên", nhanvien);
+
+        khachhang.setLayout(new java.awt.CardLayout());
+        jTabbedPane1.addTab("Khách hàng", khachhang);
 
         add(jTabbedPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel khachhang;
+    private javax.swing.JPanel nhanvien;
+    private javax.swing.JPanel sanpham;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,36 +4,32 @@
  */
 package do_an_java_new.DAO;
 
+import do_an_java_new.DTO.ChiTietHoaDonDTO;
 import do_an_java_new.DTO.HoaDonDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.sql.SQLException;
 /**
  *
  * @author Administrator
  */
 public class HoaDonDAO {
-     public static HoaDonDAO getInstance() {
-        return new HoaDonDAO();
-    }
 
-    public int insert(HoaDonDTO hoaDon) {
-        int result = 0;
-        try {
-            Connection cn = ConnectionDAO.getConnection();
-            String sql = "insert into hoaDon(MaHD, MaKH, MaNV, tongTien, thoiGian) (?,?,?,?,?)";
-            PreparedStatement st = cn.prepareStatement(sql);
-            st.setString(1, hoaDon.getMaHD());
-            st.setString(2, hoaDon.getMaKH());
-            st.setString(3, hoaDon.getMaNV());
-            st.setInt(4, hoaDon.getTongTien());
-            st.setDate(5, hoaDon.getThoiGian());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
+    public static void themHoaDon(HoaDonDTO hoaDon) throws SQLException {
+        Connection cn = ConnectionDAO.getConnection();
+        String query = "insert into hoaDon(MaHD, MaKH, MaNV, TongTien, ThoiGian)\n"
+                + "values (?,?,?,?,current_timestamp());\n";
+        
+        PreparedStatement st = cn.prepareStatement(query);
+        st.setString(1, hoaDon.getMaHD());
+        st.setString(2, hoaDon.getMaKH());
+        st.setString(3, hoaDon.getMaNV());
+        st.setInt(4, hoaDon.getTongTien());
+               
+        st.executeUpdate();
     }
 
     public int update(HoaDonDTO hoaDon) {

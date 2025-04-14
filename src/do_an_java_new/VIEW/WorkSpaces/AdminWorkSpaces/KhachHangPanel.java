@@ -6,8 +6,8 @@ package do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces;
 
 import do_an_java_new.BLL.KhachHangBLL;
 import do_an_java_new.DTO.KhachHangDTO;
-import do_an_java_new.VIEW.POPUPS.SuaKhachHangPopUp;
-import do_an_java_new.VIEW.POPUPS.ThemKhachHangPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.SuaKhachHangPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.ThemKhachHangPopUp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
@@ -37,7 +37,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
         String keyWord = txtKeyWord.getText().trim();
         
         if (buttonGroup.getSelection() != null) 
-            searchOption = searchOption_ma.isSelected() ? 1 : searchOption_ten.isSelected() ? 2 : 3 ; 
+            searchOption = searchOption_ma.isSelected() ? 1 : searchOption_ten.isSelected() ? 2 : searchOption_ho.isSelected() ? 3 : 4 ; 
         
         DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
         model.setRowCount(0);
@@ -95,6 +95,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
         searchOption_ho = new javax.swing.JRadioButton();
         txtResultCount = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
+        searchOption_sdt = new javax.swing.JRadioButton();
 
         setMaximumSize(new java.awt.Dimension(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 800));
@@ -294,6 +295,15 @@ public class KhachHangPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         jPanel2.add(btnReset, gridBagConstraints);
 
+        buttonGroup.add(searchOption_sdt);
+        searchOption_sdt.setText("Số điện thoại");
+        searchOption_sdt.setMargin(new java.awt.Insets(2, 0, 3, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 11;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(searchOption_sdt, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 60, 0, 0);
         jPanel1.add(jPanel2, gridBagConstraints);
@@ -406,6 +416,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton searchOption_ho;
     private javax.swing.JRadioButton searchOption_ma;
+    private javax.swing.JRadioButton searchOption_sdt;
     private javax.swing.JRadioButton searchOption_ten;
     private javax.swing.JTable tbKhachHang;
     private javax.swing.JTextField txtKeyWord;

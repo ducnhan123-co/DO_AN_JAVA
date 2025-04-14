@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
 /**
  *
  * @author Administrator
@@ -33,7 +33,7 @@ public class HangDAO {
                     rs.getString("MaSP"),
                     rs.getString("TenSP"),
                     rs.getInt("SoLuong"),
-                    new Date(rs.getDate("NgaySanXuat").getTime()),
+                    rs.getDate("NgaySanXuat"),
                     rs.getInt("GiamGia")
             ));
         }
@@ -49,6 +49,36 @@ public class HangDAO {
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1, mahang);
         
+        st.executeUpdate();
+    }
+    
+    public static void themHang(ArrayList<HangDTO> dsHang) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "INSERT INTO `hang` (`MaHang`, `MaSP`, `SoLuong`, `NgaySanXuat`, `GiamGia`) \n" +
+                "VALUES\n";
+        
+        for (int i = 0 ; i < dsHang.size()-1 ; i++) {
+            HangDTO hang = dsHang.get(i);
+            query += String.format("('%s', '%s', %d, '%s', %d),\n",
+                    hang.getMaHang(),
+                    hang.getMaSP(),
+                    hang.getSoLuong(),
+                    hang.getNgaySanXuat().toString(),
+                    hang.getGiamGia()
+                    );
+        } 
+        
+        HangDTO hang = dsHang.get(dsHang.size()-1);
+        
+        query += String.format("('%s', '%s', %d, '%s', %d)\n",
+                hang.getMaHang(),
+                hang.getMaSP(),
+                hang.getSoLuong(),
+                hang.getNgaySanXuat().toString(),
+                hang.getGiamGia()
+                );
+        
+        PreparedStatement st = conn.prepareStatement(query);
         st.executeUpdate();
     }
 }

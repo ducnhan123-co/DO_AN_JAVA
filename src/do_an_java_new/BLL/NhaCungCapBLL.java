@@ -74,6 +74,9 @@ public class NhaCungCapBLL {
     public static void themNhaCungCap(NhaCungCapDTO ncc) throws Exception {
         if (ncc.getMaNCC().isBlank() || ncc.getTenNCC().isBlank() || ncc.getTenLienHe().isBlank())
             throw new Exception("Thông tin nhà cung cấp không hợp lệ");
+        for (NhaCungCapDTO sub: listOf_NCC) 
+            if (sub.getMaNCC().equals(ncc.getMaNCC()))
+                throw new Exception("Mã nhà cung cấp đã được sử dụng");
         
         int matinh = TinhThanhBLL.getMaTinh(ncc.getTinhThanh());
         

@@ -5,7 +5,7 @@
 package do_an_java_new.DTO;
 
 
-import java.util.Date;
+import java.sql.Date;
 
 
  /*

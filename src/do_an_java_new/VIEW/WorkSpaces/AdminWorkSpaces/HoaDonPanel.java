@@ -5,11 +5,11 @@
 package do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces;
 
 import do_an_java_new.BLL.ChiTietHoaDonBLL;
+import do_an_java_new.BLL.HangBLL;
 import do_an_java_new.BLL.HoaDonBLL;
-import do_an_java_new.DAO.ChiTietHoaDonDAO;
 import do_an_java_new.DTO.ChiTietHoaDonDTO;
+import do_an_java_new.DTO.HangDTO;
 import do_an_java_new.DTO.HoaDonDTO;
-import do_an_java_new.VIEW.POPUPS.HoaDonPopUp;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -31,6 +31,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         initComponents();
         
         rendertable();
+        ((DefaultTableModel)tbChiTietHoaDon.getModel()).setRowCount(0);
     }
     
     public void rendertable() {
@@ -107,7 +108,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         setMaximumSize(new java.awt.Dimension(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 800));
-        setPreferredSize(new java.awt.Dimension(1080, 800));
+        setPreferredSize(new java.awt.Dimension(1080, 240));
         setLayout(new java.awt.BorderLayout());
 
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -121,6 +122,11 @@ public class HoaDonPanel extends javax.swing.JPanel {
                 "Mã hoá đơn", "Mã khách hàng", "Mã nhân viên", "Tổng tiền", "Thời gian"
             }
         ));
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -187,11 +193,6 @@ public class HoaDonPanel extends javax.swing.JPanel {
         btnDetail.setToolTipText("");
         btnDetail.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDetail.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnDetail.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDetailMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
@@ -308,10 +309,10 @@ public class HoaDonPanel extends javax.swing.JPanel {
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel3.setMaximumSize(new java.awt.Dimension(2147483647, 500));
+        jPanel3.setPreferredSize(new java.awt.Dimension(456, 300));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         jScrollPane2.setBackground(new java.awt.Color(232, 245, 233));
-        jScrollPane2.setPreferredSize(null);
 
         tbChiTietHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -328,9 +329,9 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        jPanel4.setBackground(new java.awt.Color(102, 255, 102));
+        jPanel4.setBackground(new java.awt.Color(153, 255, 153));
         jPanel4.setToolTipText("");
-        jPanel4.setPreferredSize(new java.awt.Dimension(260, 52));
+        jPanel4.setPreferredSize(new java.awt.Dimension(250, 52));
         java.awt.GridBagLayout jPanel4Layout = new java.awt.GridBagLayout();
         jPanel4Layout.columnWidths = new int[] {0, 10, 0, 10, 0};
         jPanel4Layout.rowHeights = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
@@ -339,6 +340,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtMaHD.setEditable(false);
         txtMaHD.setMinimumSize(new java.awt.Dimension(100, 26));
         txtMaHD.setName(""); // NOI18N
+        txtMaHD.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
@@ -347,6 +349,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtMaKh.setEditable(false);
         txtMaKh.setMinimumSize(new java.awt.Dimension(100, 26));
         txtMaKh.setName(""); // NOI18N
+        txtMaKh.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 4;
@@ -355,6 +358,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtMaNV.setEditable(false);
         txtMaNV.setMinimumSize(new java.awt.Dimension(100, 26));
         txtMaNV.setName(""); // NOI18N
+        txtMaNV.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 8;
@@ -363,6 +367,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtTongTien.setEditable(false);
         txtTongTien.setMinimumSize(new java.awt.Dimension(100, 26));
         txtTongTien.setName(""); // NOI18N
+        txtTongTien.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 16;
@@ -371,6 +376,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtThoiGian.setEditable(false);
         txtThoiGian.setMinimumSize(new java.awt.Dimension(100, 26));
         txtThoiGian.setName(""); // NOI18N
+        txtThoiGian.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 12;
@@ -420,32 +426,6 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnUpdateMouseClicked
 
-    private void btnDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailMouseClicked
-        // TODO add your handling code here:
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Hãy chọn hoá đơn cần xem");
-            return;
-        }
-        
-        String mahd = (String) table.getValueAt(selectedRow, 0);
-        String makh = (String) table.getValueAt(selectedRow, 1);
-        String manv = (String) table.getValueAt(selectedRow, 2);
-        int tongTien = (int) table.getValueAt(selectedRow, 3);
-        Date thoiGian = (Date) table.getValueAt(selectedRow, 4);
-        
-        HoaDonDTO hoaDon = new HoaDonDTO(mahd, makh, manv, tongTien, thoiGian);
-        
-        ArrayList<ChiTietHoaDonDTO> dsCTHD  = null;
-        try {
-            dsCTHD = ChiTietHoaDonBLL.getCTHD(mahd);
-        } catch (SQLException ex) {
-            Logger.getLogger(HoaDonPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        new HoaDonPopUp(hoaDon, dsCTHD).setVisible(true);
-    }//GEN-LAST:event_btnDetailMouseClicked
-
     private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
         // TODO add your handling code here:
         txtKeyWord.setText("");
@@ -456,7 +436,55 @@ public class HoaDonPanel extends javax.swing.JPanel {
     private void btnRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshMouseClicked
         // TODO add your handling code here:
         rendertable();
+        txtMaHD.setText("");
+        txtMaKh.setText("");
+        txtMaNV.setText("");
+        txtTongTien.setText("");
+        txtThoiGian.setText("");
+        ((DefaultTableModel)tbChiTietHoaDon.getModel()).setRowCount(0);
     }//GEN-LAST:event_btnRefreshMouseClicked
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = table.getSelectedRow();
+        
+        String mahd = (String) table.getValueAt(selectedRow, 0);
+        String makh = (String) table.getValueAt(selectedRow, 1);
+        String manv = (String) table.getValueAt(selectedRow, 2);
+        int tongTien = (int) table.getValueAt(selectedRow, 3);
+        Date thoiGian = (Date) table.getValueAt(selectedRow, 4);
+        
+        txtMaHD.setText(mahd);
+        txtMaKh.setText(makh);
+        txtMaNV.setText(manv);
+        txtTongTien.setText(String.format("%d", tongTien));
+        txtThoiGian.setText(thoiGian.toString());
+        
+        ArrayList<ChiTietHoaDonDTO> dsCTHD  = null;
+        try {
+            dsCTHD = ChiTietHoaDonBLL.getCTHD(mahd);
+        } catch (SQLException ex) {
+            Logger.getLogger(HoaDonPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tbChiTietHoaDon.getModel();
+        model.setRowCount(0);
+        
+        try {
+            for (ChiTietHoaDonDTO cthd: dsCTHD) {
+                HangDTO hang = HangBLL.timHang(cthd.getMaHang());
+                model.addRow(new Object[] {
+                    cthd.getMaHang(),
+                    hang.getTenSP(),
+                    cthd.getDonGia(),
+                    cthd.getSoLuong()
+                });
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+ 
+    }//GEN-LAST:event_tableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

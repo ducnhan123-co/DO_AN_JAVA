@@ -4,15 +4,18 @@
  */
 package do_an_java_new.VIEW;
 
+import do_an_java_new.BLL.NhanVienBLL;
 import do_an_java_new.DTO.NhanVienDTO;
 import do_an_java_new.Login;
 import do_an_java_new.VIEW.WorkSpaces.TrangChuPanel;
-import do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces.SanPhamPanel;
+import do_an_java_new.VIEW.WorkSpaces.StaffWorkSpaces.LapHoaDonPanel;
+import do_an_java_new.VIEW.WorkSpaces.StaffWorkSpaces.NhapHangPanel;
+import do_an_java_new.VIEW.WorkSpaces.StaffWorkSpaces.ThemKhachhangPanel;
+import do_an_java_new.VIEW.WorkSpaces.StaffWorkSpaces.ThongTinNhanVien;
 import java.awt.CardLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -21,29 +24,39 @@ import javax.swing.SwingUtilities;
 public class StaffFrame extends javax.swing.JFrame {
     private String currentPanel;
     private CardLayout cardLayout;
-    private final TrangChuPanel trangChuPanel;
+    private NhanVienDTO nhanVien;
     //tuong tu
     /**
      * Creates new form MainFrame
      */
-       public String getCurrentPanel() {
+    public String getCurrentPanel() {
         return currentPanel;
     }
+    
     public StaffFrame() throws Exception {
         initComponents();
-        cardLayout = (CardLayout) pnCenter.getLayout();
-        trangChuPanel = new TrangChuPanel();
         
-        pnCenter.add(trangChuPanel,"TRANGCHU");
+        renderCenterPanel();
+        cardLayout = (CardLayout) pnCenter.getLayout();
     }
     
     public StaffFrame(NhanVienDTO nhanVien) throws Exception {
         initComponents();
-        cardLayout = (CardLayout) pnCenter.getLayout();
-        trangChuPanel = new TrangChuPanel();
-        pnCenter.add(trangChuPanel,"TRANGCHU");
+        this.nhanVien = nhanVien;
+        
         jLabel4.setText(String.format("<html>%s<br><small>STAFF</small></html> ", nhanVien.getFullName()));
+        
+        renderCenterPanel();
+        cardLayout = (CardLayout) pnCenter.getLayout();
     }    
+    
+    private void renderCenterPanel() {
+        pnCenter.add(new TrangChuPanel(),"TRANGCHU");
+        pnCenter.add(new LapHoaDonPanel(nhanVien.getMaNV()), "HOADON");
+        pnCenter.add(new NhapHangPanel(nhanVien.getMaNV()), "NHAPHANG");
+        pnCenter.add(new ThemKhachhangPanel(), "KHACHHANG");
+        pnCenter.add(new ThongTinNhanVien(nhanVien), "THONGTIN");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,6 +73,9 @@ public class StaffFrame extends javax.swing.JFrame {
         SignOut = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        TrangChu1 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         TrangChu = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -69,6 +85,9 @@ public class StaffFrame extends javax.swing.JFrame {
         Quan_ly_nhap_hang = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        Quan_ly_khach_hang = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         pnCenter = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -113,6 +132,38 @@ public class StaffFrame extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(153, 255, 204));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
+        TrangChu1.setBackground(new java.awt.Color(153, 255, 204));
+        TrangChu1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        TrangChu1.setForeground(new java.awt.Color(255, 255, 255));
+        TrangChu1.setMaximumSize(new java.awt.Dimension(2147483647, 50));
+        TrangChu1.setOpaque(true);
+        TrangChu1.setPreferredSize(new java.awt.Dimension(195, 40));
+        TrangChu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TrangChu1MouseClicked(evt);
+            }
+        });
+        TrangChu1.setLayout(new java.awt.GridBagLayout());
+
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Info - Copy.png"))); // NOI18N
+        jLabel12.setFocusable(false);
+        jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.2;
+        TrangChu1.add(jLabel12, gridBagConstraints);
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel6.setText("Thông tin");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.8;
+        TrangChu1.add(jLabel6, gridBagConstraints);
+
+        jPanel1.add(TrangChu1);
+
         TrangChu.setBackground(new java.awt.Color(153, 255, 204));
         TrangChu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         TrangChu.setForeground(new java.awt.Color(255, 255, 255));
@@ -138,11 +189,6 @@ public class StaffFrame extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText(" Trang chủ");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.8;
@@ -156,6 +202,11 @@ public class StaffFrame extends javax.swing.JFrame {
         Quan_ly_hoa_don.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         Quan_ly_hoa_don.setOpaque(true);
         Quan_ly_hoa_don.setPreferredSize(new java.awt.Dimension(195, 40));
+        Quan_ly_hoa_don.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Quan_ly_hoa_donMouseClicked(evt);
+            }
+        });
         Quan_ly_hoa_don.setLayout(new java.awt.GridBagLayout());
 
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -187,6 +238,11 @@ public class StaffFrame extends javax.swing.JFrame {
         Quan_ly_nhap_hang.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         Quan_ly_nhap_hang.setOpaque(true);
         Quan_ly_nhap_hang.setPreferredSize(new java.awt.Dimension(195, 40));
+        Quan_ly_nhap_hang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Quan_ly_nhap_hangMouseClicked(evt);
+            }
+        });
         Quan_ly_nhap_hang.setLayout(new java.awt.GridBagLayout());
 
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -211,6 +267,42 @@ public class StaffFrame extends javax.swing.JFrame {
         Quan_ly_nhap_hang.add(jLabel11, gridBagConstraints);
 
         jPanel1.add(Quan_ly_nhap_hang);
+
+        Quan_ly_khach_hang.setBackground(new java.awt.Color(153, 255, 204));
+        Quan_ly_khach_hang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        Quan_ly_khach_hang.setForeground(new java.awt.Color(255, 255, 255));
+        Quan_ly_khach_hang.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        Quan_ly_khach_hang.setOpaque(true);
+        Quan_ly_khach_hang.setPreferredSize(new java.awt.Dimension(195, 40));
+        Quan_ly_khach_hang.setLayout(new java.awt.GridBagLayout());
+
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/icons8-customer-16.png"))); // NOI18N
+        jLabel22.setFocusable(false);
+        jLabel22.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(1, 3, 0, 0);
+        Quan_ly_khach_hang.add(jLabel22, gridBagConstraints);
+
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel9.setText("Thêm khách Hàng");
+        jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 0.8;
+        Quan_ly_khach_hang.add(jLabel9, gridBagConstraints);
+
+        jPanel1.add(Quan_ly_khach_hang);
 
         pnLeft.add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -238,17 +330,29 @@ public class StaffFrame extends javax.swing.JFrame {
 
     private void TrangChuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TrangChuMouseClicked
         // TODO add your handling code here:
-        SwingUtilities.invokeLater(() -> {
-            CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
-            cardLayout.show(pnCenter, "TRANGCHU");
-
-            pnCenter.revalidate();  // Cập nhật layout ngay
-            pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
-        });
+        cardLayout.show(pnCenter, "TRANGCHU");
+        
     }//GEN-LAST:event_TrangChuMouseClicked
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-    }//GEN-LAST:event_jLabel5MouseClicked
+    private void Quan_ly_hoa_donMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Quan_ly_hoa_donMouseClicked
+        // TODO add your handling code here:
+        cardLayout.show(pnCenter, "HOADON");
+    }//GEN-LAST:event_Quan_ly_hoa_donMouseClicked
+
+    private void Quan_ly_nhap_hangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Quan_ly_nhap_hangMouseClicked
+        // TODO add your handling code here:
+        cardLayout.show(pnCenter, "NHAPHANG");
+    }//GEN-LAST:event_Quan_ly_nhap_hangMouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        // TODO add your handling code here:
+        cardLayout.show(pnCenter, "KHACHHANG");
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void TrangChu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TrangChu1MouseClicked
+        // TODO add your handling code here:
+        cardLayout.show(pnCenter, "THONGTIN");
+    }//GEN-LAST:event_TrangChu1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -284,7 +388,7 @@ public class StaffFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new StaffFrame().setVisible(true);
+                    new StaffFrame(NhanVienBLL.getNhanVien("dutran")).setVisible(true);
                 } catch (Exception ex) {
                     Logger.getLogger(StaffFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -295,17 +399,23 @@ public class StaffFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Quan_ly_hoa_don;
+    private javax.swing.JPanel Quan_ly_khach_hang;
     private javax.swing.JPanel Quan_ly_nhap_hang;
     private javax.swing.JPanel SignOut;
     private javax.swing.JPanel TrangChu;
+    private javax.swing.JPanel TrangChu1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel pnCenter;
     private javax.swing.JPanel pnLeft;

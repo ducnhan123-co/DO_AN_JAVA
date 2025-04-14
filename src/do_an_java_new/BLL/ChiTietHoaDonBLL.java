@@ -37,4 +37,12 @@ public class ChiTietHoaDonBLL {
         return listOf_ChiTietHoaDon;
     }
 
+    public static void themCTHD(ArrayList<ChiTietHoaDonDTO> dsCTHD) throws SQLException {
+        if (listOf_ChiTietHoaDon == null)
+            listOf_ChiTietHoaDon = ChiTietHoaDonDAO.getDanhSachCTHD();
+        
+        ChiTietHoaDonDAO.themCTHD(dsCTHD);
+        
+        listOf_ChiTietHoaDon.addAll(dsCTHD);
+    }
 }

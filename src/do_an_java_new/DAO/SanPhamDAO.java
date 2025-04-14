@@ -8,8 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
+import java.sql.Date;
 import do_an_java_new.DTO.SanPhamDTO;
+import do_an_java_new.DTO.ThongKeSanPhamDTO;
 import java.sql.SQLException;
 
 /**
@@ -103,5 +104,49 @@ public class SanPhamDAO {
         st.setString(1, maSP);
         
         st.executeUpdate();
+    }
+    
+    public static void updateSoLuong(String maSP, int n) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "UPDATE `sanpham` \n" +
+                "SET `SoLuongTon` = SoLuongTon + ?\n" +
+                "WHERE `sanpham`.`MaSP` =  ?";
+        
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setInt(1, n);
+        st.setString(2, maSP);
+        
+        st.executeUpdate();
+    }
+    
+    public static ArrayList<ThongKeSanPhamDTO> getDanhSachThongKe(Date beginDate, Date endDate) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "SELECT sanpham.MaSP, sanpham.TenSP, SUM(chitiethoadon.SoLuong) as 'soluong', SUM(chitiethoadon.DonGia * chitiethoadon.SoLuong) as 'DoanhThu'\n" +
+                "FROM `chitiethoadon` \n" +
+                "INNER join hang on chitiethoadon.MaHang = hang.MaHang\n" +
+                "INNER join sanpham on sanpham.MaSP = hang.MaSP\n" +
+                "where chitiethoadon.MaHD in (\n" +
+                "	SELECT MaHD\n" +
+                "    from hoadon\n" +
+                "    where hoadon.ThoiGian BETWEEN ? and ?\n" +
+                ") \n" +
+                "GROUP by sanpham.MaSP, sanpham.TenSP";
+        
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setDate(1, beginDate);
+        st.setDate(2, endDate);
+        
+        ArrayList<ThongKeSanPhamDTO> res = new ArrayList<>();
+        
+        ResultSet rs = st.executeQuery();
+        while (rs.next())
+            res.add(new ThongKeSanPhamDTO(
+                    rs.getString("MaSP"),
+                    rs.getString("TenSP"),
+                    rs.getInt("soluong"),
+                    rs.getInt("DoanhThu")
+            ));
+        
+        return res;
     }
 }

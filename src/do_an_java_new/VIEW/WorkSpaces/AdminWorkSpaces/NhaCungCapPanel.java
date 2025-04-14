@@ -6,8 +6,8 @@ package do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces;
 
 import do_an_java_new.BLL.NhaCungCapBLL;
 import do_an_java_new.DTO.NhaCungCapDTO;
-import do_an_java_new.VIEW.POPUPS.SuaNhaCungCapPopUp;
-import do_an_java_new.VIEW.POPUPS.ThemNhaCungCapPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.SuaNhaCungCapPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.ThemNhaCungCapPopUp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;

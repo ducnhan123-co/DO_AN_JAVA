@@ -10,14 +10,13 @@ import do_an_java_new.BLL.SanPhamBLL;
 import do_an_java_new.DTO.HangDTO;
 import do_an_java_new.DTO.LoaiSPDTO;
 import do_an_java_new.DTO.SanPhamDTO;
-import do_an_java_new.VIEW.POPUPS.SuaLoaiSpPopUp;
-import do_an_java_new.VIEW.POPUPS.SuaSanPhamPopUp;
-import do_an_java_new.VIEW.POPUPS.ThemLoaiSPPopUp;
-import do_an_java_new.VIEW.POPUPS.ThemSanPhamPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.SuaLoaiSpPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.SuaSanPhamPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.ThemLoaiSPPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.ThemSanPhamPopUp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,15 +29,12 @@ import javax.swing.table.DefaultTableModel;
  * @author pducn
  */
 public class SanPhamPanel extends javax.swing.JPanel {
-    private SanPhamBLL sanPhamBLL;
-    private LoaiSPBLL loaiSPBLL;
     /**
      * Creates new form NhanVienPanel
      */
     public SanPhamPanel() throws Exception {
         initComponents();
-        sanPhamBLL = new SanPhamBLL();
-        loaiSPBLL = new LoaiSPBLL();
+
         loadDataToTable();
     }
     
@@ -57,7 +53,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
             searchOption = searchOption_ma.isSelected() ? 1 : searchOption_loai.isSelected() ? 2 : 3 ;
         
         try {
-            listSP = sanPhamBLL.getDanhSachSanPham(sortOption, searchOption, keyWord);
+            listSP = SanPhamBLL.getDanhSachSanPham(sortOption, searchOption, keyWord);
         } catch (Exception ex) {
             Logger.getLogger(SanPhamPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,7 +85,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         
         try {
-            dsLoai = loaiSPBLL.getDanhSachLoaiSP();
+            dsLoai = LoaiSPBLL.getDanhSachLoaiSP();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -531,7 +527,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 
                 if (JOptionPane.showConfirmDialog(null, "Bạn thật sự muốn xoá sản phẩm này?", "Xoá sản phẩm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     try {
-                        sanPhamBLL.xoaSanPham(sanpham.getMaSP());
+                        SanPhamBLL.xoaSanPham(sanpham.getMaSP());
                         JOptionPane.showMessageDialog(null, "Xoá sản phẩm thành công");
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -547,7 +543,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 
                 if (JOptionPane.showConfirmDialog(null, "Bạn thật sự muốn xoá loại sản phẩm này?", "Xoá loại sản phẩm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     try {
-                        loaiSPBLL.xoaLoaiSP(loai.getMaLoai());
+                        LoaiSPBLL.xoaLoaiSP(loai.getMaLoai());
                         JOptionPane.showMessageDialog(null, "Xoá loại sản phẩm thành công");
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, ex.getMessage());

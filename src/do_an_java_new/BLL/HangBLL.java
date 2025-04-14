@@ -21,6 +21,18 @@ public class HangBLL {
         
         return listOf_hang;
     }
+    
+    public static ArrayList<HangDTO> getHangs(String maHang) throws SQLException {
+        if (listOf_hang == null) 
+            listOf_hang = HangDAO.getHangs();
+        
+        ArrayList<HangDTO> res = new ArrayList<>();
+        for (HangDTO hang: listOf_hang)
+            if (hang.getMaHang().equals(maHang))
+                res.add(hang);
+        
+        return res;
+    }
 
     public static void xoaHang(String mahang) throws SQLException {
         HangDAO.xoaHang(mahang);
@@ -30,11 +42,21 @@ public class HangBLL {
                 listOf_hang.remove(i);
     }
     
-    public static HangDTO getHang(String mahang) {
+    public static HangDTO timHang(String mahang) throws SQLException {
+        if (listOf_hang == null)
+            listOf_hang = HangDAO.getHangs();
+        
         for (HangDTO hang: listOf_hang) 
             if (hang.getMaHang().equals(mahang))
                 return hang;
         
         return null;
+    }
+    
+    public static void themHang(ArrayList<HangDTO> dsHang) throws SQLException {
+        if (listOf_hang == null)
+            listOf_hang = HangDAO.getHangs();
+        HangDAO.themHang(dsHang);
+        listOf_hang.addAll(dsHang);
     }
 }

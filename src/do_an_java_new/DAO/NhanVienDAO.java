@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -54,7 +53,7 @@ public class NhanVienDAO {
         st.setString(10, nhanVien.getChucVu());
         st.setString(11, nhanVien.getTrangthai());
         st.setString(12, nhanVien.getMaNV());
-        int res = st.executeUpdate();
+        st.executeUpdate();
     }
     public static ArrayList<NhanVienDTO> getDanhSachNhanVien() throws Exception {
         ArrayList<NhanVienDTO> res = new ArrayList<>();
@@ -92,6 +91,19 @@ public class NhanVienDAO {
         
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1, manv);
+        
+        st.executeUpdate();
+    }
+    
+    public static void doiMatKhau(String id, String password) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "UPDATE `nhanvien` \n" +
+                "SET `MatKhau` = ? \n" +
+                "WHERE `MaNV` = ?";
+        
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, password);
+        st.setString(2, id);
         
         st.executeUpdate();
     }

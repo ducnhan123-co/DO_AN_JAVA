@@ -5,6 +5,7 @@
 package do_an_java_new.BLL;
 
 import do_an_java_new.DAO.NhanVienDAO;
+import do_an_java_new.DAO.PasswordDAO;
 import do_an_java_new.DTO.NhanVienDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -85,7 +86,9 @@ public class NhanVienBLL {
         if (nhanvien.getLuong() < 0)
             throw new IllegalArgumentException("Luong khong duoc nho hon 0");
         int maTinh = TinhThanhBLL.getMaTinh(nhanvien.getTinh());
-        
+        for (NhanVienDTO nhanVien: listOf_nhanVien) 
+            if (nhanVien.getMaNV().equals(nhanvien.getMaNV()))
+                throw new Exception("Mã nhân viên đã được sử dụng");
         NhanVienDAO.themNhanVien(nhanvien, maTinh);
         listOf_nhanVien.add(nhanvien);
     }
@@ -115,5 +118,18 @@ public class NhanVienBLL {
                 return nhanvien;
         
         return null;
+    }
+    
+    public static void DoiMatKhau(String id, String oldPassWord, String newPassWord) throws Exception {
+        if (id.isBlank() || oldPassWord.isBlank() || newPassWord.isBlank())
+            throw new Exception("Hãy nhập đầy đủ thông tin");
+        
+        if (oldPassWord.equals(newPassWord))
+            throw new Exception("Mật khẩu mới không được trùng với mật khẩu cũ");
+        
+        if (PasswordDAO.checkPassword(id, oldPassWord) == null)
+            throw new Exception("Thông tin chưa chính xác");
+        
+        NhanVienDAO.doiMatKhau(id, newPassWord);
     }
 }

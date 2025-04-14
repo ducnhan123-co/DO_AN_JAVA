@@ -41,23 +41,20 @@ public class ChiTietHoaDonDAO {
         return res;
     }
 
-    public int insert(ChiTietHoaDonDTO chiTietHoaDon) {
-        int result=0;
-        try {
-            Connection cn = ConnectionDAO.getConnection();
-            String sql = "insert into chitiethoadon(Mahd, Mahang, soluong, dongia) value=(?,?,?,?)";
-            PreparedStatement st = cn.prepareStatement(sql);
-            st.setString(1, chiTietHoaDon.getMaHD());
-            st.setString(2, chiTietHoaDon.getMaHang());
-            st.setInt(3, chiTietHoaDon.getSoLuong());
-            st.setInt(4, chiTietHoaDon.getDonGia());
-            result = st.executeUpdate();
-            System.out.println("Số dòng bị thay đổi: "+result);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
+    public static void themCTHD(ArrayList<ChiTietHoaDonDTO> dsCTHD) throws SQLException {
+        Connection cn = ConnectionDAO.getConnection();
+        String query = "insert into chitiethoadon(Mahd, Mahang, soluong, dongia) "
+                + "values\n";
+        for (int i = 0 ; i < dsCTHD.size()-1 ; i++) {
+            ChiTietHoaDonDTO ct = dsCTHD.get(i);
+            query += String.format("('%s', '%s', %s ,%s),\n", ct.getMaHD(), ct.getMaHang(), ct.getSoLuong(), ct.getDonGia());
+        } 
+        
+        ChiTietHoaDonDTO ct = dsCTHD.get(dsCTHD.size()-1);
+        query += String.format("('%s', '%s', %s ,%s)", ct.getMaHD(), ct.getMaHang(), ct.getSoLuong(), ct.getDonGia());
+        
+        PreparedStatement st = cn.prepareStatement(query);
+        st.executeUpdate();
     }
 
     public int update(ChiTietHoaDonDTO chiTietHoaDon) {

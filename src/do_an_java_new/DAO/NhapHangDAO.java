@@ -35,4 +35,18 @@ public class NhapHangDAO {
         
         return res ;
     }
+    
+    public static void themNhapHang(NhapHangDTO nh) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = String.format("INSERT INTO `phieunhaphang` (`MaPhieu`, `MaNCCap`, `NguoiNhap`, `TongTien`, `ThoiGian`) "
+                + "VALUES ('%s', '%s', '%s', %d, current_timestamp());\n", 
+                nh.getMaPhieu(),
+                nh.getMaNCC(),
+                nh.getMaNV(),
+                nh.getTongTien()
+                );
+               
+        PreparedStatement st = conn.prepareStatement(query);
+        st.executeUpdate();
+    }
 }

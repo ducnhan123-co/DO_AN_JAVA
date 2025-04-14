@@ -1,4 +1,8 @@
 /*
+    
+    public static void suaSanPham(SanPhamDTO sanPham) throws SQLException, Exception {
+        if (sanPham.getMaSP().isBlank()) 
+        throw new Exception("Mã sản phẩm k
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -6,9 +10,11 @@ package do_an_java_new.BLL;
 
 import do_an_java_new.DAO.SanPhamDAO;
 import do_an_java_new.DTO.SanPhamDTO;
+import do_an_java_new.DTO.ThongKeSanPhamDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.sql.Date;
 
 /**
  *
@@ -122,5 +128,28 @@ public class SanPhamBLL {
             if (listOf_product.get(i).getMaSP().equals(maSP))
                 listOf_product.remove(i);
         }
+    }
+    
+    public static SanPhamDTO timSanPham(String masp) throws Exception {
+        if (listOf_product == null) {
+            listOf_product = SanPhamDAO.getDanhSachSanPham();
+        }
+        
+        for (SanPhamDTO sanpham: listOf_product) {
+            if (sanpham.getMaSP().equals(masp))
+                return sanpham;
+        }
+        
+        return null;
+    }
+    
+    public static void updateSoLuong(String maSP, int n) throws SQLException {
+        SanPhamDAO.updateSoLuong(maSP, n);
+    }    
+    
+    public static ArrayList<ThongKeSanPhamDTO> getDanhSachThongKe(Date beginDate, Date endDate) throws SQLException, Exception {
+        if (beginDate.compareTo(endDate) > 0)
+            throw new Exception("Ngày thống kê không hợp lệ");
+        return SanPhamDAO.getDanhSachThongKe(beginDate, endDate);
     }
 }

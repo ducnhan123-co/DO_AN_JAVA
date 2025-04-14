@@ -106,7 +106,9 @@ public class AdminFrame extends javax.swing.JFrame {
 
         pnLeft = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        SignOutPanel = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         TrangChu = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -134,9 +136,6 @@ public class AdminFrame extends javax.swing.JFrame {
         Quan_ly_thong_ke = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        TrangChu10 = new javax.swing.JPanel();
-        jLabel36 = new javax.swing.JLabel();
         pnCenter = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -148,6 +147,7 @@ public class AdminFrame extends javax.swing.JFrame {
         pnLeft.setMaximumSize(new java.awt.Dimension(200, 400));
         pnLeft.setMinimumSize(new java.awt.Dimension(200, 400));
         pnLeft.setPreferredSize(new java.awt.Dimension(200, 0));
+        pnLeft.setLayout(new java.awt.BorderLayout());
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -157,27 +157,32 @@ public class AdminFrame extends javax.swing.JFrame {
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel4.setVerifyInputWhenFocusTarget(false);
         jLabel4.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        pnLeft.add(jLabel4);
+        pnLeft.add(jLabel4, java.awt.BorderLayout.PAGE_START);
 
-        jPanel7.setBackground(new java.awt.Color(153, 255, 204));
-        jPanel7.setPreferredSize(new java.awt.Dimension(195, 20));
+        SignOutPanel.setBackground(new java.awt.Color(255, 153, 255));
+        SignOutPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        SignOutPanel.setForeground(new java.awt.Color(255, 255, 255));
+        SignOutPanel.setOpaque(true);
+        SignOutPanel.setPreferredSize(new java.awt.Dimension(199, 40));
+        SignOutPanel.setLayout(new java.awt.GridLayout(1, 3, 0, 100));
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 195, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
+        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel36.setText("Đăng Xuất");
+        jLabel36.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel36MouseClicked(evt);
+            }
+        });
+        SignOutPanel.add(jLabel36);
 
-        pnLeft.add(jPanel7);
+        pnLeft.add(SignOutPanel, java.awt.BorderLayout.PAGE_END);
+
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
         TrangChu.setBackground(new java.awt.Color(153, 255, 204));
-        TrangChu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        TrangChu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         TrangChu.setForeground(new java.awt.Color(255, 255, 255));
+        TrangChu.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         TrangChu.setOpaque(true);
         TrangChu.setPreferredSize(new java.awt.Dimension(195, 40));
         TrangChu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -209,11 +214,12 @@ public class AdminFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.8;
         TrangChu.add(jLabel5, gridBagConstraints);
 
-        pnLeft.add(TrangChu);
+        jPanel1.add(TrangChu);
 
         Quan_ly_san_pham.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_san_pham.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        Quan_ly_san_pham.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_san_pham.setForeground(new java.awt.Color(255, 255, 255));
+        Quan_ly_san_pham.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_san_pham.setOpaque(true);
         Quan_ly_san_pham.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_san_pham.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -249,11 +255,12 @@ public class AdminFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.8;
         Quan_ly_san_pham.add(jLabel6, gridBagConstraints);
 
-        pnLeft.add(Quan_ly_san_pham);
+        jPanel1.add(Quan_ly_san_pham);
 
         Quan_ly_nhan_vien.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_nhan_vien.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        Quan_ly_nhan_vien.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_nhan_vien.setForeground(new java.awt.Color(255, 255, 255));
+        Quan_ly_nhan_vien.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_nhan_vien.setOpaque(true);
         Quan_ly_nhan_vien.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_nhan_vien.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -289,11 +296,12 @@ public class AdminFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.8;
         Quan_ly_nhan_vien.add(jLabel7, gridBagConstraints);
 
-        pnLeft.add(Quan_ly_nhan_vien);
+        jPanel1.add(Quan_ly_nhan_vien);
 
         Quan_ly_khach_hang.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_khach_hang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        Quan_ly_khach_hang.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_khach_hang.setForeground(new java.awt.Color(255, 255, 255));
+        Quan_ly_khach_hang.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_khach_hang.setOpaque(true);
         Quan_ly_khach_hang.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_khach_hang.setLayout(new java.awt.GridBagLayout());
@@ -324,11 +332,12 @@ public class AdminFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.8;
         Quan_ly_khach_hang.add(jLabel9, gridBagConstraints);
 
-        pnLeft.add(Quan_ly_khach_hang);
+        jPanel1.add(Quan_ly_khach_hang);
 
         Quan_ly_khach_hang1.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_khach_hang1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        Quan_ly_khach_hang1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_khach_hang1.setForeground(new java.awt.Color(255, 255, 255));
+        Quan_ly_khach_hang1.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_khach_hang1.setOpaque(true);
         Quan_ly_khach_hang1.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_khach_hang1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -364,11 +373,12 @@ public class AdminFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.8;
         Quan_ly_khach_hang1.add(jLabel13, gridBagConstraints);
 
-        pnLeft.add(Quan_ly_khach_hang1);
+        jPanel1.add(Quan_ly_khach_hang1);
 
         Quan_ly_hoa_don.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_hoa_don.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        Quan_ly_hoa_don.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_hoa_don.setForeground(new java.awt.Color(255, 255, 255));
+        Quan_ly_hoa_don.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_hoa_don.setOpaque(true);
         Quan_ly_hoa_don.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_hoa_don.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -404,11 +414,12 @@ public class AdminFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.8;
         Quan_ly_hoa_don.add(jLabel10, gridBagConstraints);
 
-        pnLeft.add(Quan_ly_hoa_don);
+        jPanel1.add(Quan_ly_hoa_don);
 
         Quan_ly_nhap_hang.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_nhap_hang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        Quan_ly_nhap_hang.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_nhap_hang.setForeground(new java.awt.Color(255, 255, 255));
+        Quan_ly_nhap_hang.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_nhap_hang.setOpaque(true);
         Quan_ly_nhap_hang.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_nhap_hang.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -444,11 +455,12 @@ public class AdminFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.8;
         Quan_ly_nhap_hang.add(jLabel11, gridBagConstraints);
 
-        pnLeft.add(Quan_ly_nhap_hang);
+        jPanel1.add(Quan_ly_nhap_hang);
 
         Quan_ly_khuyen_mai.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_khuyen_mai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        Quan_ly_khuyen_mai.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_khuyen_mai.setForeground(new java.awt.Color(255, 255, 255));
+        Quan_ly_khuyen_mai.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_khuyen_mai.setOpaque(true);
         Quan_ly_khuyen_mai.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_khuyen_mai.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -484,11 +496,12 @@ public class AdminFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.8;
         Quan_ly_khuyen_mai.add(jLabel12, gridBagConstraints);
 
-        pnLeft.add(Quan_ly_khuyen_mai);
+        jPanel1.add(Quan_ly_khuyen_mai);
 
         Quan_ly_thong_ke.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_thong_ke.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        Quan_ly_thong_ke.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_thong_ke.setForeground(new java.awt.Color(255, 255, 255));
+        Quan_ly_thong_ke.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_thong_ke.setOpaque(true);
         Quan_ly_thong_ke.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_thong_ke.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -524,41 +537,9 @@ public class AdminFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.8;
         Quan_ly_thong_ke.add(jLabel14, gridBagConstraints);
 
-        pnLeft.add(Quan_ly_thong_ke);
+        jPanel1.add(Quan_ly_thong_ke);
 
-        jPanel4.setBackground(new java.awt.Color(153, 255, 204));
-        jPanel4.setPreferredSize(new java.awt.Dimension(195, 100));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 195, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        pnLeft.add(jPanel4);
-
-        TrangChu10.setBackground(new java.awt.Color(255, 153, 255));
-        TrangChu10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
-        TrangChu10.setForeground(new java.awt.Color(255, 255, 255));
-        TrangChu10.setOpaque(true);
-        TrangChu10.setPreferredSize(new java.awt.Dimension(199, 40));
-        TrangChu10.setLayout(new java.awt.GridLayout(1, 3, 0, 100));
-
-        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel36.setText("Đăng Xuất");
-        jLabel36.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel36MouseClicked(evt);
-            }
-        });
-        TrangChu10.add(jLabel36);
-
-        pnLeft.add(TrangChu10);
+        pnLeft.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(pnLeft, java.awt.BorderLayout.WEST);
 
@@ -823,8 +804,8 @@ currentPanel="NHANVIEN";
     private javax.swing.JPanel Quan_ly_nhap_hang;
     private javax.swing.JPanel Quan_ly_san_pham;
     private javax.swing.JPanel Quan_ly_thong_ke;
+    private javax.swing.JPanel SignOutPanel;
     private javax.swing.JPanel TrangChu;
-    private javax.swing.JPanel TrangChu10;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -845,8 +826,7 @@ currentPanel="NHANVIEN";
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel pnCenter;
     private javax.swing.JPanel pnLeft;
     // End of variables declaration//GEN-END:variables

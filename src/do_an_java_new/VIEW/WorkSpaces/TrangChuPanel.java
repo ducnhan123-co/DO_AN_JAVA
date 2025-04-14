@@ -32,27 +32,12 @@ public class TrangChuPanel extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 800));
         setPreferredSize(new java.awt.Dimension(1080, 800));
+        setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 204, 0));
         jLabel1.setText("CHÀO MỪNG ĐẾN VỚI CỬA HÀNG THỰC PHẨM");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(288, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(249, 249, 249))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(301, 301, 301)
-                .addComponent(jLabel1)
-                .addContainerGap(467, Short.MAX_VALUE))
-        );
+        add(jLabel1, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
 
 

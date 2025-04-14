@@ -65,6 +65,17 @@ public class NhapHangBLL {
         }
         
         return res;
+    }
+    
+    public static void themNhapHang(NhapHangDTO nh) throws Exception {
+        if (nh.getMaNV().isBlank() || nh.getMaNCC().isBlank())
+            throw new Exception("Hãy nhập đầy đủ thông tin");
         
+        if (listOf_nhapHang == null) 
+            listOf_nhapHang = NhapHangDAO.getDanhSachNhapHang();
+        
+        NhapHangDAO.themNhapHang(nh);
+        
+        listOf_nhapHang.add(nh);
     }
 }

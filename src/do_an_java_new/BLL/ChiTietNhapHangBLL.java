@@ -35,4 +35,12 @@ public class ChiTietNhapHangBLL {
         
         return res;
     }
+    
+    public static void themCTNH(ArrayList<ChiTietNhapHangDTO> dsCTNH) throws SQLException {
+        if (listOf_CTNH == null) 
+            listOf_CTNH = ChiTietNhaphangDAO.getDanhSachCTNH();
+        
+        ChiTietNhaphangDAO.themCTNH(dsCTNH);
+        listOf_CTNH.addAll(dsCTNH);
+    }
 }

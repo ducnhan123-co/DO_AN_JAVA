@@ -5,14 +5,16 @@
 package do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces;
 
 import do_an_java_new.BLL.ChiTietNhapHangBLL;
+import do_an_java_new.BLL.HangBLL;
 import do_an_java_new.BLL.NhapHangBLL;
 import do_an_java_new.DTO.ChiTietNhapHangDTO;
+import do_an_java_new.DTO.HangDTO;
 import do_an_java_new.DTO.NhapHangDTO;
-import do_an_java_new.VIEW.POPUPS.NhapHangPopUp;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
+import java.sql.SQLException;
 
 /**
  *
@@ -27,6 +29,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
         initComponents();
         
         renderTable();
+        ((DefaultTableModel)tbChiTietNhapHang.getModel()).setRowCount(0);
     }
     
     public void renderTable() {
@@ -50,7 +53,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
                     nh.getThoiGian()
                 });
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
@@ -84,6 +87,20 @@ public class NhapHangPanel extends javax.swing.JPanel {
         searchOption_nv = new javax.swing.JRadioButton();
         searchOption_ncc = new javax.swing.JRadioButton();
         searchOption_ma = new javax.swing.JRadioButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbChiTietNhapHang = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        txtMaNH = new javax.swing.JTextField();
+        txtMaNCC = new javax.swing.JTextField();
+        txtMaNV = new javax.swing.JTextField();
+        txtTongTien = new javax.swing.JTextField();
+        txtThoiGian = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 800));
@@ -101,6 +118,11 @@ public class NhapHangPanel extends javax.swing.JPanel {
                 "Mã phiếu", "Mã nhà cung cấp", "Mã nhân viên nhập", "Tổng tiền", "Thời gian"
             }
         ));
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -167,11 +189,6 @@ public class NhapHangPanel extends javax.swing.JPanel {
         btnDetail.setToolTipText("");
         btnDetail.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDetail.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnDetail.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDetailMouseClicked(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
@@ -226,6 +243,11 @@ public class NhapHangPanel extends javax.swing.JPanel {
         jPanel2.add(txtKeyWord, gridBagConstraints);
 
         btnRefresh.setText("Refresh");
+        btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRefreshMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 0;
@@ -275,6 +297,99 @@ public class NhapHangPanel extends javax.swing.JPanel {
         jPanel1.add(jPanel2, gridBagConstraints);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        jPanel3.setPreferredSize(new java.awt.Dimension(1000, 300));
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        tbChiTietNhapHang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Mã hàng", "Tên sản phẩm", "Số lượng", "Đơn giá"
+            }
+        ));
+        jScrollPane2.setViewportView(tbChiTietNhapHang);
+
+        jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jPanel4.setBackground(new java.awt.Color(153, 255, 153));
+        java.awt.GridBagLayout jPanel4Layout = new java.awt.GridBagLayout();
+        jPanel4Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
+        jPanel4Layout.rowHeights = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
+        jPanel4.setLayout(jPanel4Layout);
+
+        txtMaNH.setEditable(false);
+        txtMaNH.setPreferredSize(new java.awt.Dimension(100, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        jPanel4.add(txtMaNH, gridBagConstraints);
+
+        txtMaNCC.setEditable(false);
+        txtMaNCC.setPreferredSize(new java.awt.Dimension(100, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        jPanel4.add(txtMaNCC, gridBagConstraints);
+
+        txtMaNV.setEditable(false);
+        txtMaNV.setPreferredSize(new java.awt.Dimension(100, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        jPanel4.add(txtMaNV, gridBagConstraints);
+
+        txtTongTien.setEditable(false);
+        txtTongTien.setPreferredSize(new java.awt.Dimension(100, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 8;
+        jPanel4.add(txtTongTien, gridBagConstraints);
+
+        txtThoiGian.setEditable(false);
+        txtThoiGian.setPreferredSize(new java.awt.Dimension(100, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 6;
+        jPanel4.add(txtThoiGian, gridBagConstraints);
+
+        jLabel1.setText("Mã phiếu");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanel4.add(jLabel1, gridBagConstraints);
+
+        jLabel2.setText("Mã nhà cung cấp");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        jPanel4.add(jLabel2, gridBagConstraints);
+
+        jLabel3.setText("Mã nhân viên");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        jPanel4.add(jLabel3, gridBagConstraints);
+
+        jLabel4.setText("Tổng tiền");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        jPanel4.add(jLabel4, gridBagConstraints);
+
+        jLabel5.setText("Thời gian");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        jPanel4.add(jLabel5, gridBagConstraints);
+
+        jPanel3.add(jPanel4, java.awt.BorderLayout.WEST);
+
+        add(jPanel3, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseClicked
@@ -285,38 +400,63 @@ public class NhapHangPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnUpdateMouseClicked
 
-    private void btnDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailMouseClicked
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(null, "Hãy chọn hoá đơn cần xem");
-            return;
-        }
-        
-        String manh = (String) table.getValueAt(selectedRow, 0);
-        String mancc = (String) table.getValueAt(selectedRow, 1);
-        String manv = (String) table.getValueAt(selectedRow, 2);
-        int tongTien = (int) table.getValueAt(selectedRow, 3);
-        Date thoiGian = (Date) table.getValueAt(selectedRow, 4);
-        
-        NhapHangDTO nhapHang = new NhapHangDTO(manh, mancc, manv, tongTien, thoiGian);
-        
-        ArrayList<ChiTietNhapHangDTO> dsCTNH  = null;
-        try {
-            dsCTNH = ChiTietNhapHangBLL.getCTNH(manh);
-        } catch (Exception exception) {
-            JOptionPane.showMessageDialog(null, exception.getMessage());
-        }
-        
-        new NhapHangPopUp(nhapHang, dsCTNH).setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDetailMouseClicked
-
     private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
         // TODO add your handling code here:
         txtKeyWord.setText("");
         cbbSortOption.setSelectedIndex(0);
         buttonGroup.clearSelection();
     }//GEN-LAST:event_btnResetMouseClicked
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = table.getSelectedRow();
+        
+        String manh = (String) table.getValueAt(selectedRow, 0);
+        String mancc = (String) table.getValueAt(selectedRow, 1);
+        String manv = (String) table.getValueAt(selectedRow, 2);
+        int tongTien = (int) table.getValueAt(selectedRow, 3);
+        Date thoiGian = (Date) table.getValueAt(selectedRow, 4);
+                
+        ArrayList<ChiTietNhapHangDTO> dsCTNH  = null;
+        try {
+            dsCTNH = ChiTietNhapHangBLL.getCTNH(manh);
+        } catch (SQLException exception) {
+            JOptionPane.showMessageDialog(null, exception.getMessage());
+        }
+        
+        txtMaNH.setText(manh);
+        txtMaNCC.setText(mancc);
+        txtMaNV.setText(manv);
+        txtTongTien.setText(String.format("%d", tongTien));
+        txtThoiGian.setText(thoiGian.toString());
+        
+        DefaultTableModel model = (DefaultTableModel) tbChiTietNhapHang.getModel();
+        model.setRowCount(0);
+        
+        try {
+            for (ChiTietNhapHangDTO ctnh: dsCTNH) {
+                HangDTO hang = HangBLL.timHang(ctnh.getMaHang());
+                model.addRow(new Object[] {
+                    ctnh.getMaHang(),
+                    hang.getTenSP(),
+                    ctnh.getSoLuong(),
+                    ctnh.getDonGia()
+                });
+            }
+        } catch (SQLException e) {
+        }
+    }//GEN-LAST:event_tableMouseClicked
+
+    private void btnRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshMouseClicked
+        // TODO add your handling code here:
+        renderTable();
+        txtMaNH.setText("");
+        txtMaNCC.setText("");
+        txtMaNV.setText("");
+        txtTongTien.setText("");
+        txtThoiGian.setText("");
+        ((DefaultTableModel) tbChiTietNhapHang.getModel()).setRowCount(0);
+    }//GEN-LAST:event_btnRefreshMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -328,16 +468,30 @@ public class NhapHangPanel extends javax.swing.JPanel {
     private javax.swing.JLabel btnUpdate;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JComboBox<String> cbbSortOption;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton searchOption_ma;
     private javax.swing.JRadioButton searchOption_ncc;
     private javax.swing.JRadioButton searchOption_nv;
     private javax.swing.JTable table;
+    private javax.swing.JTable tbChiTietNhapHang;
     private javax.swing.JTextField txtKeyWord;
+    private javax.swing.JTextField txtMaNCC;
+    private javax.swing.JTextField txtMaNH;
+    private javax.swing.JTextField txtMaNV;
     private javax.swing.JLabel txtResultCount;
+    private javax.swing.JTextField txtThoiGian;
+    private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
 }
