@@ -105,6 +105,7 @@ public class AdminFrame extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         pnLeft = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         SignOutPanel = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
@@ -142,13 +143,17 @@ public class AdminFrame extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setPreferredSize(new java.awt.Dimension(1280, 720));
 
-        pnLeft.setBackground(new java.awt.Color(153, 255, 204));
+        pnLeft.setBackground(new java.awt.Color(255, 255, 255));
         pnLeft.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 255, 51), 4, true));
         pnLeft.setMaximumSize(new java.awt.Dimension(200, 400));
         pnLeft.setMinimumSize(new java.awt.Dimension(200, 400));
         pnLeft.setPreferredSize(new java.awt.Dimension(200, 0));
         pnLeft.setLayout(new java.awt.BorderLayout());
 
+        jPanel2.setBackground(new java.awt.Color(6, 117, 60));
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/desktop48.png"))); // NOI18N
@@ -157,9 +162,11 @@ public class AdminFrame extends javax.swing.JFrame {
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel4.setVerifyInputWhenFocusTarget(false);
         jLabel4.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        pnLeft.add(jLabel4, java.awt.BorderLayout.PAGE_START);
+        jPanel2.add(jLabel4, java.awt.BorderLayout.PAGE_START);
 
-        SignOutPanel.setBackground(new java.awt.Color(255, 153, 255));
+        pnLeft.add(jPanel2, java.awt.BorderLayout.PAGE_START);
+
+        SignOutPanel.setBackground(new java.awt.Color(255, 102, 102));
         SignOutPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         SignOutPanel.setForeground(new java.awt.Color(255, 255, 255));
         SignOutPanel.setOpaque(true);
@@ -177,14 +184,14 @@ public class AdminFrame extends javax.swing.JFrame {
 
         pnLeft.add(SignOutPanel, java.awt.BorderLayout.PAGE_END);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
-        TrangChu.setBackground(new java.awt.Color(153, 255, 204));
-        TrangChu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        TrangChu.setBackground(new java.awt.Color(153, 255, 153));
+        TrangChu.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
         TrangChu.setForeground(new java.awt.Color(255, 255, 255));
         TrangChu.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         TrangChu.setOpaque(true);
-        TrangChu.setPreferredSize(new java.awt.Dimension(195, 40));
         TrangChu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TrangChuMouseClicked(evt);
@@ -202,7 +209,7 @@ public class AdminFrame extends javax.swing.JFrame {
         TrangChu.add(jLabel8, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel5.setForeground(new java.awt.Color(0, 82, 39));
         jLabel5.setText(" Trang chủ");
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -216,12 +223,11 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jPanel1.add(TrangChu);
 
-        Quan_ly_san_pham.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_san_pham.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Quan_ly_san_pham.setBackground(new java.awt.Color(153, 255, 153));
+        Quan_ly_san_pham.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
         Quan_ly_san_pham.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_san_pham.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_san_pham.setOpaque(true);
-        Quan_ly_san_pham.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_san_pham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Quan_ly_san_phamMouseClicked(evt);
@@ -240,7 +246,7 @@ public class AdminFrame extends javax.swing.JFrame {
         Quan_ly_san_pham.add(jLabel20, gridBagConstraints);
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel6.setForeground(new java.awt.Color(0, 82, 39));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText(" Sản Phẩm");
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -257,12 +263,11 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jPanel1.add(Quan_ly_san_pham);
 
-        Quan_ly_nhan_vien.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_nhan_vien.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Quan_ly_nhan_vien.setBackground(new java.awt.Color(153, 255, 153));
+        Quan_ly_nhan_vien.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
         Quan_ly_nhan_vien.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_nhan_vien.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_nhan_vien.setOpaque(true);
-        Quan_ly_nhan_vien.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_nhan_vien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Quan_ly_nhan_vienMouseClicked(evt);
@@ -281,7 +286,7 @@ public class AdminFrame extends javax.swing.JFrame {
         Quan_ly_nhan_vien.add(jLabel21, gridBagConstraints);
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel7.setForeground(new java.awt.Color(0, 82, 39));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Nhân Viên");
         jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -298,12 +303,11 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jPanel1.add(Quan_ly_nhan_vien);
 
-        Quan_ly_khach_hang.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_khach_hang.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Quan_ly_khach_hang.setBackground(new java.awt.Color(153, 255, 153));
+        Quan_ly_khach_hang.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
         Quan_ly_khach_hang.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_khach_hang.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_khach_hang.setOpaque(true);
-        Quan_ly_khach_hang.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_khach_hang.setLayout(new java.awt.GridBagLayout());
 
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -317,7 +321,7 @@ public class AdminFrame extends javax.swing.JFrame {
         Quan_ly_khach_hang.add(jLabel22, gridBagConstraints);
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel9.setForeground(new java.awt.Color(0, 82, 39));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("Khách Hàng");
         jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -334,12 +338,11 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jPanel1.add(Quan_ly_khach_hang);
 
-        Quan_ly_khach_hang1.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_khach_hang1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Quan_ly_khach_hang1.setBackground(new java.awt.Color(153, 255, 153));
+        Quan_ly_khach_hang1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
         Quan_ly_khach_hang1.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_khach_hang1.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_khach_hang1.setOpaque(true);
-        Quan_ly_khach_hang1.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_khach_hang1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Quan_ly_khach_hang1MouseClicked(evt);
@@ -358,7 +361,7 @@ public class AdminFrame extends javax.swing.JFrame {
         Quan_ly_khach_hang1.add(jLabel26, gridBagConstraints);
 
         jLabel13.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel13.setForeground(new java.awt.Color(0, 82, 39));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("Nhà cung cấp");
         jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -375,12 +378,11 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jPanel1.add(Quan_ly_khach_hang1);
 
-        Quan_ly_hoa_don.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_hoa_don.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Quan_ly_hoa_don.setBackground(new java.awt.Color(153, 255, 153));
+        Quan_ly_hoa_don.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
         Quan_ly_hoa_don.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_hoa_don.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_hoa_don.setOpaque(true);
-        Quan_ly_hoa_don.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_hoa_don.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Quan_ly_hoa_donMouseClicked(evt);
@@ -399,7 +401,7 @@ public class AdminFrame extends javax.swing.JFrame {
         Quan_ly_hoa_don.add(jLabel23, gridBagConstraints);
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel10.setForeground(new java.awt.Color(0, 82, 39));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Hoá Đơn");
         jLabel10.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -416,12 +418,11 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jPanel1.add(Quan_ly_hoa_don);
 
-        Quan_ly_nhap_hang.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_nhap_hang.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Quan_ly_nhap_hang.setBackground(new java.awt.Color(153, 255, 153));
+        Quan_ly_nhap_hang.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
         Quan_ly_nhap_hang.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_nhap_hang.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_nhap_hang.setOpaque(true);
-        Quan_ly_nhap_hang.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_nhap_hang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Quan_ly_nhap_hangMouseClicked(evt);
@@ -440,7 +441,7 @@ public class AdminFrame extends javax.swing.JFrame {
         Quan_ly_nhap_hang.add(jLabel24, gridBagConstraints);
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel11.setForeground(new java.awt.Color(0, 82, 39));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("Nhập hàng");
         jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -457,12 +458,11 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jPanel1.add(Quan_ly_nhap_hang);
 
-        Quan_ly_khuyen_mai.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_khuyen_mai.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Quan_ly_khuyen_mai.setBackground(new java.awt.Color(153, 255, 153));
+        Quan_ly_khuyen_mai.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
         Quan_ly_khuyen_mai.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_khuyen_mai.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_khuyen_mai.setOpaque(true);
-        Quan_ly_khuyen_mai.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_khuyen_mai.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Quan_ly_khuyen_maiMouseClicked(evt);
@@ -481,7 +481,7 @@ public class AdminFrame extends javax.swing.JFrame {
         Quan_ly_khuyen_mai.add(jLabel25, gridBagConstraints);
 
         jLabel12.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel12.setForeground(new java.awt.Color(0, 82, 39));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("Khuyến mãi");
         jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -498,12 +498,11 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jPanel1.add(Quan_ly_khuyen_mai);
 
-        Quan_ly_thong_ke.setBackground(new java.awt.Color(153, 255, 204));
-        Quan_ly_thong_ke.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Quan_ly_thong_ke.setBackground(new java.awt.Color(153, 255, 153));
+        Quan_ly_thong_ke.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
         Quan_ly_thong_ke.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_thong_ke.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_thong_ke.setOpaque(true);
-        Quan_ly_thong_ke.setPreferredSize(new java.awt.Dimension(195, 40));
         Quan_ly_thong_ke.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Quan_ly_thong_keMouseClicked(evt);
@@ -522,7 +521,7 @@ public class AdminFrame extends javax.swing.JFrame {
         Quan_ly_thong_ke.add(jLabel32, gridBagConstraints);
 
         jLabel14.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel14.setForeground(new java.awt.Color(0, 82, 39));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel14.setText("Thống kê");
         jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -543,7 +542,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
         getContentPane().add(pnLeft, java.awt.BorderLayout.WEST);
 
-        pnCenter.setBackground(new java.awt.Color(204, 255, 204));
+        pnCenter.setBackground(new java.awt.Color(255, 255, 255));
         pnCenter.setMaximumSize(new java.awt.Dimension(1080, 800));
         pnCenter.setMinimumSize(new java.awt.Dimension(1080, 800));
         pnCenter.setPreferredSize(new java.awt.Dimension(1080, 800));
@@ -827,6 +826,7 @@ currentPanel="NHANVIEN";
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel pnCenter;
     private javax.swing.JPanel pnLeft;
     // End of variables declaration//GEN-END:variables

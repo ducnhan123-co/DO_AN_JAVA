@@ -78,7 +78,7 @@ public class TimHangPopUp extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnXacNhan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -183,14 +183,14 @@ public class TimHangPopUp extends javax.swing.JFrame {
         });
         jPanel5.add(jButton1);
 
-        jButton2.setBackground(new java.awt.Color(153, 255, 153));
-        jButton2.setText("Xác nhận");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnXacNhan.setBackground(new java.awt.Color(153, 255, 153));
+        btnXacNhan.setText("Xác nhận");
+        btnXacNhan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                btnXacNhanMouseClicked(evt);
             }
         });
-        jPanel5.add(jButton2);
+        jPanel5.add(btnXacNhan);
 
         getContentPane().add(jPanel5, java.awt.BorderLayout.PAGE_END);
 
@@ -213,7 +213,7 @@ public class TimHangPopUp extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void btnXacNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXacNhanMouseClicked
         // TODO add your handling code here:
         int selectedRow = tbHang.getSelectedRow();
         if (selectedRow < 0) {
@@ -226,19 +226,25 @@ public class TimHangPopUp extends javax.swing.JFrame {
 
         HangDTO hang = null;
         SanPhamDTO sanpham = null;
+        
         try {
             hang = HangBLL.timHang(maHang);
             sanpham = SanPhamBLL.timSanPham(hang.getMaSP());
+            if (hang.getSoLuong() < soLuong) 
+                throw new Exception("Vượt quá số lượng cho phép");   
+            
         } catch (Exception ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            return;
         }
+        
         int donGia = sanpham.getGia()*(100 - hang.getGiamGia())/100;
 
         res.setMaHang(maHang);
         res.setSoLuong(soLuong);
         res.setDonGia(donGia);
         dispose();
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_btnXacNhanMouseClicked
 
     /**
      * @param args the command line arguments
@@ -279,8 +285,8 @@ public class TimHangPopUp extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnXacNhan;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

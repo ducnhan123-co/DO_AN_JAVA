@@ -102,6 +102,8 @@ public class KhachHangPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1080, 800));
         setLayout(new java.awt.BorderLayout());
 
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 3, new java.awt.Color(0, 0, 0)));
+
         tbKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -114,12 +116,14 @@ public class KhachHangPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setBackground(new java.awt.Color(0, 173, 59));
         jPanel1.setMaximumSize(new java.awt.Dimension(0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(976, 97));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         btnInsert.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnInsert.setForeground(new java.awt.Color(255, 255, 255));
         btnInsert.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Add.png"))); // NOI18N
         btnInsert.setText("Thêm");
@@ -139,6 +143,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
         jPanel1.add(btnInsert, gridBagConstraints);
 
         btnDelete.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Delete.png"))); // NOI18N
         btnDelete.setText("Xoá");
         btnDelete.setToolTipText("");
@@ -158,6 +163,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
         jPanel1.add(btnDelete, gridBagConstraints);
 
         btnUpdate.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Pencil.png"))); // NOI18N
         btnUpdate.setText("Sua");
         btnUpdate.setToolTipText("");
@@ -176,6 +182,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
         jPanel1.add(btnUpdate, gridBagConstraints);
 
         btnDetail.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnDetail.setForeground(new java.awt.Color(255, 255, 255));
         btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Info.png"))); // NOI18N
         btnDetail.setText("Chi tiết");
         btnDetail.setToolTipText("");
@@ -194,6 +201,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
         jPanel1.add(btnDetail, gridBagConstraints);
 
         jLabel29.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Google Sheets.png"))); // NOI18N
         jLabel29.setText("Xuất excel");
         jLabel29.setToolTipText("");
@@ -207,6 +215,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
         jPanel1.add(jLabel29, gridBagConstraints);
 
         jLabel30.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Document.png"))); // NOI18N
         jLabel30.setText("Nhập excel");
         jLabel30.setToolTipText("");
@@ -219,7 +228,8 @@ public class KhachHangPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel30, gridBagConstraints);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(91, 187, 70));
+        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 3, new java.awt.Color(51, 51, 51)));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         cbbSortOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "A-Z", "Z-A", "Điểm tăng dần", "Điểm giảm dần", "" }));

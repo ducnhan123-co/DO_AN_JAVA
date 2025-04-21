@@ -121,16 +121,23 @@ public class SanPhamDAO {
     
     public static ArrayList<ThongKeSanPhamDTO> getDanhSachThongKe(Date beginDate, Date endDate) throws SQLException {
         Connection conn = ConnectionDAO.getConnection();
-        String query = "SELECT sanpham.MaSP, sanpham.TenSP, SUM(chitiethoadon.SoLuong) as 'soluong', SUM(chitiethoadon.DonGia * chitiethoadon.SoLuong) as 'DoanhThu'\n" +
-                "FROM `chitiethoadon` \n" +
-                "INNER join hang on chitiethoadon.MaHang = hang.MaHang\n" +
-                "INNER join sanpham on sanpham.MaSP = hang.MaSP\n" +
-                "where chitiethoadon.MaHD in (\n" +
-                "	SELECT MaHD\n" +
-                "    from hoadon\n" +
-                "    where hoadon.ThoiGian BETWEEN ? and ?\n" +
-                ") \n" +
-                "GROUP by sanpham.MaSP, sanpham.TenSP";
+        String query = "SELECT sanpham.MaSP, sanpham.TenSP, SUM(sub.soLuongBan) as 'soLuongBan', SUM(sub.doanhThu) as 'doanhThu', SUM(sub.doanhThu)-SUM(chitietpnhap.DonGia*sub.soLuongBan) as 'loiNhuan'\n" +
+                "FROM sanpham\n" +
+                "INNER JOIN hang on hang.MaSP = sanpham.MaSP\n" +
+                "INNER JOIN chitietpnhap on chitietpnhap.MaHang = hang.MaHang\n" +
+                "INNER JOIN (\n" +
+                "	SELECT chitiethoadon.MaHang, SUM(chitiethoadon.SoLuong) as 'soLuongBan', SUM(chitiethoadon.SoLuong * chitiethoadon.DonGia) as 'doanhThu'\n" +
+                "    FROM chitiethoadon\n" +
+                "    WHERE chitiethoadon.MaHD in (\n" +
+                "    	SELECT MaHD\n" +
+                "        FROM hoadon\n" +
+                "        WHERE hoadon.ThoiGian BETWEEN ? and ? \n" +
+                "    )\n" +
+                "    GROUP BY chitiethoadon.MaHang\n" +
+                ") sub on sub.MaHang = hang.MaHang\n" +
+                "\n" +
+                "GROUP BY sanpham.MaSP, sanpham.TenSP\n"+
+                "ORDER BY loiNhuan desc";
         
         PreparedStatement st = conn.prepareStatement(query);
         st.setDate(1, beginDate);
@@ -143,8 +150,9 @@ public class SanPhamDAO {
             res.add(new ThongKeSanPhamDTO(
                     rs.getString("MaSP"),
                     rs.getString("TenSP"),
-                    rs.getInt("soluong"),
-                    rs.getInt("DoanhThu")
+                    rs.getInt("soLuongBan"),
+                    rs.getInt("doanhThu"), 
+                    rs.getInt("loiNhuan")
             ));
         
         return res;

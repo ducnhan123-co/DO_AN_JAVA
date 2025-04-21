@@ -4,6 +4,10 @@
  */
 package do_an_java_new.VIEW.WorkSpaces;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author pducn
@@ -17,6 +21,13 @@ public class TrangChuPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        Image img = new ImageIcon("src/do_an_java_new/Resources/trangChu.jpg").getImage();
+        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,22 +37,13 @@ public class TrangChuPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-
-        setBackground(new java.awt.Color(153, 255, 153));
         setMaximumSize(new java.awt.Dimension(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 800));
         setPreferredSize(new java.awt.Dimension(1080, 800));
-        setLayout(new java.awt.GridBagLayout());
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 204, 0));
-        jLabel1.setText("CHÀO MỪNG ĐẾN VỚI CỬA HÀNG THỰC PHẨM");
-        add(jLabel1, new java.awt.GridBagConstraints());
+        setLayout(new java.awt.BorderLayout());
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

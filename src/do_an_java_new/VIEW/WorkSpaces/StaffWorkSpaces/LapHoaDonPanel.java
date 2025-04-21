@@ -328,12 +328,6 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
         }
         
         try {
-            for (ChiTietHoaDonDTO ct: dsChiTietHoaDon) {    
-                HangDTO hang = HangBLL.timHang(ct.getMaHang());
-                if (ct.getSoLuong() > hang.getSoLuong())
-                    throw new Exception("Vượt quá số lượng cho phép");
-            }   
-            
             HoaDonBLL.themHoaDon(hoaDon);
             
             for (ChiTietHoaDonDTO ct: dsChiTietHoaDon) 
