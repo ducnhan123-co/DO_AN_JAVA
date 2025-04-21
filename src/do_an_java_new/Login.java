@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 
 /**
- *okok
+ *
  * @author pducn
  */ 
 public class Login extends javax.swing.JFrame {
