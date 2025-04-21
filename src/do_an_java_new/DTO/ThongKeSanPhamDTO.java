@@ -11,14 +11,25 @@ package do_an_java_new.DTO;
  */
 public class ThongKeSanPhamDTO {
     String maSP, tenSP;
-    int soLuong, doanhThu;
+    int soLuong, doanhThu, loiNhuan;
 
-    public ThongKeSanPhamDTO(String maSP, String tenSP, int soLuong, int doanhThu) {
+    public ThongKeSanPhamDTO(String maSP, String tenSP, int soLuong, int doanhThu, int loiNhuan) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.soLuong = soLuong;
         this.doanhThu = doanhThu;
-    }public String getMaSP() {
+        this.loiNhuan = loiNhuan;
+    }
+
+    public int getLoiNhuan() {
+        return loiNhuan;
+    }
+
+    public void setLoiNhuan(int loiNhuan) {
+        this.loiNhuan = loiNhuan;
+    }
+    
+    public String getMaSP() {
         return maSP;
     }
 

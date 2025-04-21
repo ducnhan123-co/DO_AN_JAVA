@@ -5,6 +5,7 @@ package do_an_java_new;
 import do_an_java_new.BLL.LoginBLL;
 import do_an_java_new.DTO.NhanVienDTO;
 import do_an_java_new.VIEW.AdminFrame;
+import do_an_java_new.VIEW.ImageContainer;
 import do_an_java_new.VIEW.StaffFrame;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -26,11 +27,11 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         txtUserName.requestFocus();
+        backGround.add(new ImageContainer("src\\do_an_java_new\\Resources\\food.jpg"));
     }
     
     
     public void signIn() {
-
         try {
             String id = txtUserName.getText().trim();
             String password = new String(txtPassword.getPassword()).trim();
@@ -83,12 +84,10 @@ public class Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         txtUserName = new javax.swing.JTextField();
@@ -96,69 +95,35 @@ public class Login extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
-        jPanel8 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        backGround = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1000, 450));
-        setPreferredSize(new java.awt.Dimension(1000, 400));
+        setPreferredSize(new java.awt.Dimension(860, 485));
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(0, 0));
-        jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
-        jPanel1.setPreferredSize(new java.awt.Dimension(440, 0));
+        jPanel4.setBackground(new java.awt.Color(68, 155, 75));
+        jPanel4.setPreferredSize(new java.awt.Dimension(1, 100));
+        jPanel4.setLayout(new java.awt.BorderLayout());
 
-        jPanel4.setPreferredSize(new java.awt.Dimension(400, 104));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 242, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Đăng nhập ");
+        jPanel4.add(jLabel1, java.awt.BorderLayout.CENTER);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 255, 0));
-        jLabel1.setText("WELCOME BACK,ADMIN");
+        getContentPane().add(jPanel4, java.awt.BorderLayout.PAGE_START);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(117, 117, 117)
-                .addComponent(jLabel1)
-                .addContainerGap(122, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
-        );
+        jPanel5.setForeground(new java.awt.Color(255, 255, 255));
+        java.awt.GridBagLayout jPanel5Layout = new java.awt.GridBagLayout();
+        jPanel5Layout.columnWidths = new int[] {0};
+        jPanel5Layout.rowHeights = new int[] {0, 30, 0, 30, 0};
+        jPanel5.setLayout(jPanel5Layout);
 
-        jPanel1.add(jPanel4);
-
-        jPanel3.setPreferredSize(new java.awt.Dimension(400, 50));
-
-        jButton1.setBackground(new java.awt.Color(204, 255, 204));
-        jButton1.setText("Đăng nhập với google");
-        jButton1.setPreferredSize(new java.awt.Dimension(250, 30));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButton1);
-
-        jPanel1.add(jPanel3);
-
-        jPanel5.setPreferredSize(new java.awt.Dimension(400, 140));
-
-        jPanel7.setPreferredSize(new java.awt.Dimension(250, 50));
         jPanel7.setLayout(new java.awt.BorderLayout(0, 4));
 
+        txtUserName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUserName.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtUserName.setRequestFocusEnabled(false);
         txtUserName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtUserNameKeyPressed(evt);
@@ -166,17 +131,24 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel7.add(txtUserName, java.awt.BorderLayout.CENTER);
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Tên tài khoản");
         jPanel7.add(jLabel3, java.awt.BorderLayout.PAGE_START);
 
-        jPanel5.add(jPanel7);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanel5.add(jPanel7, gridBagConstraints);
 
-        jPanel6.setPreferredSize(new java.awt.Dimension(250, 50));
         jPanel6.setLayout(new java.awt.BorderLayout(0, 4));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Mật khẩu");
         jPanel6.add(jLabel2, java.awt.BorderLayout.PAGE_START);
 
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPassword.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtPassword.setRequestFocusEnabled(false);
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPasswordActionPerformed(evt);
@@ -189,65 +161,30 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel6.add(txtPassword, java.awt.BorderLayout.CENTER);
 
-        jPanel5.add(jPanel6);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        jPanel5.add(jPanel6, gridBagConstraints);
 
-        jPanel8.setPreferredSize(new java.awt.Dimension(250, 20));
-        jPanel8.setLayout(new java.awt.BorderLayout());
-
-        jCheckBox1.setText("Ghi nhớ tôi");
-        jPanel8.add(jCheckBox1, java.awt.BorderLayout.WEST);
-
-        jLabel4.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel4.setText("Bạn quên mật khẩu ?");
-        jLabel4.setInheritsPopupMenu(false);
-        jPanel8.add(jLabel4, java.awt.BorderLayout.EAST);
-
-        jPanel5.add(jPanel8);
-
-        jPanel1.add(jPanel5);
-
-        jPanel9.setPreferredSize(new java.awt.Dimension(400, 50));
-
-        jButton2.setBackground(new java.awt.Color(204, 255, 204));
+        jButton2.setBackground(new java.awt.Color(1, 130, 69));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Đăng nhập");
-        jButton2.setPreferredSize(new java.awt.Dimension(250, 30));
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
             }
         });
-        jPanel9.add(jButton2);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        jPanel5.add(jButton2, gridBagConstraints);
 
-        jPanel1.add(jPanel9);
+        getContentPane().add(jPanel5, java.awt.BorderLayout.CENTER);
 
-        jPanel10.setPreferredSize(new java.awt.Dimension(400, 50));
-
-        jLabel5.setText("Chưa có tài khoản ? Đăng kí.");
-        jPanel10.add(jLabel5);
-
-        jPanel1.add(jPanel10);
-
-        getContentPane().add(jPanel1, java.awt.BorderLayout.WEST);
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setMaximumSize(new java.awt.Dimension(0, 0));
-        jPanel2.setMinimumSize(new java.awt.Dimension(800, 400));
-        jPanel2.setPreferredSize(new java.awt.Dimension(800, 400));
-        jPanel2.setLayout(null);
-
-        jLabel7.setBackground(new java.awt.Color(0, 204, 51));
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(102, 204, 0));
-        jLabel7.setText("JAVA_SWING");
-        jPanel2.add(jLabel7);
-        jLabel7.setBounds(250, 40, 120, 40);
-
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/thumb-1920-37864_1.jpg"))); // NOI18N
-        jLabel8.setText("jLabel8");
-        jPanel2.add(jLabel8);
-        jLabel8.setBounds(-3, -4, 610, 440);
-
-        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+        backGround.setPreferredSize(new java.awt.Dimension(600, 0));
+        backGround.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(backGround, java.awt.BorderLayout.EAST);
 
         pack();
         setLocationRelativeTo(null);
@@ -256,10 +193,6 @@ public class Login extends javax.swing.JFrame {
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
@@ -316,26 +249,15 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel backGround;
     private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables

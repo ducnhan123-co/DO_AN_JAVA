@@ -9,6 +9,13 @@ import java.sql.Date;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -19,6 +26,8 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
     /**
      * Creates new form ThongKeSanPhamPanel
      */
+    private DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    
     public ThongKeSanPhamPanel() {
         initComponents();
         
@@ -28,6 +37,7 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
                 end = Date.valueOf(String.format("%d-12-31", txtYear.getValue()));
 
         renderTable(begin, end);
+        renderChart();
     }
     
     private void renderCountType(int option) {
@@ -58,6 +68,7 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
     private void renderTable(Date begin, Date end) {
         DefaultTableModel model = (DefaultTableModel) tbCount.getModel();
         model.setRowCount(0);
+        dataset.clear();
         
         try {
             for (ThongKeSanPhamDTO thongKe: SanPhamBLL.getDanhSachThongKe(begin, end)){
@@ -65,12 +76,31 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
                     thongKe.getMaSP(),
                     thongKe.getTenSP(),
                     thongKe.getSoLuong(),
-                    thongKe.getDoanhThu()              
+                    thongKe.getDoanhThu(), 
+                    thongKe.getLoiNhuan()
                 });
+                dataset.addValue(thongKe.getLoiNhuan(), "Sản phẩm", thongKe.getTenSP());
             }
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+    }
+    
+    private void renderChart() {
+        JFreeChart chart = ChartFactory.createBarChart(
+            "Thống kê sản phẩm",
+            "Sản phẩm",
+            "Lợi nhuận",
+            dataset,     
+            PlotOrientation.HORIZONTAL, true, true, false
+        );
+        
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        renderer.setMaximumBarWidth(0.2);
+        
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartScrollPane.setViewportView(chartPanel);
     }
 
     /**
@@ -104,11 +134,14 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
         btnCount = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCount = new javax.swing.JTable();
+        chartScrollPane = new javax.swing.JScrollPane();
 
         setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(new java.awt.Color(0, 173, 59));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        jPanel5.setBackground(new java.awt.Color(0, 173, 59));
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
         cbbCountType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ngày→Ngày", "Theo tháng", "Theo năm" }));
@@ -128,6 +161,7 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.WEST);
 
+        jPanel4.setBackground(new java.awt.Color(0, 173, 59));
         java.awt.GridBagLayout jPanel4Layout = new java.awt.GridBagLayout();
         jPanel4Layout.columnWidths = new int[] {0, 20, 0, 20, 0, 20, 0, 20, 0, 20, 0, 20, 0};
         jPanel4Layout.rowHeights = new int[] {0, 20, 0, 20, 0};
@@ -181,6 +215,7 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.CENTER);
 
+        jPanel3.setBackground(new java.awt.Color(0, 173, 59));
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
         btnCount.setText("Thống kê");
@@ -197,18 +232,21 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
 
         tbCount.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Số lượng bán", "Doanh thu"
+                "Mã sản phẩm", "Tên sản phẩm", "Số lượng bán", "Doanh thu", "Lợi nhuận"
             }
         ));
         jScrollPane1.setViewportView(tbCount);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        chartScrollPane.setPreferredSize(null);
+        add(chartScrollPane, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbbCountTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCountTypeActionPerformed
@@ -247,6 +285,7 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
     private javax.swing.JPanel beginDate;
     private javax.swing.JButton btnCount;
     private javax.swing.JComboBox<String> cbbCountType;
+    private javax.swing.JScrollPane chartScrollPane;
     private javax.swing.JPanel endDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
