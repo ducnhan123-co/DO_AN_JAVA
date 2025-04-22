@@ -212,6 +212,11 @@ public class HoaDonPanel extends javax.swing.JPanel {
         jLabel29.setToolTipText("");
         jLabel29.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel29.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel29.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel29MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
@@ -493,6 +498,10 @@ public class HoaDonPanel extends javax.swing.JPanel {
         }
  
     }//GEN-LAST:event_tableMouseClicked
+
+    private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel29MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
