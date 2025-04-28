@@ -10,11 +10,14 @@ import do_an_java_new.BLL.HoaDonBLL;
 import do_an_java_new.DTO.ChiTietHoaDonDTO;
 import do_an_java_new.DTO.HangDTO;
 import do_an_java_new.DTO.HoaDonDTO;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -238,6 +241,11 @@ public class HoaDonPanel extends javax.swing.JPanel {
         jLabel30.setToolTipText("");
         jLabel30.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel30.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel30MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
@@ -508,7 +516,62 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
     private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
         // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn nơi lưu file Excel");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+            if (!filePath.endsWith(".xlsx")) {
+                filePath += ".xlsx";
+            }
+
+            try {
+                // Gọi lớp ExcelExporter để xuất dữ liệu
+                ExcelExporter.exportToExcel(table, "Danh sách hóa đơn", filePath);
+                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_jLabel29MouseClicked
+
+    private void jLabel30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MouseClicked
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn file Excel để nhập");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+
+        int userSelection = fileChooser.showOpenDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+
+            try {
+                // Đọc dữ liệu từ file Excel
+                List<List<String>> data = ExcelImporter.importFromExcel(filePath);
+
+                // Lưu dữ liệu vào database
+                for (int i = 1; i < data.size(); i++) { // Bỏ qua dòng tiêu đề
+                    List<String> row = data.get(i);
+                    String maHD = row.get(0);
+                    String maKH = row.get(1);
+                    String maNV = row.get(2);
+                    double tongTien = Double.parseDouble(row.get(3));
+                    String thoiGian = row.get(4);
+                    String maKM = row.get(5);
+
+                    // Gọi BLL để lưu vào database
+                    HoaDonBLL.themHoaDon(new HoaDonDTO(maHD, maKH, maNV, (int) tongTien, Date.valueOf(thoiGian), maKM));
+                }
+
+                JOptionPane.showMessageDialog(this, "Nhập dữ liệu từ Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                rendertable(); // Refresh lại bảng
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi nhập dữ liệu từ Excel: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jLabel30MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
