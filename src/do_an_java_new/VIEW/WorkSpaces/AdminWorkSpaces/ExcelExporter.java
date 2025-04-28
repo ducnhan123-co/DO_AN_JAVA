@@ -17,5 +17,9 @@ import java.io.IOException;
  * @author LENOVO VN
  */
 public class ExcelExporter {
+
+    static void exportToExcel(JTable table, String danh_sách_hóa_đơn, String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
