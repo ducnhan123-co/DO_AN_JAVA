@@ -4,7 +4,6 @@
  */
 package do_an_java_new.DAO;
 
-import do_an_java_new.DTO.ChiTietHoaDonDTO;
 import do_an_java_new.DTO.HoaDonDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,14 +19,15 @@ public class HoaDonDAO {
 
     public static void themHoaDon(HoaDonDTO hoaDon) throws SQLException {
         Connection cn = ConnectionDAO.getConnection();
-        String query = "insert into hoaDon(MaHD, MaKH, MaNV, TongTien, ThoiGian)\n"
-                + "values (?,?,?,?,current_timestamp());\n";
+        String query = "insert into hoaDon(MaHD, MaKH, MaNV, TongTien, ThoiGian, KhuyenMai)\n"
+                + "values (?,?,?,?,current_timestamp(), ?);\n";
         
         PreparedStatement st = cn.prepareStatement(query);
         st.setString(1, hoaDon.getMaHD());
         st.setString(2, hoaDon.getMaKH());
         st.setString(3, hoaDon.getMaNV());
         st.setInt(4, hoaDon.getTongTien());
+        st.setString(5, hoaDon.getMaKM());
                
         st.executeUpdate();
     }
@@ -79,8 +79,9 @@ public class HoaDonDAO {
                 String maNV = rs.getString("MaNV");
                 int tongTien = rs.getInt("TongTien");
                 Date thoiGian = rs.getDate("ThoiGian");
+                String km = rs.getString("KhuyenMai");
                 
-                HoaDonDTO tmp = new HoaDonDTO(maHD, maKH, maNV, tongTien, thoiGian);
+                HoaDonDTO tmp = new HoaDonDTO(maHD, maKH, maNV, tongTien, thoiGian, km);
                 result.add(tmp);
             }
         } catch (Exception e) {
@@ -106,7 +107,8 @@ public class HoaDonDAO {
                 String maNV = rs.getString("MaNV");
                 int tongTien = rs.getInt("TongTien");
                 Date thoiGian = rs.getDate("ThoiGian");
-                result = new HoaDonDTO(maHD, maKH, maNV, tongTien, thoiGian);
+                String km = rs.getString("KhuyenMai");
+                result = new HoaDonDTO(maHD, maKH, maNV, tongTien, thoiGian, km);
             }
         } catch (Exception e) {
             e.printStackTrace();

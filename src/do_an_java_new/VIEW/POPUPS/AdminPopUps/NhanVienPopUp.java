@@ -138,7 +138,6 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(430, 550));
-        setPreferredSize(new java.awt.Dimension(430, 550));
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
 
@@ -303,6 +302,7 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = 3;
         jPanel2.add(txtDiaChi, gridBagConstraints);
 
+        buttonGroupTrangThai.add(active);
         active.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         active.setForeground(new java.awt.Color(51, 51, 51));
         active.setText("active");
@@ -311,6 +311,7 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
         gridBagConstraints.gridy = 22;
         jPanel2.add(active, gridBagConstraints);
 
+        buttonGroupTrangThai.add(inactive);
         inactive.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         inactive.setForeground(new java.awt.Color(51, 51, 51));
         inactive.setText("inactive");
@@ -453,7 +454,7 @@ public abstract class NhanVienPopUp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    protected javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

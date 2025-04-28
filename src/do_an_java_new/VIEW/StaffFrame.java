@@ -4,6 +4,8 @@
  */
 package do_an_java_new.VIEW;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import do_an_java_new.BLL.NhanVienBLL;
 import do_an_java_new.DTO.NhanVienDTO;
 import do_an_java_new.Login;
@@ -16,6 +18,7 @@ import java.awt.CardLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -94,7 +97,7 @@ public class StaffFrame extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setPreferredSize(new java.awt.Dimension(1280, 720));
 
-        pnLeft.setBackground(new java.awt.Color(153, 255, 204));
+        pnLeft.setBackground(new java.awt.Color(6, 117, 60));
         pnLeft.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 255, 51), 4, true));
         pnLeft.setMaximumSize(new java.awt.Dimension(200, 400));
         pnLeft.setMinimumSize(new java.awt.Dimension(200, 400));
@@ -102,6 +105,7 @@ public class StaffFrame extends javax.swing.JFrame {
         pnLeft.setLayout(new java.awt.BorderLayout());
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/desktop48.png"))); // NOI18N
         jLabel4.setText("<html>SIÊU QUẢN LÝ<br><small>ADMIN</small></html> ");
@@ -129,10 +133,9 @@ public class StaffFrame extends javax.swing.JFrame {
 
         pnLeft.add(SignOut, java.awt.BorderLayout.PAGE_END);
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 204));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
-        TrangChu1.setBackground(new java.awt.Color(153, 255, 204));
+        TrangChu1.setBackground(new java.awt.Color(153, 255, 153));
         TrangChu1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         TrangChu1.setForeground(new java.awt.Color(255, 255, 255));
         TrangChu1.setMaximumSize(new java.awt.Dimension(2147483647, 50));
@@ -164,7 +167,7 @@ public class StaffFrame extends javax.swing.JFrame {
 
         jPanel1.add(TrangChu1);
 
-        TrangChu.setBackground(new java.awt.Color(153, 255, 204));
+        TrangChu.setBackground(new java.awt.Color(153, 255, 153));
         TrangChu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         TrangChu.setForeground(new java.awt.Color(255, 255, 255));
         TrangChu.setMaximumSize(new java.awt.Dimension(2147483647, 50));
@@ -196,7 +199,7 @@ public class StaffFrame extends javax.swing.JFrame {
 
         jPanel1.add(TrangChu);
 
-        Quan_ly_hoa_don.setBackground(new java.awt.Color(153, 255, 204));
+        Quan_ly_hoa_don.setBackground(new java.awt.Color(153, 255, 153));
         Quan_ly_hoa_don.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         Quan_ly_hoa_don.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_hoa_don.setMaximumSize(new java.awt.Dimension(2147483647, 50));
@@ -232,7 +235,7 @@ public class StaffFrame extends javax.swing.JFrame {
 
         jPanel1.add(Quan_ly_hoa_don);
 
-        Quan_ly_nhap_hang.setBackground(new java.awt.Color(153, 255, 204));
+        Quan_ly_nhap_hang.setBackground(new java.awt.Color(153, 255, 153));
         Quan_ly_nhap_hang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         Quan_ly_nhap_hang.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_nhap_hang.setMaximumSize(new java.awt.Dimension(2147483647, 50));
@@ -268,7 +271,7 @@ public class StaffFrame extends javax.swing.JFrame {
 
         jPanel1.add(Quan_ly_nhap_hang);
 
-        Quan_ly_khach_hang.setBackground(new java.awt.Color(153, 255, 204));
+        Quan_ly_khach_hang.setBackground(new java.awt.Color(153, 255, 153));
         Quan_ly_khach_hang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
         Quan_ly_khach_hang.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_khach_hang.setMaximumSize(new java.awt.Dimension(2147483647, 40));
@@ -364,25 +367,12 @@ public class StaffFrame extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StaffFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StaffFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StaffFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(StaffFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+  
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

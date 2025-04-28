@@ -7,11 +7,15 @@ package do_an_java_new.VIEW.WorkSpaces.StaffWorkSpaces;
 import do_an_java_new.BLL.ChiTietHoaDonBLL;
 import do_an_java_new.BLL.HangBLL;
 import do_an_java_new.BLL.HoaDonBLL;
+import do_an_java_new.BLL.KhuyenMaiBLL;
+import do_an_java_new.BLL.SanPhamBLL;
 import do_an_java_new.DTO.ChiTietHoaDonDTO;
-import do_an_java_new.DTO.HangDTO;
 import do_an_java_new.DTO.HoaDonDTO;
+import do_an_java_new.DTO.SanPhamDTO;
+import do_an_java_new.VIEW.POPUPS.StaffPopUps.BillPopUp;
 import do_an_java_new.VIEW.POPUPS.StaffPopUps.ChangeAmountPopUp;
 import do_an_java_new.VIEW.POPUPS.StaffPopUps.TimHangPopUp;
+import do_an_java_new.VIEW.POPUPS.StaffPopUps.TimKhuyenMai;
 import do_an_java_new.VIEW.POPUPS.StaffPopUps.TimKiemKhachHangPopUp;
 import do_an_java_new.VIEW.POPUPS.StaffPopUps.Wrapper;
 import java.awt.event.WindowAdapter;
@@ -20,9 +24,12 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,6 +42,7 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
     private String maNhanVien;
     private ArrayList<ChiTietHoaDonDTO> dsChiTietHoaDon = new ArrayList<>();
     private int tongTien;
+    private int giamGia;
     
     public LapHoaDonPanel(String maNhanVien) {
         initComponents();
@@ -61,13 +69,17 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
             e.printStackTrace();
         }
         
-        txtTongTien.setText(String.format("%d", tongTien));
+        int tienGiam = tongTien*giamGia/100;
+        
+        txtTienGiam.setText(String.format("%d", tienGiam));
+        txtTongTien.setText(String.format("%d", tongTien - tienGiam));
     }
     
     private void clearData() {
         dsChiTietHoaDon.clear();
         tongTien = 0;
         txtMaKhachHang.setText("");
+        txtMaKM.setText("");
         renderTable();        
     }
 
@@ -94,6 +106,12 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtTongTien = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtMaKM = new javax.swing.JTextField();
+        btnXoaKM = new javax.swing.JButton();
+        btnTimKM = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtTienGiam = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         btnInsert = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
@@ -104,6 +122,7 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(new java.awt.Color(0, 173, 59));
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.LINE_AXIS));
@@ -151,13 +170,72 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
 
         jPanel4.setLayout(new java.awt.BorderLayout());
 
+        jPanel5.setLayout(new java.awt.GridBagLayout());
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Tổng tiền:");
-        jPanel5.add(jLabel1);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        jPanel5.add(jLabel1, gridBagConstraints);
 
         txtTongTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtTongTien.setPreferredSize(new java.awt.Dimension(100, 35));
-        jPanel5.add(txtTongTien);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        jPanel5.add(txtTongTien, gridBagConstraints);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setText("Mã khuyến mãi:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        jPanel5.add(jLabel3, gridBagConstraints);
+
+        txtMaKM.setEditable(false);
+        txtMaKM.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtMaKM.setPreferredSize(new java.awt.Dimension(100, 35));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        jPanel5.add(txtMaKM, gridBagConstraints);
+
+        btnXoaKM.setText("X");
+        btnXoaKM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXoaKMMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        jPanel5.add(btnXoaKM, gridBagConstraints);
+
+        btnTimKM.setText("...");
+        btnTimKM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTimKMMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        jPanel5.add(btnTimKM, gridBagConstraints);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setText("Giảm:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        jPanel5.add(jLabel4, gridBagConstraints);
+
+        txtTienGiam.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtTienGiam.setPreferredSize(new java.awt.Dimension(100, 35));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        jPanel5.add(txtTienGiam, gridBagConstraints);
 
         jPanel4.add(jPanel5, java.awt.BorderLayout.EAST);
 
@@ -165,40 +243,36 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
 
         jPanel2.add(jPanel6, java.awt.BorderLayout.CENTER);
 
-        jPanel7.setLayout(new java.awt.GridBagLayout());
+        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.Y_AXIS));
 
         btnInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Add.png"))); // NOI18N
-        btnInsert.setText("Thêm sản phẩm");
+        btnInsert.setText("Thêm sản phẩm  ");
+        btnInsert.setRolloverEnabled(false);
         btnInsert.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnInsertMouseClicked(evt);
             }
         });
-        jPanel7.add(btnInsert, new java.awt.GridBagConstraints());
+        jPanel7.add(btnInsert);
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Delete.png"))); // NOI18N
-        btnDelete.setText("Xoá sản phẩm  ");
+        btnDelete.setText("Xoá sản phẩm     ");
         btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnDeleteMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        jPanel7.add(btnDelete, gridBagConstraints);
+        jPanel7.add(btnDelete);
 
         btnChangeAmount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Pencil.png"))); // NOI18N
-        btnChangeAmount.setText("Sửa số lượng    ");
+        btnChangeAmount.setText("Sửa số lượng       ");
+        btnChangeAmount.setName(""); // NOI18N
         btnChangeAmount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnChangeAmountMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        jPanel7.add(btnChangeAmount, gridBagConstraints);
+        jPanel7.add(btnChangeAmount);
 
         jPanel2.add(jPanel7, java.awt.BorderLayout.EAST);
 
@@ -321,7 +395,7 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
                 maHD = String.format("HD.%s.%s", maNhanVien, LocalDateTime.now().format(timeFormatter)),
                 maKH = txtMaKhachHang.getText().trim();
         
-        HoaDonDTO hoaDon = new HoaDonDTO(maHD, maKH, maNhanVien, tongTien, Date.valueOf(LocalDate.now()));
+        HoaDonDTO hoaDon = new HoaDonDTO(maHD, maKH, maNhanVien, tongTien, Date.valueOf(LocalDate.now()), txtMaKM.getText() == "" ? null : txtMaKM.getText());
         
         for (ChiTietHoaDonDTO ct: dsChiTietHoaDon) {
             ct.setMaHD(maHD);
@@ -333,15 +407,55 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
             for (ChiTietHoaDonDTO ct: dsChiTietHoaDon) 
                 HangBLL.updateSoLuong(ct.getMaHang(), -ct.getSoLuong());
             
+            KhuyenMaiBLL.updateSoLuong(hoaDon.getMaKM(), -1);
+            
             ChiTietHoaDonBLL.themCTHD(dsChiTietHoaDon);
             
-            JOptionPane.showMessageDialog(null, "Lập hoá đơn thành công");
+            int tienGiam = tongTien*giamGia/100;
+            new BillPopUp(hoaDon, tienGiam).setVisible(true);
             
             clearData();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Có lỗi", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnSubmitMouseClicked
+
+    private void btnXoaKMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaKMMouseClicked
+        // TODO add your handling code here:
+        txtMaKM.setText("");
+        giamGia = 0;
+        renderTable();
+    }//GEN-LAST:event_btnXoaKMMouseClicked
+
+    private void btnTimKMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKMMouseClicked
+        // TODO add your handling code here:
+        ArrayList<String> products = new ArrayList<>();
+        try {
+            for (ChiTietHoaDonDTO cthd: dsChiTietHoaDon) 
+                products.add(HangBLL.timHang(cthd.getMaHang()).getMaSP());
+            
+            TimKhuyenMai popUp = new TimKhuyenMai(txtMaKM, products);
+            popUp.setVisible(true);
+            
+            popUp.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    super.windowClosed(e); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                    if (txtMaKM.getText().equals(""))
+                        return;
+                    try {
+                        giamGia = KhuyenMaiBLL.timKhuyenMai(txtMaKM.getText().trim()).getGiaTri();
+                        renderTable();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(LapHoaDonPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnTimKMMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -351,8 +465,12 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnInsert;
     private javax.swing.JButton btnSearchCustomer;
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JButton btnTimKM;
+    private javax.swing.JButton btnXoaKM;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -363,7 +481,9 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbCTHD;
+    private javax.swing.JTextField txtMaKM;
     private javax.swing.JTextField txtMaKhachHang;
+    private javax.swing.JTextField txtTienGiam;
     private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
 }

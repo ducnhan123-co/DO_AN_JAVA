@@ -74,6 +74,8 @@ public class SanPhamBLL {
             case 6:
                 res.sort(Comparator.comparingInt(SanPhamDTO::getSoLuongTon).reversed());
                 break;
+            default:
+                break;
         }
         
         return res;

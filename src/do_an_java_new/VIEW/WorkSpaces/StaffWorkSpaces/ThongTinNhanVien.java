@@ -110,6 +110,8 @@ public class ThongTinNhanVien extends javax.swing.JPanel {
         txtNgaySinh = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         txtChangePassWord = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        headline = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -280,7 +282,6 @@ public class ThongTinNhanVien extends javax.swing.JPanel {
         add(jPanel2, java.awt.BorderLayout.CENTER);
 
         jPanel4.setBackground(new java.awt.Color(232, 245, 233));
-        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
         txtChangePassWord.setBackground(new java.awt.Color(153, 255, 153));
@@ -297,6 +298,15 @@ public class ThongTinNhanVien extends javax.swing.JPanel {
         jPanel4.add(txtChangePassWord, gridBagConstraints);
 
         add(jPanel4, java.awt.BorderLayout.PAGE_END);
+
+        jPanel1.setBackground(new java.awt.Color(153, 255, 153));
+
+        headline.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        headline.setForeground(new java.awt.Color(46, 125, 50));
+        headline.setText("Thông tin nhân viên");
+        jPanel1.add(headline);
+
+        add(jPanel1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXacNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXacNhanMouseClicked
@@ -340,6 +350,7 @@ public class ThongTinNhanVien extends javax.swing.JPanel {
     private javax.swing.JButton btnXacNhan;
     private javax.swing.ButtonGroup buttonGroup1;
     protected javax.swing.JComboBox<String> cbbTinh;
+    private javax.swing.JLabel headline;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -348,6 +359,7 @@ public class ThongTinNhanVien extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     protected javax.swing.JRadioButton nam;

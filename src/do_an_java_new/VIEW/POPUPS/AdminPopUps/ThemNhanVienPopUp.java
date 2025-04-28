@@ -15,6 +15,13 @@ import javax.swing.JOptionPane;
  * @author Tran Dinh Khanh Du
  */
 public class ThemNhanVienPopUp extends NhanVienPopUp {
+    public ThemNhanVienPopUp() {
+        super();
+        active.setVisible(false);
+        inactive.setVisible(false);
+        jLabel13.setVisible(false);
+    }
+    
     @Override
     public void xacNhan() { 
         try {
@@ -33,11 +40,8 @@ public class ThemNhanVienPopUp extends NhanVienPopUp {
                 throw new Exception("Hay chon chuc vu");
             }
             String chucVu = QL.isSelected() ? "QL" : "NV";
-
-            if (buttonGroupTrangThai.getSelection() == null) {
-                throw new Exception("Hay chon trang thai cho tai khoan");
-            }
-            String trangThai = active.isSelected() ? "active" : "inactive";
+            
+            String trangThai ="active";
 
             NhanVienDTO nhanvien = new NhanVienDTO(maNV, ho, tenLot, ten, phai, ngaySinh, sdt, tinh, diaChi, luong, chucVu, trangThai);
             

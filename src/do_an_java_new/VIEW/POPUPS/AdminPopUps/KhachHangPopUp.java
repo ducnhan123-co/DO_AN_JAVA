@@ -381,7 +381,7 @@ public abstract class KhachHangPopUp extends javax.swing.JFrame {
     private javax.swing.JLabel headline;
     protected javax.swing.JRadioButton inactive;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel13;
+    protected javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
