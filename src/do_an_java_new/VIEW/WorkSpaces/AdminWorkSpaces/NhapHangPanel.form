@@ -403,7 +403,7 @@
               <Color blue="99" green="ff" red="99" type="rgb"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[250, 52]"/>
+              <Dimension value="[300, 52]"/>
             </Property>
           </Properties>
           <Constraints>
@@ -416,7 +416,7 @@
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 26]"/>
+                  <Dimension value="[130, 26]"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -429,7 +429,7 @@
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 26]"/>
+                  <Dimension value="[130, 26]"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -442,7 +442,7 @@
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 26]"/>
+                  <Dimension value="[130, 26]"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -455,7 +455,7 @@
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 26]"/>
+                  <Dimension value="[130, 26]"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -468,7 +468,7 @@
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 26]"/>
+                  <Dimension value="[130, 26]"/>
                 </Property>
               </Properties>
               <Constraints>

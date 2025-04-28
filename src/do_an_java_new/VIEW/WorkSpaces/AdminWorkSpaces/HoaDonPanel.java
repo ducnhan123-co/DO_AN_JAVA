@@ -53,7 +53,8 @@ public class HoaDonPanel extends javax.swing.JPanel {
                     hoaDon.getMaKH(),
                     hoaDon.getMaNV(),
                     hoaDon.getTongTien(),
-                    hoaDon.getThoiGian()
+                    hoaDon.getThoiGian(),
+                    hoaDon.getMaKM()
                 });
             }
         } catch (Exception e) {
@@ -113,13 +114,13 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã hoá đơn", "Mã khách hàng", "Mã nhân viên", "Tổng tiền", "Thời gian"
+                "Mã hoá đơn", "Mã khách hàng", "Mã nhân viên", "Tổng tiền", "Thời gian", "Khuyến mãi"
             }
         ));
         table.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,6 +140,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         btnInsert.setBackground(new java.awt.Color(255, 255, 255));
         btnInsert.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnInsert.setForeground(new java.awt.Color(255, 255, 255));
         btnInsert.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Add.png"))); // NOI18N
         btnInsert.setText("Thêm");
@@ -159,6 +161,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         btnDelete.setBackground(new java.awt.Color(255, 255, 255));
         btnDelete.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Delete.png"))); // NOI18N
         btnDelete.setText("Xoá");
         btnDelete.setToolTipText("");
@@ -174,6 +177,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         btnUpdate.setBackground(new java.awt.Color(255, 255, 255));
         btnUpdate.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Pencil.png"))); // NOI18N
         btnUpdate.setText("Sua");
         btnUpdate.setToolTipText("");
@@ -193,6 +197,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         btnDetail.setBackground(new java.awt.Color(255, 255, 255));
         btnDetail.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnDetail.setForeground(new java.awt.Color(255, 255, 255));
         btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Info.png"))); // NOI18N
         btnDetail.setText("Chi tiết");
         btnDetail.setToolTipText("");
@@ -207,6 +212,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         jLabel29.setBackground(new java.awt.Color(255, 255, 255));
         jLabel29.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Google Sheets.png"))); // NOI18N
         jLabel29.setText("Xuất excel");
         jLabel29.setToolTipText("");
@@ -221,6 +227,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         jLabel30.setBackground(new java.awt.Color(255, 255, 255));
         jLabel30.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Document.png"))); // NOI18N
         jLabel30.setText("Nhập excel");
         jLabel30.setToolTipText("");
@@ -348,7 +355,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtMaHD.setEditable(false);
         txtMaHD.setMinimumSize(new java.awt.Dimension(100, 26));
         txtMaHD.setName(""); // NOI18N
-        txtMaHD.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtMaHD.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
@@ -357,7 +364,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtMaKh.setEditable(false);
         txtMaKh.setMinimumSize(new java.awt.Dimension(100, 26));
         txtMaKh.setName(""); // NOI18N
-        txtMaKh.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtMaKh.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 4;
@@ -366,7 +373,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtMaNV.setEditable(false);
         txtMaNV.setMinimumSize(new java.awt.Dimension(100, 26));
         txtMaNV.setName(""); // NOI18N
-        txtMaNV.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtMaNV.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 8;
@@ -375,7 +382,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtTongTien.setEditable(false);
         txtTongTien.setMinimumSize(new java.awt.Dimension(100, 26));
         txtTongTien.setName(""); // NOI18N
-        txtTongTien.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtTongTien.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 16;
@@ -384,7 +391,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtThoiGian.setEditable(false);
         txtThoiGian.setMinimumSize(new java.awt.Dimension(100, 26));
         txtThoiGian.setName(""); // NOI18N
-        txtThoiGian.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtThoiGian.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 12;

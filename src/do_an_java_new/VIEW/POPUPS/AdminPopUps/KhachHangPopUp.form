@@ -206,6 +206,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Trang Thai"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
               <GridBagConstraints gridX="0" gridY="20" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
@@ -1083,7 +1086,7 @@
           </StatementProvider>
           <Parameters>
             <CodeExpression id="44_jLabel13">
-              <CodeVariable name="jLabel13" type="8194" declaredType="javax.swing.JLabel"/>
+              <CodeVariable name="jLabel13" type="8196" declaredType="javax.swing.JLabel"/>
               <ExpressionOrigin>
                 <ExpressionProvider type="ComponentRef">
                   <ComponentRef name="jLabel13"/>

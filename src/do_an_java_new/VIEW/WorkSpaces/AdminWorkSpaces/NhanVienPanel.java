@@ -122,6 +122,7 @@ public class NhanVienPanel extends javax.swing.JPanel {
 
         btnInsert.setBackground(new java.awt.Color(255, 255, 255));
         btnInsert.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnInsert.setForeground(new java.awt.Color(255, 255, 255));
         btnInsert.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Add.png"))); // NOI18N
         btnInsert.setText("Thêm");
@@ -142,6 +143,7 @@ public class NhanVienPanel extends javax.swing.JPanel {
 
         btnDelete.setBackground(new java.awt.Color(255, 255, 255));
         btnDelete.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Delete.png"))); // NOI18N
         btnDelete.setText("Xoá");
         btnDelete.setToolTipText("");
@@ -162,6 +164,7 @@ public class NhanVienPanel extends javax.swing.JPanel {
 
         btnUpdate.setBackground(new java.awt.Color(255, 255, 255));
         btnUpdate.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Pencil.png"))); // NOI18N
         btnUpdate.setText("Sua");
         btnUpdate.setToolTipText("");
@@ -181,6 +184,7 @@ public class NhanVienPanel extends javax.swing.JPanel {
 
         btnDetail.setBackground(new java.awt.Color(255, 255, 255));
         btnDetail.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnDetail.setForeground(new java.awt.Color(255, 255, 255));
         btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Info.png"))); // NOI18N
         btnDetail.setText("Chi tiết");
         btnDetail.setToolTipText("");
@@ -200,6 +204,7 @@ public class NhanVienPanel extends javax.swing.JPanel {
 
         jLabel29.setBackground(new java.awt.Color(255, 255, 255));
         jLabel29.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Google Sheets.png"))); // NOI18N
         jLabel29.setText("Xuất excel");
         jLabel29.setToolTipText("");
@@ -214,6 +219,7 @@ public class NhanVienPanel extends javax.swing.JPanel {
 
         jLabel30.setBackground(new java.awt.Color(255, 255, 255));
         jLabel30.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Document.png"))); // NOI18N
         jLabel30.setText("Nhập excel");
         jLabel30.setToolTipText("");

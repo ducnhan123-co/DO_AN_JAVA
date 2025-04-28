@@ -325,42 +325,42 @@ public class NhapHangPanel extends javax.swing.JPanel {
         jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jPanel4.setBackground(new java.awt.Color(153, 255, 153));
-        jPanel4.setPreferredSize(new java.awt.Dimension(250, 52));
+        jPanel4.setPreferredSize(new java.awt.Dimension(300, 52));
         java.awt.GridBagLayout jPanel4Layout = new java.awt.GridBagLayout();
         jPanel4Layout.columnWidths = new int[] {0, 10, 0, 10, 0};
         jPanel4Layout.rowHeights = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
         jPanel4.setLayout(jPanel4Layout);
 
         txtMaNH.setEditable(false);
-        txtMaNH.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtMaNH.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
         jPanel4.add(txtMaNH, gridBagConstraints);
 
         txtMaNCC.setEditable(false);
-        txtMaNCC.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtMaNCC.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 4;
         jPanel4.add(txtMaNCC, gridBagConstraints);
 
         txtMaNV.setEditable(false);
-        txtMaNV.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtMaNV.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 8;
         jPanel4.add(txtMaNV, gridBagConstraints);
 
         txtTongTien.setEditable(false);
-        txtTongTien.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtTongTien.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 16;
         jPanel4.add(txtTongTien, gridBagConstraints);
 
         txtThoiGian.setEditable(false);
-        txtThoiGian.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtThoiGian.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 12;

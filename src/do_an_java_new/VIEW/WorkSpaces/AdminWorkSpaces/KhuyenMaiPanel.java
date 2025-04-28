@@ -4,6 +4,14 @@
  */
 package do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces;
 
+import do_an_java_new.BLL.KhuyenMaiBLL;
+import do_an_java_new.DTO.KhuyenMaiDTO;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.KhuyenMaiPopUp;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author pducn
@@ -15,6 +23,31 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
      */
     public KhuyenMaiPanel() {
         initComponents();
+        
+        renderTable();
+    }
+    
+    private void renderTable() {
+        try {
+            DefaultTableModel model = (DefaultTableModel)table.getModel();
+            model.setRowCount(0);
+            
+            for (KhuyenMaiDTO khuyenMai: KhuyenMaiBLL.getDanhSachKhuyenMai()) {
+                model.addRow(new Object[] {
+                        khuyenMai.getMaKM(),
+                        khuyenMai.getTenKM(),
+                        khuyenMai.getNoiDung(),
+                        khuyenMai.getNgayBD(),
+                        khuyenMai.getNgayKT(),
+                        khuyenMai.getMaSP() == null ? "Toàn sàn" : khuyenMai.getMaSP(),
+                        khuyenMai.getGiaTri(),
+                        khuyenMai.getSoLuong(),
+                        khuyenMai.getTrangThai()
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 
     /**
@@ -28,7 +61,7 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnInsert = new javax.swing.JLabel();
         btnDelete = new javax.swing.JLabel();
@@ -50,18 +83,18 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1080, 800));
         setLayout(new java.awt.BorderLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã khuyến mãi", "Tên khuyến mãi", "Mô tả", "Từ ngày", "Đến ngày", "Mã sản phẩm", "Giá trị", "Số lượng", "Trạng thái"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(table);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -185,7 +218,12 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel2.add(jTextField5, gridBagConstraints);
 
-        jButton3.setText("Click");
+        jButton3.setText("Refresh");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 0;
@@ -237,7 +275,17 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseClicked
+        KhuyenMaiPopUp popUp = new KhuyenMaiPopUp();
+        popUp.setVisible(true);
         
+        popUp.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                super.windowClosed(e); 
+                renderTable();
+            }
+            
+        });
     }//GEN-LAST:event_btnInsertMouseClicked
 
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
@@ -251,6 +299,11 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+        renderTable();
+    }//GEN-LAST:event_jButton3MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -268,8 +321,8 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton jRadioButton8;
     private javax.swing.JRadioButton jRadioButton9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

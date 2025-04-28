@@ -106,7 +106,10 @@ public class ChangePasswordPopUp extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
-        jPanel2.setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagLayout jPanel2Layout = new java.awt.GridBagLayout();
+        jPanel2Layout.columnWidths = new int[] {0, 10, 0, 10, 0};
+        jPanel2Layout.rowHeights = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0};
+        jPanel2.setLayout(jPanel2Layout);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Mật khẩu cũ");
@@ -122,7 +125,7 @@ public class ChangePasswordPopUp extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
         jPanel2.add(txtOldPassword, gridBagConstraints);
 
@@ -130,7 +133,7 @@ public class ChangePasswordPopUp extends javax.swing.JFrame {
         jLabel3.setText("Mật khẩu mới");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 4;
         jPanel2.add(jLabel3, gridBagConstraints);
 
         txtNewPassword.setPreferredSize(new java.awt.Dimension(130, 26));
@@ -140,15 +143,15 @@ public class ChangePasswordPopUp extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 4;
         jPanel2.add(txtNewPassword, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Xác nhận mật khẩu mới");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 8;
         jPanel2.add(jLabel4, gridBagConstraints);
 
         txtConfirm.setPreferredSize(new java.awt.Dimension(130, 26));
@@ -158,8 +161,8 @@ public class ChangePasswordPopUp extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 8;
         jPanel2.add(txtConfirm, gridBagConstraints);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
