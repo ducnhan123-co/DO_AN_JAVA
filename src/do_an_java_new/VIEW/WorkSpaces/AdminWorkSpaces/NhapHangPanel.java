@@ -10,11 +10,14 @@ import do_an_java_new.BLL.NhapHangBLL;
 import do_an_java_new.DTO.ChiTietNhapHangDTO;
 import do_an_java_new.DTO.HangDTO;
 import do_an_java_new.DTO.NhapHangDTO;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -208,6 +211,11 @@ public class NhapHangPanel extends javax.swing.JPanel {
         jLabel29.setToolTipText("");
         jLabel29.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel29.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel29.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel29MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
@@ -222,6 +230,11 @@ public class NhapHangPanel extends javax.swing.JPanel {
         jLabel30.setToolTipText("");
         jLabel30.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel30.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel30MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
@@ -325,42 +338,42 @@ public class NhapHangPanel extends javax.swing.JPanel {
         jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jPanel4.setBackground(new java.awt.Color(153, 255, 153));
-        jPanel4.setPreferredSize(new java.awt.Dimension(250, 52));
+        jPanel4.setPreferredSize(new java.awt.Dimension(300, 52));
         java.awt.GridBagLayout jPanel4Layout = new java.awt.GridBagLayout();
         jPanel4Layout.columnWidths = new int[] {0, 10, 0, 10, 0};
         jPanel4Layout.rowHeights = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
         jPanel4.setLayout(jPanel4Layout);
 
         txtMaNH.setEditable(false);
-        txtMaNH.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtMaNH.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
         jPanel4.add(txtMaNH, gridBagConstraints);
 
         txtMaNCC.setEditable(false);
-        txtMaNCC.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtMaNCC.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 4;
         jPanel4.add(txtMaNCC, gridBagConstraints);
 
         txtMaNV.setEditable(false);
-        txtMaNV.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtMaNV.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 8;
         jPanel4.add(txtMaNV, gridBagConstraints);
 
         txtTongTien.setEditable(false);
-        txtTongTien.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtTongTien.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 16;
         jPanel4.add(txtTongTien, gridBagConstraints);
 
         txtThoiGian.setEditable(false);
-        txtThoiGian.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtThoiGian.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 12;
@@ -466,6 +479,61 @@ public class NhapHangPanel extends javax.swing.JPanel {
         txtThoiGian.setText("");
         ((DefaultTableModel) tbChiTietNhapHang.getModel()).setRowCount(0);
     }//GEN-LAST:event_btnRefreshMouseClicked
+
+    private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
+        // TODO add your handling code here:
+        JFileChooser jf = new JFileChooser();
+        jf.setDialogTitle("Chọn nơi lưu file Excel");
+        jf.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+        
+        int userSelection = jf.showSaveDialog(this);
+        if(userSelection == JFileChooser.APPROVE_OPTION) {
+            String filePath = jf.getSelectedFile().getAbsolutePath();
+            if(!filePath.endsWith(".xlsx")) {
+                filePath+=".xlsx";
+            }
+            try {
+                ExcelExporter.exportToExcel(table, "Danh sách hàng nhập", filePath);
+                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: "+e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);  
+            }
+        }
+    }//GEN-LAST:event_jLabel29MouseClicked
+
+    private void jLabel30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MouseClicked
+        // TODO add your handling code here:
+        JFileChooser jf = new JFileChooser();
+        jf.setDialogTitle("Chọn file Excel để nhập");
+        jf.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+        
+        int userSelection = jf.showOpenDialog(this);
+        if(userSelection == JFileChooser.APPROVE_OPTION) {
+            String filePath = jf.getSelectedFile().getAbsolutePath();
+            
+            try {
+                List<List<String>> data = ExcelImporter.importFromExcel(filePath);
+                
+                for(int i=1 ; i<data.size(); i++) {
+                    List<String> row = data.get(i);
+                    String maPhieu = row.get(0);
+                    String maNCC = row.get(1);
+                    String maNV = row.get(2);
+                    int tongTien = Integer.parseInt(row.get(3));
+                    Date thoiGian = Date.valueOf(row.get(4));
+                    
+                    NhapHangBLL.themNhapHang(new NhapHangDTO(maPhieu, maNCC, maNV, tongTien, thoiGian));
+                }
+                
+                JOptionPane.showMessageDialog(this, "Nhập dữ liệu từ Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                renderTable();
+            } catch(IOException e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi đọc file Excel: " +e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi xử lý dữ liệu: "+e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jLabel30MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

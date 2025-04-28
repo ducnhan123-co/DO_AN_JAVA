@@ -4,6 +4,8 @@
  */
 package do_an_java_new.VIEW;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import do_an_java_new.DTO.NhanVienDTO;
 import do_an_java_new.Login;
 import do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces.NhapHangPanel;
@@ -20,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  *
@@ -779,6 +782,12 @@ currentPanel="NHANVIEN";
             java.util.logging.Logger.getLogger(AdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        try {
+        UIManager.setLookAndFeel(new FlatLightLaf());
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //</editor-fold>
 
         /* Create and display the form */

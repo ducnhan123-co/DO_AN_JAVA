@@ -14,13 +14,23 @@ public class HoaDonDTO {
     private String maNV;
     private int tongTien;
     private Date thoiGian;
+    String maKM;
 
-    public HoaDonDTO(String MaHD, String maKH, String maNV, int tongTien, Date thoiGian) {
+    public HoaDonDTO(String MaHD, String maKH, String maNV, int tongTien, Date thoiGian, String maKM) {
         this.MaHD = MaHD;
         this.maKH = maKH;
         this.maNV = maNV;
         this.tongTien = tongTien;
         this.thoiGian = thoiGian;
+        this.maKM = maKM;
+    }
+
+    public String getMaKM() {
+        return maKM;
+    }
+
+    public void setMaKM(String maKM) {
+        this.maKM = maKM;
     }
 
     public HoaDonDTO() {

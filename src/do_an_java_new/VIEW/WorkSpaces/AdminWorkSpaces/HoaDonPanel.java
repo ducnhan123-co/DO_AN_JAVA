@@ -10,11 +10,14 @@ import do_an_java_new.BLL.HoaDonBLL;
 import do_an_java_new.DTO.ChiTietHoaDonDTO;
 import do_an_java_new.DTO.HangDTO;
 import do_an_java_new.DTO.HoaDonDTO;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -53,7 +56,8 @@ public class HoaDonPanel extends javax.swing.JPanel {
                     hoaDon.getMaKH(),
                     hoaDon.getMaNV(),
                     hoaDon.getTongTien(),
-                    hoaDon.getThoiGian()
+                    hoaDon.getThoiGian(),
+                    hoaDon.getMaKM()
                 });
             }
         } catch (Exception e) {
@@ -113,13 +117,13 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã hoá đơn", "Mã khách hàng", "Mã nhân viên", "Tổng tiền", "Thời gian"
+                "Mã hoá đơn", "Mã khách hàng", "Mã nhân viên", "Tổng tiền", "Thời gian", "Khuyến mãi"
             }
         ));
         table.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,6 +143,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         btnInsert.setBackground(new java.awt.Color(255, 255, 255));
         btnInsert.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnInsert.setForeground(new java.awt.Color(255, 255, 255));
         btnInsert.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Add.png"))); // NOI18N
         btnInsert.setText("Thêm");
@@ -159,6 +164,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         btnDelete.setBackground(new java.awt.Color(255, 255, 255));
         btnDelete.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Delete.png"))); // NOI18N
         btnDelete.setText("Xoá");
         btnDelete.setToolTipText("");
@@ -174,6 +180,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         btnUpdate.setBackground(new java.awt.Color(255, 255, 255));
         btnUpdate.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Pencil.png"))); // NOI18N
         btnUpdate.setText("Sua");
         btnUpdate.setToolTipText("");
@@ -193,6 +200,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         btnDetail.setBackground(new java.awt.Color(255, 255, 255));
         btnDetail.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnDetail.setForeground(new java.awt.Color(255, 255, 255));
         btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Info.png"))); // NOI18N
         btnDetail.setText("Chi tiết");
         btnDetail.setToolTipText("");
@@ -207,6 +215,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         jLabel29.setBackground(new java.awt.Color(255, 255, 255));
         jLabel29.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Google Sheets.png"))); // NOI18N
         jLabel29.setText("Xuất excel");
         jLabel29.setToolTipText("");
@@ -226,11 +235,17 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         jLabel30.setBackground(new java.awt.Color(255, 255, 255));
         jLabel30.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Document.png"))); // NOI18N
         jLabel30.setText("Nhập excel");
         jLabel30.setToolTipText("");
         jLabel30.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel30.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel30MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
@@ -353,7 +368,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtMaHD.setEditable(false);
         txtMaHD.setMinimumSize(new java.awt.Dimension(100, 26));
         txtMaHD.setName(""); // NOI18N
-        txtMaHD.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtMaHD.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
@@ -362,7 +377,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtMaKh.setEditable(false);
         txtMaKh.setMinimumSize(new java.awt.Dimension(100, 26));
         txtMaKh.setName(""); // NOI18N
-        txtMaKh.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtMaKh.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 4;
@@ -371,7 +386,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtMaNV.setEditable(false);
         txtMaNV.setMinimumSize(new java.awt.Dimension(100, 26));
         txtMaNV.setName(""); // NOI18N
-        txtMaNV.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtMaNV.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 8;
@@ -380,7 +395,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtTongTien.setEditable(false);
         txtTongTien.setMinimumSize(new java.awt.Dimension(100, 26));
         txtTongTien.setName(""); // NOI18N
-        txtTongTien.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtTongTien.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 16;
@@ -389,7 +404,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtThoiGian.setEditable(false);
         txtThoiGian.setMinimumSize(new java.awt.Dimension(100, 26));
         txtThoiGian.setName(""); // NOI18N
-        txtThoiGian.setPreferredSize(new java.awt.Dimension(100, 26));
+        txtThoiGian.setPreferredSize(new java.awt.Dimension(130, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 12;
@@ -501,7 +516,62 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
     private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
         // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn nơi lưu file Excel");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+            if (!filePath.endsWith(".xlsx")) {
+                filePath += ".xlsx";
+            }
+
+            try {
+                // Gọi lớp ExcelExporter để xuất dữ liệu
+                ExcelExporter.exportToExcel(table, "Danh sách hóa đơn", filePath);
+                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_jLabel29MouseClicked
+
+    private void jLabel30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MouseClicked
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn file Excel để nhập");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+
+        int userSelection = fileChooser.showOpenDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+
+            try {
+                // Đọc dữ liệu từ file Excel
+                List<List<String>> data = ExcelImporter.importFromExcel(filePath);
+
+                // Lưu dữ liệu vào database
+                for (int i = 1; i < data.size(); i++) { // Bỏ qua dòng tiêu đề
+                    List<String> row = data.get(i);
+                    String maHD = row.get(0);
+                    String maKH = row.get(1);
+                    String maNV = row.get(2);
+                    double tongTien = Double.parseDouble(row.get(3));
+                    String thoiGian = row.get(4);
+                    String maKM = row.get(5);
+
+                    // Gọi BLL để lưu vào database
+                    HoaDonBLL.themHoaDon(new HoaDonDTO(maHD, maKH, maNV, (int) tongTien, Date.valueOf(thoiGian), maKM));
+                }
+
+                JOptionPane.showMessageDialog(this, "Nhập dữ liệu từ Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                rendertable(); // Refresh lại bảng
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi nhập dữ liệu từ Excel: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jLabel30MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

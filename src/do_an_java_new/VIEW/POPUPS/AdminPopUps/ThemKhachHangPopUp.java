@@ -15,6 +15,12 @@ import javax.swing.JOptionPane;
  * @author Tran Dinh Khanh Du
  */
 public class ThemKhachHangPopUp extends KhachHangPopUp{
+    public ThemKhachHangPopUp() {
+        super();
+        jLabel13.setVisible(false);
+        active.setVisible(false);
+        inactive.setVisible(false);
+    }
 
     @Override
     public void xacNhan() {
@@ -30,7 +36,7 @@ public class ThemKhachHangPopUp extends KhachHangPopUp{
             String diaChi = txtDiaChi.getText().trim();
             Date ngayThamGia = Date.valueOf(LocalDate.now());
             int diem = (int) spnDiem.getValue();
-            String trangThai = active.isSelected() ? "active" : "inactive";
+            String trangThai ="active";
 
             KhachHangDTO khachHang = new KhachHangDTO(maKH, ho, tenLot, ten, phai, ngaySinh, sdt, tinh, diaChi, ngayThamGia, diem, trangThai);
             

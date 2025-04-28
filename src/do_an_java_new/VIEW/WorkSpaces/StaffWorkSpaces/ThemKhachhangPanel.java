@@ -114,16 +114,15 @@ public class ThemKhachhangPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 153));
+        jPanel1.setBackground(new java.awt.Color(0, 173, 59));
 
         headline.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        headline.setForeground(new java.awt.Color(46, 125, 50));
+        headline.setForeground(new java.awt.Color(204, 255, 204));
         headline.setText("Thêm khách hàng");
         jPanel1.add(headline);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        jPanel5.setBackground(new java.awt.Color(232, 245, 233));
         java.awt.GridBagLayout jPanel5Layout = new java.awt.GridBagLayout();
         jPanel5Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0};
         jPanel5Layout.rowHeights = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
@@ -263,7 +262,6 @@ public class ThemKhachhangPanel extends javax.swing.JPanel {
 
         add(jPanel5, java.awt.BorderLayout.CENTER);
 
-        jPanel6.setBackground(new java.awt.Color(232, 245, 233));
         jPanel6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         btnHuy.setBackground(new java.awt.Color(255, 153, 153));
@@ -307,27 +305,6 @@ public class ThemKhachhangPanel extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroupPhai;
     protected javax.swing.JComboBox<String> cbbTinh;
     private javax.swing.JLabel headline;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -336,27 +313,12 @@ public class ThemKhachhangPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    public javax.swing.JLabel lbID;
-    public javax.swing.JLabel lbID1;
-    public javax.swing.JLabel lbID2;
     protected javax.swing.JRadioButton nam;
     protected javax.swing.JRadioButton nu;
     protected javax.swing.JTextField txtDiaChi;
-    private javax.swing.JTextField txtHo;
-    private javax.swing.JTextField txtHo1;
-    private javax.swing.JTextField txtHo2;
     protected javax.swing.JTextField txtHo3;
     protected com.toedter.calendar.JDateChooser txtNgaySinh;
     protected javax.swing.JTextField txtSDT;

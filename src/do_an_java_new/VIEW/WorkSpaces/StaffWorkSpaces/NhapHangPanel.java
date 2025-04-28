@@ -84,7 +84,6 @@ public class NhapHangPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -109,6 +108,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(new java.awt.Color(0, 173, 59));
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.LINE_AXIS));
@@ -170,7 +170,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
 
         jPanel2.add(jPanel6, java.awt.BorderLayout.CENTER);
 
-        jPanel7.setLayout(new java.awt.GridBagLayout());
+        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.Y_AXIS));
 
         btnInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Add.png"))); // NOI18N
         btnInsert.setText("Thêm sản phẩm");
@@ -179,7 +179,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
                 btnInsertMouseClicked(evt);
             }
         });
-        jPanel7.add(btnInsert, new java.awt.GridBagConstraints());
+        jPanel7.add(btnInsert);
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Delete.png"))); // NOI18N
         btnDelete.setText("Xoá sản phẩm  ");
@@ -188,10 +188,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
                 btnDeleteMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        jPanel7.add(btnDelete, gridBagConstraints);
+        jPanel7.add(btnDelete);
 
         btnChangeAmount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Pencil.png"))); // NOI18N
         btnChangeAmount.setText("Sửa số lượng    ");
@@ -200,10 +197,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
                 btnChangeAmountMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        jPanel7.add(btnChangeAmount, gridBagConstraints);
+        jPanel7.add(btnChangeAmount);
 
         jPanel2.add(jPanel7, java.awt.BorderLayout.EAST);
 
