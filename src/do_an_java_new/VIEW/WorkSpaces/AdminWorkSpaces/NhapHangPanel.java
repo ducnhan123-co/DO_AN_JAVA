@@ -242,8 +242,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel30, gridBagConstraints);
 
-        jPanel2.setBackground(new java.awt.Color(91, 187, 70));
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 3, new java.awt.Color(0, 0, 0)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         cbbSortOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "Tổng tiền tăng dần", "Tổng tiền giảm dần", "Thời gian ↑", "thời gian ↓" }));
