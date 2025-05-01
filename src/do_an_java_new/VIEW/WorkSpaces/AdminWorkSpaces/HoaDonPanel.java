@@ -558,11 +558,12 @@ public class HoaDonPanel extends javax.swing.JPanel {
                     String maKH = row.get(1);
                     String maNV = row.get(2);
                     double tongTien = Double.parseDouble(row.get(3));
-                    String thoiGian = row.get(4);
-                    String maKM = row.get(5);
+                    double tienGiam = Double.parseDouble(row.get(4));
+                    String thoiGian = row.get(5);
+                    String maKM = row.get(6);
 
                     // Gọi BLL để lưu vào database
-                    HoaDonBLL.themHoaDon(new HoaDonDTO(maHD, maKH, maNV, (int) tongTien, Date.valueOf(thoiGian), maKM));
+                    HoaDonBLL.themHoaDon(new HoaDonDTO(maHD, maKH, maNV, (int) tongTien,(int) tienGiam, Date.valueOf(thoiGian), maKM));
                 }
 
                 JOptionPane.showMessageDialog(this, "Nhập dữ liệu từ Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
