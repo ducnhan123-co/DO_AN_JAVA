@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author ASUS-PC
  */
-public class TinhThanhDAL {
+public class TinhThanhDAO {
     public static ArrayList<String> getDanhSachTinh() {
         ArrayList<String> res = new ArrayList<>();
         try{

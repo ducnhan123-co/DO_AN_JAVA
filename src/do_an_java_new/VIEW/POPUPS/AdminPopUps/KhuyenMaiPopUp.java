@@ -4,19 +4,15 @@
  */
 package do_an_java_new.VIEW.POPUPS.AdminPopUps;
 
-import do_an_java_new.BLL.KhuyenMaiBLL;
-import do_an_java_new.BLL.SanPhamBLL;
 import do_an_java_new.DTO.KhuyenMaiDTO;
-import do_an_java_new.DTO.SanPhamDTO;
 import java.sql.Date;
 import java.time.LocalDate;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author ASUS-PC
  */
-public class KhuyenMaiPopUp extends javax.swing.JFrame {
+public abstract class KhuyenMaiPopUp extends javax.swing.JFrame {
 
     /**
      * Creates new form NhanVienPopUp
@@ -26,57 +22,37 @@ public class KhuyenMaiPopUp extends javax.swing.JFrame {
         
         txtNgayBD.setDate(Date.valueOf(LocalDate.now()));
         txtNgayKT.setDate(Date.valueOf(LocalDate.now()));
-        lbTrangThai.setVisible(false);
-        active.setVisible(false);
-        inactive.setVisible(false);
+    }
+    
+    public KhuyenMaiPopUp(KhuyenMaiDTO khuyenMai) {
+        initComponents();
+        
+        txtID.setVisible(false);
+        lbID.setVisible(false);
+        txtTen.setText(khuyenMai.getTenKM());
+        txtNoiDung.setText(khuyenMai.getNoiDung());
+        txtMaSP.setText(khuyenMai.getMaSP());
+
+        spnGiaTri.setValue(khuyenMai.getGiaTri());
+        spnSoLuong.setValue(khuyenMai.getSoLuong());
+
+        txtNgayBD.setDate(khuyenMai.getNgayBD());
+        txtNgayKT.setDate(khuyenMai.getNgayKT());
+
+        if ("active".equalsIgnoreCase(khuyenMai.getTrangThai())) {
+            active.setSelected(true);
+        } else {
+            inactive.setSelected(true);
+        }
+        
     }
    
     public void setLabel(String labelString) {
         headline.setText(labelString);
     }
     
-    private void xacNhan() {
-        try {
-            String maKM = txtID.getText().trim();
-            String tenKM = txtTen.getText().trim();
-            String noiDung = txtNoiDung.getText().trim();
-            String maSP = txtMaSP.getText().trim();
-            Date ngayBD = new Date(txtNgayBD.getDate().getTime());
-            Date ngayKT = new Date(txtNgayKT.getDate().getTime());
-            int giaTri = (Integer) spnGiaTri.getValue();
-            int soLuong = (Integer) spnSoLuong.getValue();
-            String trangThai = "active";
-            
-            if (maSP.isBlank())
-                maSP = null;
-            else {
-                boolean tmp = false;
-                for (SanPhamDTO sp: SanPhamBLL.getDanhSachSanPham(0, 0, "")) 
-                    if (sp.getMaSP().equals(maSP)) {
-                        tmp = true;
-                        break;
-                    }
-                
-                if (!tmp)
-                    throw new Exception("Mã sản phẩm không tồn tại");
-            }
-            
-            if (ngayBD.compareTo(ngayKT) >= 0)
-                JOptionPane.showMessageDialog(null, "Thời gian áp dụng không hợp lệ");
-
-            KhuyenMaiDTO khuyenMai = new KhuyenMaiDTO(
-                maKM, tenKM, noiDung, maSP, ngayBD, ngayKT, giaTri, soLuong, trangThai
-            );
-
-            KhuyenMaiBLL.themKhuyenMai(khuyenMai);
-            
-            dispose();
-            JOptionPane.showMessageDialog(null, "Thêm khuyến mãi thành công");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Lỗi: " + ex.getMessage());
-        }        
-    }
-
+    public abstract void xacNhan();
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,7 +68,7 @@ public class KhuyenMaiPopUp extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         headline = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lbID = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtTen = new javax.swing.JTextField();
@@ -139,11 +115,11 @@ public class KhuyenMaiPopUp extends javax.swing.JFrame {
         jPanel2Layout.rowHeights = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
         jPanel2.setLayout(jPanel2Layout);
 
-        jLabel1.setText("Mã khuyến mãi");
+        lbID.setText("Mã khuyến mãi");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        jPanel2.add(jLabel1, gridBagConstraints);
+        jPanel2.add(lbID, gridBagConstraints);
 
         txtID.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -237,6 +213,7 @@ public class KhuyenMaiPopUp extends javax.swing.JFrame {
         gridBagConstraints.gridy = 10;
         jPanel2.add(jLabel8, gridBagConstraints);
 
+        spnGiaTri.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 5));
         spnGiaTri.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -273,6 +250,7 @@ public class KhuyenMaiPopUp extends javax.swing.JFrame {
         gridBagConstraints.gridy = 16;
         jPanel2.add(jLabel10, gridBagConstraints);
 
+        spnSoLuong.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 10));
         spnSoLuong.setPreferredSize(new java.awt.Dimension(100, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -328,14 +306,13 @@ public class KhuyenMaiPopUp extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton active;
+    protected javax.swing.JRadioButton active;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnTimSP;
     private javax.swing.JButton btnXacNhan;
     protected javax.swing.ButtonGroup buttonGroupTrangThai;
     private javax.swing.JLabel headline;
-    private javax.swing.JRadioButton inactive;
-    private javax.swing.JLabel jLabel1;
+    protected javax.swing.JRadioButton inactive;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -349,14 +326,15 @@ public class KhuyenMaiPopUp extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JLabel lbTrangThai;
-    private javax.swing.JSpinner spnGiaTri;
-    private javax.swing.JSpinner spnSoLuong;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtMaSP;
-    private com.toedter.calendar.JDateChooser txtNgayBD;
-    private com.toedter.calendar.JDateChooser txtNgayKT;
-    private javax.swing.JTextField txtNoiDung;
-    private javax.swing.JTextField txtTen;
+    private javax.swing.JLabel lbID;
+    protected javax.swing.JLabel lbTrangThai;
+    protected javax.swing.JSpinner spnGiaTri;
+    protected javax.swing.JSpinner spnSoLuong;
+    protected javax.swing.JTextField txtID;
+    protected javax.swing.JTextField txtMaSP;
+    protected com.toedter.calendar.JDateChooser txtNgayBD;
+    protected com.toedter.calendar.JDateChooser txtNgayKT;
+    protected javax.swing.JTextField txtNoiDung;
+    protected javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
 }

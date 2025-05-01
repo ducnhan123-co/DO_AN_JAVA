@@ -158,6 +158,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/desktop48.png"))); // NOI18N
         jLabel4.setText("<html>SIÊU QUẢN LÝ<br><small>ADMIN</small></html> ");
@@ -607,7 +608,7 @@ public class AdminFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "NHANVIEN");
-currentPanel="NHANVIEN";
+        currentPanel="NHANVIEN";
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
     });

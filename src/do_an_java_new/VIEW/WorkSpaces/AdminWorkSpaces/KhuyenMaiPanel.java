@@ -6,11 +6,13 @@ package do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces;
 
 import do_an_java_new.BLL.KhuyenMaiBLL;
 import do_an_java_new.DTO.KhuyenMaiDTO;
-import do_an_java_new.VIEW.POPUPS.AdminPopUps.KhuyenMaiPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.SuaKhuyenMaiPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.ThemKhuyenMaiPopUp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Date;
 
 /**
  *
@@ -98,6 +100,7 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setBackground(new java.awt.Color(0, 173, 59));
         jPanel1.setMaximumSize(new java.awt.Dimension(0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(976, 97));
@@ -198,7 +201,7 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel30, gridBagConstraints);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sắp xếp", "A-Z", "Z-A", "Giá tăng dần", " " }));
@@ -256,11 +259,6 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
 
         jTextField6.setText("Tim thấy 50 sản phẩm");
         jTextField6.setMinimumSize(new java.awt.Dimension(120, 22));
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 2;
@@ -275,7 +273,7 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseClicked
-        KhuyenMaiPopUp popUp = new KhuyenMaiPopUp();
+        ThemKhuyenMaiPopUp popUp = new ThemKhuyenMaiPopUp();
         popUp.setVisible(true);
         
         popUp.addWindowListener(new WindowAdapter() {
@@ -289,16 +287,47 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnInsertMouseClicked
 
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
-       
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một khuyến mãi để sửa!");
+            return;
+        }
+
+        try {
+            String maKM = table.getValueAt(selectedRow, 0).toString();
+            String tenKM = table.getValueAt(selectedRow, 1).toString();
+            String noiDung = table.getValueAt(selectedRow, 2).toString();
+            Date ngayBD = java.sql.Date.valueOf(table.getValueAt(selectedRow, 3).toString());
+            Date ngayKT = java.sql.Date.valueOf(table.getValueAt(selectedRow, 4).toString());
+            String maSP = table.getValueAt(selectedRow, 5).toString();
+            int giaTri = (int) table.getValueAt(selectedRow, 6);
+            int soLuong = (int) table.getValueAt(selectedRow, 7);
+            String trangThai = table.getValueAt(selectedRow, 8).toString();
+
+            if (maSP.equals("Toàn sàn")) 
+                maSP = null;
+           
+            KhuyenMaiDTO khuyenMai = new KhuyenMaiDTO(maKM, tenKM, noiDung, maSP,  ngayBD, ngayKT, giaTri, soLuong, trangThai);
+
+            SuaKhuyenMaiPopUp popUp = new SuaKhuyenMaiPopUp(khuyenMai); 
+            popUp.setVisible(true);
+
+            popUp.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    super.windowClosed(e); 
+                    renderTable(); 
+                }
+            });
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,ex.getMessage());
+        }       
     }//GEN-LAST:event_btnUpdateMouseClicked
 
     private void btnDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDetailMouseClicked
-
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:

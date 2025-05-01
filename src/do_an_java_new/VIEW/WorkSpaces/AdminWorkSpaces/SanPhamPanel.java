@@ -366,8 +366,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel30, gridBagConstraints);
 
-        jPanel2.setBackground(new java.awt.Color(91, 187, 70));
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 3, new java.awt.Color(51, 51, 51)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         cbbSortOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "A-Z", "Z-A", "Giá tăng dần", "Giá giảm dần", "Số lượng tồn tăng dần", "Số lượng tồn giảm dần", " " }));
