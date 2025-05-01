@@ -157,4 +157,26 @@ public class SanPhamDAO {
         
         return res;
     }
+    
+    public static void main(String[] args) {
+        String query = "SELECT sanpham.MaSP, sanpham.TenSP, SUM(sub.soLuongBan) as 'soLuongBan', SUM(sub.doanhThu) as 'doanhThu', SUM(sub.doanhThu)-SUM(chitietpnhap.DonGia*sub.soLuongBan) as 'loiNhuan'\n" +
+                "FROM sanpham\n" +
+                "INNER JOIN hang on hang.MaSP = sanpham.MaSP\n" +
+                "INNER JOIN chitietpnhap on chitietpnhap.MaHang = hang.MaHang\n" +
+                "INNER JOIN (\n" +
+                "	SELECT chitiethoadon.MaHang, SUM(chitiethoadon.SoLuong) as 'soLuongBan', SUM(chitiethoadon.SoLuong * chitiethoadon.DonGia) as 'doanhThu'\n" +
+                "    FROM chitiethoadon\n" +
+                "    WHERE chitiethoadon.MaHD in (\n" +
+                "    	SELECT MaHD\n" +
+                "        FROM hoadon\n" +
+                "        WHERE hoadon.ThoiGian BETWEEN ? and ? \n" +
+                "    )\n" +
+                "    GROUP BY chitiethoadon.MaHang\n" +
+                ") sub on sub.MaHang = hang.MaHang\n" +
+                "\n" +
+                "GROUP BY sanpham.MaSP, sanpham.TenSP\n"+
+                "ORDER BY loiNhuan desc";
+
+        System.out.println(query);
+    }
 }

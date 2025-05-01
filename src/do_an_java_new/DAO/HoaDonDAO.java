@@ -19,8 +19,8 @@ public class HoaDonDAO {
 
     public static void themHoaDon(HoaDonDTO hoaDon) throws SQLException {
         Connection cn = ConnectionDAO.getConnection();
-        String query = "insert into hoaDon(MaHD, MaKH, MaNV, TongTien, ThoiGian, KhuyenMai)\n"
-                + "values (?,?,?,?,current_timestamp(), ?);\n";
+        String query = "insert into hoaDon(MaHD, MaKH, MaNV, TongTien, ThoiGian, KhuyenMai, TienGiam)\n"
+                + "values (?,?,?,?,current_timestamp(), ?, ?);\n";
         
         PreparedStatement st = cn.prepareStatement(query);
         st.setString(1, hoaDon.getMaHD());
@@ -28,6 +28,7 @@ public class HoaDonDAO {
         st.setString(3, hoaDon.getMaNV());
         st.setInt(4, hoaDon.getTongTien());
         st.setString(5, hoaDon.getMaKM());
+        st.setInt(6, hoaDon.getTienGiam());
                
         st.executeUpdate();
     }
@@ -55,8 +56,10 @@ public class HoaDonDAO {
         try {
             Connection cn = ConnectionDAO.getConnection();
             String sql = ("delete from hoaDon where MaHD="+maHD);
+            
             PreparedStatement st = cn.prepareStatement(sql);
             result = st.executeUpdate();
+            
             System.out.println("Số dòng đã bị thay đổi: "+result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +72,8 @@ public class HoaDonDAO {
         ArrayList<HoaDonDTO> result = new ArrayList<HoaDonDTO>();
         try {
             Connection cn = ConnectionDAO.getConnection();
-            String sql = "select * from hoadon";
+            String sql = "SELECT `MaHD`, `MaKH`, `MaNV`, `TongTien`, `TienGiam`, `ThoiGian`, `KhuyenMai` \n" +
+                    "FROM `hoadon`";
             PreparedStatement st = cn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
 
@@ -78,10 +82,11 @@ public class HoaDonDAO {
                 String maKH = rs.getString("MaKH");
                 String maNV = rs.getString("MaNV");
                 int tongTien = rs.getInt("TongTien");
+                int tienGiam = rs.getInt("TienGiam");                
                 Date thoiGian = rs.getDate("ThoiGian");
                 String km = rs.getString("KhuyenMai");
                 
-                HoaDonDTO tmp = new HoaDonDTO(maHD, maKH, maNV, tongTien, thoiGian, km);
+                HoaDonDTO tmp = new HoaDonDTO(maHD, maKH, maNV, tongTien, tienGiam, thoiGian, km);
                 result.add(tmp);
             }
         } catch (Exception e) {
@@ -95,7 +100,8 @@ public class HoaDonDAO {
         HoaDonDTO result=null;
         try {
             Connection cn = ConnectionDAO.getConnection();
-            String sql = "select * from hoadon where MaHD=?";
+            String sql = "SELECT `MaHD`, `MaKH`, `MaNV`, `TongTien`, `TienGiam`, `ThoiGian`, `KhuyenMai` \n" +
+                    "FROM `hoadon`";
             PreparedStatement st = cn.prepareStatement(sql);
             st.setString(1, id);
             System.out.println("Chạy câu lệnh: "+sql);
@@ -106,9 +112,10 @@ public class HoaDonDAO {
                 String maKH = rs.getString("MaKH");
                 String maNV = rs.getString("MaNV");
                 int tongTien = rs.getInt("TongTien");
+                int tienGiam = rs.getInt("TienGiam");
                 Date thoiGian = rs.getDate("ThoiGian");
                 String km = rs.getString("KhuyenMai");
-                result = new HoaDonDTO(maHD, maKH, maNV, tongTien, thoiGian, km);
+                result = new HoaDonDTO(maHD, maKH, maNV, tongTien, tienGiam, thoiGian, km);
             }
         } catch (Exception e) {
             e.printStackTrace();

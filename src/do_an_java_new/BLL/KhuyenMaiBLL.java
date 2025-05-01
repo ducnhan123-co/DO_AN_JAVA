@@ -52,4 +52,19 @@ public class KhuyenMaiBLL {
             if (km.getMaKM().equals(maKM))
                 km.setSoLuong(km.getSoLuong()+count);
     }    
+    
+    public static void updateKhuyenMai(KhuyenMaiDTO khuyenMai) throws SQLException {
+        if (listOf_khuyenMai == null)
+            listOf_khuyenMai = KhuyenMaiDAO.getDanhSachKhuyenMai();
+
+        KhuyenMaiDAO.updateKhuyenMai(khuyenMai);
+
+        for (int i = 0; i < listOf_khuyenMai.size(); i++) {
+            if (listOf_khuyenMai.get(i).getMaKM().equals(khuyenMai.getMaKM())) {
+                listOf_khuyenMai.set(i, khuyenMai);
+                break;
+            }
+        }
+    }
+    
 }

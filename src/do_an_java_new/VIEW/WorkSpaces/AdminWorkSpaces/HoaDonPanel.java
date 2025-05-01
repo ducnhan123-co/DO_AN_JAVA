@@ -56,6 +56,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
                     hoaDon.getMaKH(),
                     hoaDon.getMaNV(),
                     hoaDon.getTongTien(),
+                    hoaDon.getTienGiam(),
                     hoaDon.getThoiGian(),
                     hoaDon.getMaKM()
                 });
@@ -117,13 +118,13 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã hoá đơn", "Mã khách hàng", "Mã nhân viên", "Tổng tiền", "Thời gian", "Khuyến mãi"
+                "Mã hoá đơn", "Mã khách hàng", "Mã nhân viên", "Tổng tiền", "Tiền giảm", "Thời gian", "Khuyến mãi"
             }
         ));
         table.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -253,8 +254,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel30, gridBagConstraints);
 
-        jPanel2.setBackground(new java.awt.Color(91, 187, 70));
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 3, new java.awt.Color(51, 51, 51)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         cbbSortOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "Giá tăng dần", "Giá giảm dần", "Thời gian ↑", "Thời gian ↓" }));
@@ -480,7 +480,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         String makh = (String) table.getValueAt(selectedRow, 1);
         String manv = (String) table.getValueAt(selectedRow, 2);
         int tongTien = (int) table.getValueAt(selectedRow, 3);
-        Date thoiGian = (Date) table.getValueAt(selectedRow, 4);
+        Date thoiGian = (Date) table.getValueAt(selectedRow, 5);
         
         txtMaHD.setText(mahd);
         txtMaKh.setText(makh);

@@ -7,6 +7,7 @@ package do_an_java_new.BLL;
 import do_an_java_new.DAO.NhanVienDAO;
 import do_an_java_new.DAO.PasswordDAO;
 import do_an_java_new.DTO.NhanVienDTO;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -131,5 +132,12 @@ public class NhanVienBLL {
             throw new Exception("Thông tin chưa chính xác");
         
         NhanVienDAO.doiMatKhau(id, newPassWord);
+    }
+    
+    public static ArrayList<Object[]> thongKeNhanVien(Date beginDate, Date endDate) throws SQLException, Exception {
+        if (beginDate.compareTo(endDate) >= 0) 
+            throw new Exception("Thời gian thống kê không hợp lệ");
+        
+        return NhanVienDAO.thongKeNhanVien(beginDate, endDate);
     }
 }

@@ -2,6 +2,7 @@ package do_an_java_new.DAO;
 
 import do_an_java_new.DTO.NhanVienDTO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -106,5 +107,45 @@ public class NhanVienDAO {
         st.setString(2, id);
         
         st.executeUpdate();
+    }
+    
+    public static ArrayList<Object[]> thongKeNhanVien(Date beginDate, Date endDate) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "SELECT nhanvien.MaNV, nhanvien.Ho, nhanvien.TenLot, nhanvien.Ten, sub.SoLuongHD, sub.tien \n" +
+                "FROM nhanvien\n" +
+                "INNER JOIN (\n" +
+                "	SELECT hoadon.MaNV, COUNT(*) as 'SoLuongHD', SUM(hoadon.TongTien) as 'tien'\n" +
+                "    FROM hoadon\n" +
+                "    WHERE hoadon.ThoiGian BETWEEN ? and ?\n" +
+                "    GROUP BY MaNV\n" +
+                ") sub on sub.MaNV = nhanvien.MaNV";
+        
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setDate(1, beginDate);
+        st.setDate(2, endDate);
+        
+        ResultSet rs = st.executeQuery();
+        
+        ArrayList<Object[]> result = new ArrayList<>();
+        while (rs.next()) {
+            result.add(new Object[]{
+                rs.getString("MaNV"),
+                rs.getString("Ho") + " " + rs.getString("TenLot"),
+                rs.getString("Ten"),
+                rs.getInt("SoLuongHD"),
+                rs.getInt("tien")
+            });
+        }
+        return result;
+    }
+    
+    public static void main(String[] args) {
+        String query = "SELECT nhanvien.MaNV, nhanvien.Ho, nhanvien.TenLot, nhanvien.Ten, COUNT(*) as 'SoLuongHD', SUM(hoadon.TongTien) as 'tien'\n" +
+                "FROM nhanvien\n" +
+                "INNER JOIN hoadon on hoadon.MaNV = nhanvien.MaNV\n" +
+                "WHERE hoadon.ThoiGian BETWEEN ? and ?\n" +
+                "GROUP BY nhanvien.MaNV, nhanvien.Ten, nhanvien.Ho, nhanvien.TenLot";
+                
+        System.out.println(query);
     }
 }
