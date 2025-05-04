@@ -4,15 +4,22 @@
  */
 package do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces;
 
+import do_an_java_new.BLL.ExcelExporter;
+import do_an_java_new.BLL.ExcelImporter;
+import do_an_java_new.BLL.KhachHangBLL;
 import do_an_java_new.BLL.KhuyenMaiBLL;
+import do_an_java_new.DTO.KhachHangDTO;
 import do_an_java_new.DTO.KhuyenMaiDTO;
 import do_an_java_new.VIEW.POPUPS.AdminPopUps.SuaKhuyenMaiPopUp;
 import do_an_java_new.VIEW.POPUPS.AdminPopUps.ThemKhuyenMaiPopUp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
+import java.util.List;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -191,6 +198,11 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         jLabel29.setToolTipText("");
         jLabel29.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel29.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel29.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel29MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
@@ -205,6 +217,11 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         jLabel30.setToolTipText("");
         jLabel30.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel30.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel30MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
@@ -366,6 +383,70 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn nơi lưu file Excel");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+            if (!filePath.endsWith(".xlsx")) {
+                filePath += ".xlsx";
+            }
+
+            try {
+                // Gọi ExcelExporter để xuất dữ liệu từ bảng
+                ExcelExporter.exportToExcel(table, "Danh sách khuyến mãi", filePath);
+                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jLabel29MouseClicked
+
+    private void jLabel30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MouseClicked
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn file Excel để nhập");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+
+        int userSelection = fileChooser.showOpenDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+
+            try {
+                // Đọc dữ liệu từ file Excel
+                List<List<String>> data = ExcelImporter.importFromExcel(filePath);
+
+                // Lưu dữ liệu vào database
+                for (int i = 1; i < data.size(); i++) { // Bỏ qua dòng tiêu đề
+                    List<String> row = data.get(i);
+                    String maKM = row.get(0);
+                    String tenKM = row.get(1);
+                    String noiDung = row.get(2);
+                    String maSP = row.get(3);
+                    Date ngayBD = Date.valueOf(row.get(4));
+                    Date ngayKT = Date.valueOf(row.get(5));
+                    int giaTri = Integer.parseInt(row.get(6));
+                    int soLuong = Integer.parseInt(row.get(7));
+                    String trangThai = row.get(8);
+
+                    // Gọi BLL để lưu vào database
+                    KhuyenMaiBLL.themKhuyenMai(new KhuyenMaiDTO(maKM, tenKM, noiDung, maSP, ngayBD, ngayKT, giaTri, soLuong, trangThai));
+                }
+
+                JOptionPane.showMessageDialog(this, "Nhập dữ liệu từ Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                renderTable(); // Refresh lại bảng
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi đọc file Excel: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi xử lý dữ liệu: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jLabel30MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
