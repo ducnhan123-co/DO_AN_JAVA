@@ -7,6 +7,7 @@ package do_an_java_new.DAO;
 
 import do_an_java_new.DTO.KhachHangDTO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -113,5 +114,58 @@ public class KhachHangDAO {
         st.setString(1, makh);
         
         st.executeUpdate();
+    }
+    
+    public static ArrayList<Object[]> thongKeKhachHang(Date beginDate, Date endDate) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "select khachhang.MaKH, khachhang.Ho, khachhang.TenLot, khachhang.Ten, sub1.soLuong, sub1.tien\n" +
+                "FROM khachhang\n" +
+                "INNER JOIN (\n" +
+                "	SELECT hoadon.MaKH, SUM(sub2.soLuong) as 'soLuong', SUM(TongTien - TienGiam) as 'tien'\n" +
+                "    FROM hoadon\n" +
+                "    INNER JOIN (\n" +
+                "    	SELECT MaHD, SUM(chitiethoadon.SoLuong) as 'soLuong'\n" +
+                "        FROM chitiethoadon\n" +
+                "        GROUP BY MaHD\n" +
+                "    ) sub2 on sub2.MaHD = hoadon.MaHD\n" +
+                "    WHERE hoadon.ThoiGian BETWEEN ? and ?\n" +
+                "    GROUP BY hoadon.MaKH\n" +
+                ") sub1 on sub1.MaKH = khachhang.MaKH";
+        
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setDate(1, beginDate);
+        st.setDate(2, endDate);
+        
+        ResultSet rs = st.executeQuery();
+        
+        ArrayList<Object[]> res = new ArrayList<>();
+        while (rs.next()) {
+            res.add(new Object[] {
+                rs.getString("MaKH"),
+                rs.getString("Ho") + " " + rs.getString("TenLot"),
+                rs.getString("Ten"),
+                rs.getInt("soLuong"),
+                rs.getInt("tien")
+            });
+        }
+        
+        return res;
+    }
+    
+    public static void main(String[] args) {
+        String query = "select khachhang.MaKH, khachhang.Ho, khachhang.TenLot, khachhang.Ten, sub1.soLuong, sub1.tien\n" +
+                "FROM khachhang\n" +
+                "INNER JOIN (\n" +
+                "	SELECT hoadon.MaKH, SUM(sub2.soLuong) as 'soLuong', SUM(TongTien - TienGiam) as 'tien'\n" +
+                "    FROM hoadon\n" +
+                "    INNER JOIN (\n" +
+                "    	SELECT MaHD, SUM(chitiethoadon.SoLuong) as 'soLuong'\n" +
+                "        FROM chitiethoadon\n" +
+                "        GROUP BY MaHD\n" +
+                "    ) sub2 on sub2.MaHD = hoadon.MaHD\n" +
+                "    WHERE hoadon.ThoiGian BETWEEN ? and ?\n" +
+                "    GROUP BY hoadon.MaKH\n" +
+                ") sub1 on sub1.MaKH = khachhang.MaKH";
+                
     }
 }

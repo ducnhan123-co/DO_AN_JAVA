@@ -4,7 +4,7 @@
  */
 package do_an_java_new.BLL;
 
-import do_an_java_new.DAO.TinhThanhDAL;
+import do_an_java_new.DAO.TinhThanhDAO;
 import java.util.ArrayList;
 
 /**
@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 public class TinhThanhBLL {
     public static ArrayList<String> getDanhSachTinh() throws Exception {
-        return TinhThanhDAL.getDanhSachTinh();
+        return TinhThanhDAO.getDanhSachTinh();
     }
     
     public static int getMaTinh(String tenTinh) {
-        return TinhThanhDAL.getMaTinh(tenTinh);
+        return TinhThanhDAO.getMaTinh(tenTinh);
     }
 }

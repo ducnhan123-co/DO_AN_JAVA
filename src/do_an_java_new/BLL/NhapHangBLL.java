@@ -78,4 +78,13 @@ public class NhapHangBLL {
         
         listOf_nhapHang.add(nh);
     }
+    
+    public static void xoaPhieuNhap(String maNH) throws SQLException {
+        if (listOf_nhapHang == null) 
+            listOf_nhapHang = NhapHangDAO.getDanhSachNhapHang();
+
+        NhapHangDAO.xoaPhieuNhap(maNH);   
+
+        listOf_nhapHang.removeIf(nh -> nh.getMaPhieu().equals(maNH));
+    }   
 }

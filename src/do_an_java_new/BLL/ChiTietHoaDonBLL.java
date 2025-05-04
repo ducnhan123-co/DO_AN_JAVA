@@ -42,7 +42,16 @@ public class ChiTietHoaDonBLL {
             listOf_ChiTietHoaDon = ChiTietHoaDonDAO.getDanhSachCTHD();
         
         ChiTietHoaDonDAO.themCTHD(dsCTHD);
-        
         listOf_ChiTietHoaDon.addAll(dsCTHD);
+    }
+    
+    public static void xoaHoaDon(String maHD) throws SQLException {
+        if (listOf_ChiTietHoaDon == null) 
+            listOf_ChiTietHoaDon = ChiTietHoaDonDAO.getDanhSachCTHD();
+
+        ChiTietHoaDonDAO.xoaHoaDon(maHD);
+        for (int i = 0 ; i < listOf_ChiTietHoaDon.size() ; i++)
+            if (listOf_ChiTietHoaDon.get(i).getMaHD().equals(maHD))
+                listOf_ChiTietHoaDon.remove(i);
     }
 }

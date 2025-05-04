@@ -10,7 +10,6 @@ package do_an_java_new.BLL;
 
 import do_an_java_new.DAO.SanPhamDAO;
 import do_an_java_new.DTO.SanPhamDTO;
-import do_an_java_new.DTO.ThongKeSanPhamDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -158,7 +157,7 @@ public class SanPhamBLL {
             }
     }    
     
-    public static ArrayList<ThongKeSanPhamDTO> getDanhSachThongKe(Date beginDate, Date endDate) throws SQLException, Exception {
+    public static ArrayList<Object[]> getDanhSachThongKe(Date beginDate, Date endDate) throws SQLException, Exception {
         if (beginDate.compareTo(endDate) > 0)
             throw new Exception("Ngày thống kê không hợp lệ");
         return SanPhamDAO.getDanhSachThongKe(beginDate, endDate);
