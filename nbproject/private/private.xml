@@ -2,25 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< Updated upstream
         <group>
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-            <file>file:/C:/Users/LENOVO%20VN/Desktop/DoAn_Java/src/do_an_java_new/VIEW/WorkSpaces/AdminWorkSpaces/ThongKeSanPhamPanel.java</file>
-            <file>file:/C:/Users/LENOVO%20VN/Desktop/DoAn_Java/src/do_an_java_new/VIEW/WorkSpaces/AdminWorkSpaces/ThongKePanel.java</file>
-            <file>file:/C:/Users/LENOVO%20VN/Desktop/DoAn_Java/src/do_an_java_new/VIEW/WorkSpaces/AdminWorkSpaces/HoaDonPanel.java</file>
-=======
-            <file>file:/F:/Study/university/Nam2/Java/Doan_nhom2/src/do_an_java_new/DTO/KhuyenMai_DTO.java</file>
-            <file>file:/F:/Study/university/Nam2/Java/Doan_nhom2/src/do_an_java_new/VIEW/AdminFrame.java</file>
-            <file>file:/F:/Study/university/Nam2/Java/Doan_nhom2/src/do_an_java_new/VIEW/POPUPS/AdminPopUps/KhuyenMai_PopUp.java</file>
-            <file>file:/F:/Study/university/Nam2/Java/Doan_nhom2/src/do_an_java_new/VIEW/POPUPS/AdminPopUps/NhaCungCapPopUp.java</file>
->>>>>>> ffca6c56beab2d3d616dae8bec134334606b0633
-=======
-            <file>file:/F:/Study/university/Nam2/Java/Doan_nhom2/src/do_an_java_new/VIEW/WorkSpaces/AdminWorkSpaces/ThongKeSanPhamPanel.java</file>
->>>>>>> Stashed changes
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/DoAn_Java/src/do_an_java_new/VIEW/WorkSpaces/StaffWorkSpaces/LichSuPanel.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/DoAn_Java/src/do_an_java_new/VIEW/StaffFrame.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/DoAn_Java/src/do_an_java_new/VIEW/WorkSpaces/AdminWorkSpaces/SanPhamPanel.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/DoAn_Java/src/do_an_java_new/VIEW/WorkSpaces/StaffWorkSpaces/LichSuHDPanel.java</file>
+            <file>file:/C:/Users/LENOVO%20VN/Desktop/DoAn_Java/src/do_an_java_new/DO_AN_JAVA_new.java</file>
         </group>
-=======
-        <group/>
->>>>>>> Stashed changes
     </open-files>
 </project-private>

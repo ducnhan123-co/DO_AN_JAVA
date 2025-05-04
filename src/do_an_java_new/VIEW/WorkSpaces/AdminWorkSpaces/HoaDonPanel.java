@@ -228,11 +228,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         jLabel29.setToolTipText("");
         jLabel29.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel29.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jLabel29.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel29MouseClicked(evt);
-            }
-        });
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
@@ -248,11 +244,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         jLabel30.setToolTipText("");
         jLabel30.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel30.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel30MouseClicked(evt);
-            }
-        });
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
@@ -260,13 +252,8 @@ public class HoaDonPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel30, gridBagConstraints);
 
-<<<<<<< Updated upstream
-        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
-        jPanel2.setLayout(new java.awt.GridBagLayout());
-=======
         filterPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         filterPanel.setLayout(new java.awt.GridBagLayout());
->>>>>>> Stashed changes
 
         cbbSortOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "Giá tăng dần", "Giá giảm dần", "Thời gian ↑", "Thời gian ↓" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -525,67 +512,6 @@ public class HoaDonPanel extends javax.swing.JPanel {
  
     }//GEN-LAST:event_tableMouseClicked
 
-<<<<<<< Updated upstream
-    private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
-        // TODO add your handling code here:
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Chọn nơi lưu file Excel");
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
-
-        int userSelection = fileChooser.showSaveDialog(this);
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
-            if (!filePath.endsWith(".xlsx")) {
-                filePath += ".xlsx";
-            }
-
-            try {
-                // Gọi lớp ExcelExporter để xuất dữ liệu
-                ExcelExporter.exportToExcel(table, "Danh sách hóa đơn", filePath);
-                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_jLabel29MouseClicked
-
-    private void jLabel30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MouseClicked
-        // TODO add your handling code here:
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Chọn file Excel để nhập");
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
-
-        int userSelection = fileChooser.showOpenDialog(this);
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
-
-            try {
-                // Đọc dữ liệu từ file Excel
-                List<List<String>> data = ExcelImporter.importFromExcel(filePath);
-
-                // Lưu dữ liệu vào database
-                for (int i = 1; i < data.size(); i++) { // Bỏ qua dòng tiêu đề
-                    List<String> row = data.get(i);
-                    String maHD = row.get(0);
-                    String maKH = row.get(1);
-                    String maNV = row.get(2);
-                    double tongTien = Double.parseDouble(row.get(3));
-                    double tienGiam = Double.parseDouble(row.get(4));
-                    String thoiGian = row.get(5);
-                    String maKM = row.get(6);
-
-                    // Gọi BLL để lưu vào database
-                    HoaDonBLL.themHoaDon(new HoaDonDTO(maHD, maKH, maNV, (int) tongTien,(int) tienGiam, Date.valueOf(thoiGian), maKM));
-                }
-
-                JOptionPane.showMessageDialog(this, "Nhập dữ liệu từ Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                rendertable(); // Refresh lại bảng
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Lỗi khi nhập dữ liệu từ Excel: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_jLabel30MouseClicked
-=======
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
         // TODO add your handling code here:
         int selectedRow = table.getSelectedRow();
@@ -608,7 +534,6 @@ public class HoaDonPanel extends javax.swing.JPanel {
             }
         }        
     }//GEN-LAST:event_btnDeleteMouseClicked
->>>>>>> Stashed changes
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
