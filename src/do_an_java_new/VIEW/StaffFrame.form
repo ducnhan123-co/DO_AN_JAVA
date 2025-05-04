@@ -450,7 +450,11 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+<<<<<<< Updated upstream
                       <Image iconType="3" name="/do_an_java_new/Resources/icons8-customer-16.png"/>
+=======
+                      <Image iconType="3" name="/do_an_java_new/Resources/history.png"/>
+>>>>>>> Stashed changes
                     </Property>
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>

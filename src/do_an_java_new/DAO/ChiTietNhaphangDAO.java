@@ -5,7 +5,6 @@
 
 package do_an_java_new.DAO;
 
-import do_an_java_new.DTO.ChiTietHoaDonDTO;
 import do_an_java_new.DTO.ChiTietNhapHangDTO;
 import java.util.ArrayList;
 import java.sql.*;
@@ -59,6 +58,15 @@ public class ChiTietNhaphangDAO {
                 );
 
         PreparedStatement st = conn.prepareStatement(query);
+        st.executeUpdate();
+    }
+    
+    public static void xoaPhieuNhap(String maNH) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "DELETE FROM chitietpnhap WHERE MaPhieu = ?";
+
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, maNH);
         st.executeUpdate();
     }
 }

@@ -53,7 +53,11 @@ public class ThemKhuyenMaiPopUp extends KhuyenMaiPopUp {
             }
 
             if (ngayBD.compareTo(ngayKT) >= 0)
+<<<<<<< Updated upstream
                 JOptionPane.showMessageDialog(null, "Thời gian áp dụng không hợp lệ");
+=======
+                throw new Exception("Thời gian áp dụng không hợp lệ");
+>>>>>>> Stashed changes
 
             KhuyenMaiDTO khuyenMai = new KhuyenMaiDTO(
                 maKM, tenKM, noiDung, maSP, ngayBD, ngayKT, giaTri, soLuong, trangThai

@@ -71,7 +71,6 @@ public class StaffFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         pnLeft = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -290,7 +289,11 @@ public class StaffFrame extends javax.swing.JFrame {
         lichsu.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+<<<<<<< Updated upstream
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/icons8-customer-16.png"))); // NOI18N
+=======
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/history.png"))); // NOI18N
+>>>>>>> Stashed changes
         jLabel25.setFocusable(false);
         jLabel25.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lichsu.add(jLabel25);

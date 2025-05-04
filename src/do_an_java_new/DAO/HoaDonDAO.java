@@ -33,24 +33,25 @@ public class HoaDonDAO {
         st.executeUpdate();
     }
 
-    public int update(HoaDonDTO hoaDon) {
-        int result = 0;
-        try {
-            Connection cn = ConnectionDAO.getConnection();
-            String sql = "update hoaDon set MaHD=?, MaKH=?, MaNV=?, tongTien=?";
-            PreparedStatement st = cn.prepareStatement(sql);
-            st.setString(1, hoaDon.getMaHD());
-            st.setString(2, hoaDon.getMaKH());
-            st.setString(3, hoaDon.getMaNV());
-            st.setInt(3, hoaDon.getTongTien());
-            result = st.executeUpdate();
-            System.out.println("Số dòng đã bị thay đổi: "+result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+//    public int update(HoaDonDTO hoaDon) {
+//        int result = 0;
+//        try {
+//            Connection cn = ConnectionDAO.getConnection();
+//            String sql = "update hoaDon set MaHD=?, MaKH=?, MaNV=?, tongTien=?";
+//            PreparedStatement st = cn.prepareStatement(sql);
+//            st.setString(1, hoaDon.getMaHD());
+//            st.setString(2, hoaDon.getMaKH());
+//            st.setString(3, hoaDon.getMaNV());
+//            st.setInt(3, hoaDon.getTongTien());
+//            result = st.executeUpdate();
+//            System.out.println("Số dòng đã bị thay đổi: "+result);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
 
+<<<<<<< Updated upstream
     public int delete(int maHD) {
         int result=0;
         try {
@@ -65,6 +66,17 @@ public class HoaDonDAO {
             e.printStackTrace();
         }
         return result;
+=======
+    public static void xoaHoaDon(String maHD) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String sql = ("DELETE FROM hoadon\n" +
+                "WHERE hoadon.MaHD= ?");
+
+        PreparedStatement st = conn.prepareStatement(sql);
+        st.setString(1, maHD);
+        
+        st.executeUpdate();
+>>>>>>> Stashed changes
     }
 
     //Lấy tất cả dl của hoadon từ database
@@ -120,6 +132,47 @@ public class HoaDonDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
+    }
+    
+    public static ArrayList<Object[]> thongKeDoanhThu(Date beginDate, Date endDate) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "SELECT DATE(ThoiGian) as Ngay, SUM(TongTien) as DoanhThu \n" +
+                       "FROM hoadon \n" +
+                       "WHERE ThoiGian BETWEEN ? AND ? \n" +
+                       "GROUP BY DATE(ThoiGian) \n" +
+                       "ORDER BY Ngay ASC";
+        
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setDate(1, beginDate);
+        st.setDate(2, endDate);
+
+        ResultSet rs = st.executeQuery();
+
+        ArrayList<Object[]> result = new ArrayList<>();
+        while (rs.next()) {
+            Date ngay = rs.getDate("Ngay");
+            int doanhThu = rs.getInt("DoanhThu");
+            result.add(new Object[]{ngay, doanhThu});
+        }
+        
+        return result;
+    }
+    public static int thongKeTongDoanhThu(Date beginDate, Date endDate) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "SELECT SUM(TongTien) as DoanhThu \n" +
+                       "FROM hoadon \n" +
+                       "WHERE ThoiGian BETWEEN ? AND ?";        
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setDate(1, beginDate);
+        st.setDate(2, endDate);
+
+        ResultSet rs = st.executeQuery();
+
+        int result = 0;
+        if (rs.next()) 
+            result = rs.getInt("DoanhThu");
+        
         return result;
     }
 }
