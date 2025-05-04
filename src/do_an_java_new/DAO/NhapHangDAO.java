@@ -49,4 +49,13 @@ public class NhapHangDAO {
         PreparedStatement st = conn.prepareStatement(query);
         st.executeUpdate();
     }
+    
+    public static void xoaPhieuNhap(String maNH) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "DELETE FROM phieunhaphang WHERE MaPhieu = ?";
+
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, maNH);
+        st.executeUpdate();
+    }
 }

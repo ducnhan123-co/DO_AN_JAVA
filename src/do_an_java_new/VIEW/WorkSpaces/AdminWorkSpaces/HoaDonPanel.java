@@ -33,11 +33,12 @@ public class HoaDonPanel extends javax.swing.JPanel {
     public HoaDonPanel() {
         initComponents();
         
-        rendertable();
+        renderTable();
         ((DefaultTableModel)tbChiTietHoaDon.getModel()).setRowCount(0);
+        
     }
     
-    public void rendertable() {
+    public void renderTable() {
         try {
             int sortOption = cbbSortOption.getSelectedIndex();
             String keyWord = txtKeyWord.getText().trim();
@@ -87,7 +88,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         btnDetail = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        filterPanel = new javax.swing.JPanel();
         cbbSortOption = new javax.swing.JComboBox<>();
         txtKeyWord = new javax.swing.JTextField();
         btnRefresh = new javax.swing.JButton();
@@ -171,6 +172,11 @@ public class HoaDonPanel extends javax.swing.JPanel {
         btnDelete.setToolTipText("");
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -254,8 +260,13 @@ public class HoaDonPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel30, gridBagConstraints);
 
+<<<<<<< Updated upstream
         jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         jPanel2.setLayout(new java.awt.GridBagLayout());
+=======
+        filterPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        filterPanel.setLayout(new java.awt.GridBagLayout());
+>>>>>>> Stashed changes
 
         cbbSortOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "Giá tăng dần", "Giá giảm dần", "Thời gian ↑", "Thời gian ↓" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -263,7 +274,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel2.add(cbbSortOption, gridBagConstraints);
+        filterPanel.add(cbbSortOption, gridBagConstraints);
 
         txtKeyWord.setMinimumSize(new java.awt.Dimension(148, 22));
         txtKeyWord.setPreferredSize(new java.awt.Dimension(140, 26));
@@ -272,7 +283,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel2.add(txtKeyWord, gridBagConstraints);
+        filterPanel.add(txtKeyWord, gridBagConstraints);
 
         btnRefresh.setText("Refresh");
         btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -284,7 +295,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel2.add(btnRefresh, gridBagConstraints);
+        filterPanel.add(btnRefresh, gridBagConstraints);
 
         buttonGroup.add(searchOption_ma);
         searchOption_ma.setText("Mã");
@@ -293,7 +304,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        jPanel2.add(searchOption_ma, gridBagConstraints);
+        filterPanel.add(searchOption_ma, gridBagConstraints);
 
         buttonGroup.add(searchOption_NV);
         searchOption_NV.setText("Mã nhân viên");
@@ -302,7 +313,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.weightx = 0.1;
-        jPanel2.add(searchOption_NV, gridBagConstraints);
+        filterPanel.add(searchOption_NV, gridBagConstraints);
 
         buttonGroup.add(searchOption_KH);
         searchOption_KH.setText("Mã khách hàng");
@@ -311,13 +322,13 @@ public class HoaDonPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel2.add(searchOption_KH, gridBagConstraints);
+        filterPanel.add(searchOption_KH, gridBagConstraints);
 
         txtResultCount.setText("Tìm thấy ... kết quả");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 2;
-        jPanel2.add(txtResultCount, gridBagConstraints);
+        filterPanel.add(txtResultCount, gridBagConstraints);
 
         btnReset.setText("Đặt lại");
         btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -328,11 +339,11 @@ public class HoaDonPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 0;
-        jPanel2.add(btnReset, gridBagConstraints);
+        filterPanel.add(btnReset, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 60, 0, 0);
-        jPanel1.add(jPanel2, gridBagConstraints);
+        jPanel1.add(filterPanel, gridBagConstraints);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -463,7 +474,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
     private void btnRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshMouseClicked
         // TODO add your handling code here:
-        rendertable();
+        renderTable();
         txtMaHD.setText("");
         txtMaKh.setText("");
         txtMaNV.setText("");
@@ -514,6 +525,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
  
     }//GEN-LAST:event_tableMouseClicked
 
+<<<<<<< Updated upstream
     private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
@@ -573,6 +585,30 @@ public class HoaDonPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jLabel30MouseClicked
+=======
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Chọn hoá đơn muốn xoá");
+            return;
+        } 
+        
+        if (JOptionPane.showConfirmDialog(null, "Bạn thật sự muốn xoá hoá đơn?", "Xoá hoá đơn", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            try {
+                String maHD = (String) table.getValueAt(selectedRow, 0);
+                
+                ChiTietHoaDonBLL.xoaHoaDon(maHD);
+                HoaDonBLL.xoaHoaDon(maHD);
+                
+                JOptionPane.showMessageDialog(null, "Xoá hoá đơn thành công");
+                renderTable();
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }        
+    }//GEN-LAST:event_btnDeleteMouseClicked
+>>>>>>> Stashed changes
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -584,6 +620,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
     private javax.swing.JLabel btnUpdate;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JComboBox<String> cbbSortOption;
+    private javax.swing.JPanel filterPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel29;
@@ -592,7 +629,6 @@ public class HoaDonPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;

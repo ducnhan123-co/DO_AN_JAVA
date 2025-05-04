@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.Date;
 import do_an_java_new.DTO.SanPhamDTO;
-import do_an_java_new.DTO.ThongKeSanPhamDTO;
 import java.sql.SQLException;
 
 /**
@@ -119,7 +118,7 @@ public class SanPhamDAO {
         st.executeUpdate();
     }
     
-    public static ArrayList<ThongKeSanPhamDTO> getDanhSachThongKe(Date beginDate, Date endDate) throws SQLException {
+    public static ArrayList<Object[]> getDanhSachThongKe(Date beginDate, Date endDate) throws SQLException {
         Connection conn = ConnectionDAO.getConnection();
         String query = "SELECT sanpham.MaSP, sanpham.TenSP, SUM(sub.soLuongBan) as 'soLuongBan', SUM(sub.doanhThu) as 'doanhThu', SUM(sub.doanhThu)-SUM(chitietpnhap.DonGia*sub.soLuongBan) as 'loiNhuan'\n" +
                 "FROM sanpham\n" +
@@ -143,17 +142,17 @@ public class SanPhamDAO {
         st.setDate(1, beginDate);
         st.setDate(2, endDate);
         
-        ArrayList<ThongKeSanPhamDTO> res = new ArrayList<>();
+        ArrayList<Object[]> res = new ArrayList<>();
         
         ResultSet rs = st.executeQuery();
         while (rs.next())
-            res.add(new ThongKeSanPhamDTO(
+            res.add(new Object[]{
                     rs.getString("MaSP"),
                     rs.getString("TenSP"),
                     rs.getInt("soLuongBan"),
                     rs.getInt("doanhThu"), 
                     rs.getInt("loiNhuan")
-            ));
+            });
         
         return res;
     }

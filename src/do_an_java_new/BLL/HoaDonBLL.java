@@ -7,6 +7,8 @@ package do_an_java_new.BLL;
 
 import do_an_java_new.DAO.HoaDonDAO;
 import do_an_java_new.DTO.HoaDonDTO;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -78,4 +80,32 @@ public class HoaDonBLL {
         HoaDonDAO.themHoaDon(hd);
         listOf_hoaDon.add(hd);
     }
+    
+    public static void xoaHoaDon(String maHD) throws SQLException {
+        if (listOf_hoaDon == null) 
+            listOf_hoaDon = HoaDonDAO.getDanhSachHoaDon() ;
+        
+        HoaDonDAO.xoaHoaDon(maHD);
+        
+        for(int i = 0 ; i < listOf_hoaDon.size() ; i++) 
+            if (listOf_hoaDon.get(i).getMaHD().equals(maHD))
+                listOf_hoaDon.remove(i);
+    }
+    
+    public static ArrayList<Object[]> thongKeDoanhThu(Date beginDate, Date endDate) throws SQLException {
+        if (beginDate.after(endDate)) {
+            throw new IllegalArgumentException("Ngày bắt đầu phải trước hoặc bằng ngày kết thúc.");
+        }
+
+        return HoaDonDAO.thongKeDoanhThu(beginDate, endDate);        
+    }
+    
+    public static int thongKeTongDoanhThu(Date beginDate, Date endDate) throws SQLException {
+        if (beginDate.after(endDate)) {
+            throw new IllegalArgumentException("Ngày bắt đầu phải trước hoặc bằng ngày kết thúc.");
+        }
+
+        return HoaDonDAO.thongKeTongDoanhThu(beginDate, endDate);        
+        
+    }    
 }

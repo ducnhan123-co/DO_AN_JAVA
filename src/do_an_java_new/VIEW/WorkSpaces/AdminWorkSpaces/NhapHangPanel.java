@@ -163,6 +163,11 @@ public class NhapHangPanel extends javax.swing.JPanel {
         btnDelete.setToolTipText("");
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -479,6 +484,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
         ((DefaultTableModel) tbChiTietNhapHang.getModel()).setRowCount(0);
     }//GEN-LAST:event_btnRefreshMouseClicked
 
+<<<<<<< Updated upstream
     private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
         // TODO add your handling code here:
         JFileChooser jf = new JFileChooser();
@@ -533,6 +539,31 @@ public class NhapHangPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jLabel30MouseClicked
+=======
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Chọn phiếu nhập hàng muốn xoá");
+            return;
+        } 
+        
+        if (JOptionPane.showConfirmDialog(null, "Bạn thật sự muốn xoá phiếu nhập hàng?", "Xoá phiếu nhập hàng", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            try {
+                String maPN = (String) table.getValueAt(selectedRow, 0);
+                
+                ChiTietNhapHangBLL.xoaPhieuNhap(maPN);
+                NhapHangBLL.xoaPhieuNhap(maPN);
+                
+                JOptionPane.showMessageDialog(null, "Xoá phiếu nhập hàng thành công");
+                renderTable();
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }        
+        
+    }//GEN-LAST:event_btnDeleteMouseClicked
+>>>>>>> Stashed changes
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

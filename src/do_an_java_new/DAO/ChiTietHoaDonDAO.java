@@ -57,6 +57,17 @@ public class ChiTietHoaDonDAO {
         st.executeUpdate();
     }
 
+    public static void xoaHoaDon(String maHD) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "DELETE FROM chitiethoadon\n" +
+                "WHERE chitiethoadon.MaHD = ?";
+        
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, maHD);
+        
+        st.executeUpdate();
+    }
+    
     public int update(ChiTietHoaDonDTO chiTietHoaDon) {
         int result=0;
         try {
