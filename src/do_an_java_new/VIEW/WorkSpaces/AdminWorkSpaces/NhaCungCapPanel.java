@@ -10,7 +10,10 @@ import do_an_java_new.VIEW.POPUPS.AdminPopUps.SuaNhaCungCapPopUp;
 import do_an_java_new.VIEW.POPUPS.AdminPopUps.ThemNhaCungCapPopUp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -199,6 +202,11 @@ public class NhaCungCapPanel extends javax.swing.JPanel {
         jLabel29.setToolTipText("");
         jLabel29.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel29.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel29.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel29MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
@@ -213,6 +221,11 @@ public class NhaCungCapPanel extends javax.swing.JPanel {
         jLabel30.setToolTipText("");
         jLabel30.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel30.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel30MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
@@ -220,8 +233,7 @@ public class NhaCungCapPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel4.add(jLabel30, gridBagConstraints);
 
-        jPanel5.setBackground(new java.awt.Color(91, 187, 70));
-        jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 3, new java.awt.Color(51, 51, 51)));
+        jPanel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
         cbbSortOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "Tên nhà cung cấp↑", "Tên nhà cung cấp↓", "Tên liên hệ↑", "Tên liên hệ↓" }));
@@ -394,6 +406,63 @@ public class NhaCungCapPanel extends javax.swing.JPanel {
         buttonGroup.clearSelection();
         cbbSortOption.setSelectedIndex(0);
     }//GEN-LAST:event_btnResetMouseClicked
+
+    private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
+        // TODO add your handling code here:
+        JFileChooser jf = new JFileChooser();
+        jf.setDialogTitle("Chọn nơi lưu file Excel");
+        jf.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+        
+        int userSelection = jf.showSaveDialog(this);
+        if(userSelection == JFileChooser.APPROVE_OPTION) {
+            String filePath = jf.getSelectedFile().getAbsolutePath();
+            if(!filePath.endsWith(".xlsx")) {
+                filePath+=".xlsx";
+            }
+            try {
+                ExcelExporter.exportToExcel(table, "Danh sách nhà cung cấp", filePath);
+                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: "+e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);  
+            }
+        }
+    }//GEN-LAST:event_jLabel29MouseClicked
+
+    private void jLabel30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MouseClicked
+        // TODO add your handling code here:
+        JFileChooser jf = new JFileChooser();
+        jf.setDialogTitle("Chọn file Excel để nhập");
+        jf.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+        
+        int userSelection = jf.showOpenDialog(this);
+        if(userSelection == JFileChooser.APPROVE_OPTION) {
+            String filePath = jf.getSelectedFile().getAbsolutePath();
+            
+            try {
+                List<List<String>> data = ExcelImporter.importFromExcel(filePath);
+                
+                for(int i=1 ; i<data.size(); i++) {
+                    List<String> row = data.get(i);
+                    String maNCC = row.get(0);
+                    String tenNCC = row.get(1);
+                    String tenLienHe = row.get(2);
+                    String sđt = row.get(3);
+                    String tinhThanh = row.get(4);
+                    String diaChi = row.get(5);
+                    String trangThai = row.get(6);
+                    
+                    NhaCungCapBLL.themNhaCungCap(new NhaCungCapDTO(maNCC, tenNCC, tenLienHe, sđt, tinhThanh, diaChi, trangThai));
+                }
+                
+                JOptionPane.showMessageDialog(this, "Nhập dữ liệu từ Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                renderTable();
+            } catch(IOException e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi đọc file Excel: " +e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi xử lý dữ liệu: "+e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jLabel30MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

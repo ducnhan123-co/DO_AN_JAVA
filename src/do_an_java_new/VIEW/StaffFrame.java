@@ -11,6 +11,7 @@ import do_an_java_new.DTO.NhanVienDTO;
 import do_an_java_new.Login;
 import do_an_java_new.VIEW.WorkSpaces.TrangChuPanel;
 import do_an_java_new.VIEW.WorkSpaces.StaffWorkSpaces.LapHoaDonPanel;
+import do_an_java_new.VIEW.WorkSpaces.StaffWorkSpaces.LichSuPanel;
 import do_an_java_new.VIEW.WorkSpaces.StaffWorkSpaces.NhapHangPanel;
 import do_an_java_new.VIEW.WorkSpaces.StaffWorkSpaces.ThemKhachhangPanel;
 import do_an_java_new.VIEW.WorkSpaces.StaffWorkSpaces.ThongTinNhanVien;
@@ -59,6 +60,7 @@ public class StaffFrame extends javax.swing.JFrame {
         pnCenter.add(new NhapHangPanel(nhanVien.getMaNV()), "NHAPHANG");
         pnCenter.add(new ThemKhachhangPanel(), "KHACHHANG");
         pnCenter.add(new ThongTinNhanVien(nhanVien), "THONGTIN");
+        pnCenter.add(new LichSuPanel(nhanVien.getMaNV()), "LICHSU");
     }
 
     /**
@@ -69,19 +71,18 @@ public class StaffFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         pnLeft = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         SignOut = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        TrangChu1 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         TrangChu = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        TrangChu1 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         Quan_ly_hoa_don = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -91,6 +92,9 @@ public class StaffFrame extends javax.swing.JFrame {
         Quan_ly_khach_hang = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        lichsu = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         pnCenter = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -135,161 +139,129 @@ public class StaffFrame extends javax.swing.JFrame {
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
-        TrangChu1.setBackground(new java.awt.Color(153, 255, 153));
-        TrangChu1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
-        TrangChu1.setForeground(new java.awt.Color(255, 255, 255));
-        TrangChu1.setMaximumSize(new java.awt.Dimension(2147483647, 50));
-        TrangChu1.setOpaque(true);
-        TrangChu1.setPreferredSize(new java.awt.Dimension(195, 40));
-        TrangChu1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TrangChu1MouseClicked(evt);
-            }
-        });
-        TrangChu1.setLayout(new java.awt.GridBagLayout());
-
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Info - Copy.png"))); // NOI18N
-        jLabel12.setFocusable(false);
-        jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.2;
-        TrangChu1.add(jLabel12, gridBagConstraints);
-
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel6.setText("Thông tin");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.8;
-        TrangChu1.add(jLabel6, gridBagConstraints);
-
-        jPanel1.add(TrangChu1);
-
         TrangChu.setBackground(new java.awt.Color(153, 255, 153));
-        TrangChu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        TrangChu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         TrangChu.setForeground(new java.awt.Color(255, 255, 255));
-        TrangChu.setMaximumSize(new java.awt.Dimension(2147483647, 50));
+        TrangChu.setMaximumSize(new java.awt.Dimension(500, 50));
         TrangChu.setOpaque(true);
-        TrangChu.setPreferredSize(new java.awt.Dimension(195, 40));
+        TrangChu.setPreferredSize(new java.awt.Dimension(12, 50));
         TrangChu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TrangChuMouseClicked(evt);
             }
         });
-        TrangChu.setLayout(new java.awt.GridBagLayout());
+        TrangChu.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/icons8-home-16.png"))); // NOI18N
         jLabel8.setFocusable(false);
         jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.2;
-        TrangChu.add(jLabel8, gridBagConstraints);
+        TrangChu.add(jLabel8);
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setText(" Trang chủ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.8;
-        TrangChu.add(jLabel5, gridBagConstraints);
+        TrangChu.add(jLabel5);
 
         jPanel1.add(TrangChu);
 
+        TrangChu1.setBackground(new java.awt.Color(153, 255, 153));
+        TrangChu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        TrangChu1.setForeground(new java.awt.Color(255, 255, 255));
+        TrangChu1.setMaximumSize(new java.awt.Dimension(500, 50));
+        TrangChu1.setOpaque(true);
+        TrangChu1.setPreferredSize(new java.awt.Dimension(12, 50));
+        TrangChu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TrangChu1MouseClicked(evt);
+            }
+        });
+        TrangChu1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Info - Copy.png"))); // NOI18N
+        jLabel12.setFocusable(false);
+        jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        TrangChu1.add(jLabel12);
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel6.setText("Thông tin");
+        TrangChu1.add(jLabel6);
+
+        jPanel1.add(TrangChu1);
+
         Quan_ly_hoa_don.setBackground(new java.awt.Color(153, 255, 153));
-        Quan_ly_hoa_don.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        Quan_ly_hoa_don.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_hoa_don.setForeground(new java.awt.Color(255, 255, 255));
-        Quan_ly_hoa_don.setMaximumSize(new java.awt.Dimension(2147483647, 50));
+        Quan_ly_hoa_don.setMaximumSize(new java.awt.Dimension(500, 50));
         Quan_ly_hoa_don.setOpaque(true);
-        Quan_ly_hoa_don.setPreferredSize(new java.awt.Dimension(195, 40));
+        Quan_ly_hoa_don.setPreferredSize(new java.awt.Dimension(12, 50));
         Quan_ly_hoa_don.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Quan_ly_hoa_donMouseClicked(evt);
             }
         });
-        Quan_ly_hoa_don.setLayout(new java.awt.GridBagLayout());
+        Quan_ly_hoa_don.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/icons8-bill-16.png"))); // NOI18N
         jLabel23.setFocusable(false);
         jLabel23.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.2;
-        gridBagConstraints.insets = new java.awt.Insets(1, 3, 0, 0);
-        Quan_ly_hoa_don.add(jLabel23, gridBagConstraints);
+        Quan_ly_hoa_don.add(jLabel23);
 
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(102, 102, 102));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Hoá Đơn");
         jLabel10.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 0.8;
-        Quan_ly_hoa_don.add(jLabel10, gridBagConstraints);
+        Quan_ly_hoa_don.add(jLabel10);
 
         jPanel1.add(Quan_ly_hoa_don);
 
         Quan_ly_nhap_hang.setBackground(new java.awt.Color(153, 255, 153));
-        Quan_ly_nhap_hang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        Quan_ly_nhap_hang.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_nhap_hang.setForeground(new java.awt.Color(255, 255, 255));
-        Quan_ly_nhap_hang.setMaximumSize(new java.awt.Dimension(2147483647, 50));
+        Quan_ly_nhap_hang.setMaximumSize(new java.awt.Dimension(500, 50));
         Quan_ly_nhap_hang.setOpaque(true);
-        Quan_ly_nhap_hang.setPreferredSize(new java.awt.Dimension(195, 40));
+        Quan_ly_nhap_hang.setPreferredSize(new java.awt.Dimension(12, 50));
         Quan_ly_nhap_hang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Quan_ly_nhap_hangMouseClicked(evt);
             }
         });
-        Quan_ly_nhap_hang.setLayout(new java.awt.GridBagLayout());
+        Quan_ly_nhap_hang.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/icons8-list-view-16.png"))); // NOI18N
         jLabel24.setFocusable(false);
         jLabel24.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.2;
-        gridBagConstraints.insets = new java.awt.Insets(1, 3, 0, 0);
-        Quan_ly_nhap_hang.add(jLabel24, gridBagConstraints);
+        Quan_ly_nhap_hang.add(jLabel24);
 
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(102, 102, 102));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("Nhập hàng");
         jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 0.8;
-        Quan_ly_nhap_hang.add(jLabel11, gridBagConstraints);
+        Quan_ly_nhap_hang.add(jLabel11);
 
         jPanel1.add(Quan_ly_nhap_hang);
 
         Quan_ly_khach_hang.setBackground(new java.awt.Color(153, 255, 153));
-        Quan_ly_khach_hang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 255, 153)));
+        Quan_ly_khach_hang.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_khach_hang.setForeground(new java.awt.Color(255, 255, 255));
-        Quan_ly_khach_hang.setMaximumSize(new java.awt.Dimension(2147483647, 40));
+        Quan_ly_khach_hang.setMaximumSize(new java.awt.Dimension(500, 50));
         Quan_ly_khach_hang.setOpaque(true);
-        Quan_ly_khach_hang.setPreferredSize(new java.awt.Dimension(195, 40));
-        Quan_ly_khach_hang.setLayout(new java.awt.GridBagLayout());
+        Quan_ly_khach_hang.setPreferredSize(new java.awt.Dimension(12, 50));
+        Quan_ly_khach_hang.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/icons8-customer-16.png"))); // NOI18N
         jLabel22.setFocusable(false);
         jLabel22.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.2;
-        gridBagConstraints.insets = new java.awt.Insets(1, 3, 0, 0);
-        Quan_ly_khach_hang.add(jLabel22, gridBagConstraints);
+        Quan_ly_khach_hang.add(jLabel22);
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("Thêm khách Hàng");
@@ -299,13 +271,46 @@ public class StaffFrame extends javax.swing.JFrame {
                 jLabel9MouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 0.8;
-        Quan_ly_khach_hang.add(jLabel9, gridBagConstraints);
+        Quan_ly_khach_hang.add(jLabel9);
 
         jPanel1.add(Quan_ly_khach_hang);
+
+        lichsu.setBackground(new java.awt.Color(153, 255, 153));
+        lichsu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lichsu.setForeground(new java.awt.Color(255, 255, 255));
+        lichsu.setMaximumSize(new java.awt.Dimension(500, 50));
+        lichsu.setOpaque(true);
+        lichsu.setPreferredSize(new java.awt.Dimension(12, 50));
+        lichsu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lichsuMouseClicked(evt);
+            }
+        });
+        lichsu.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+<<<<<<< Updated upstream
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/icons8-customer-16.png"))); // NOI18N
+=======
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/history.png"))); // NOI18N
+>>>>>>> Stashed changes
+        jLabel25.setFocusable(false);
+        jLabel25.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lichsu.add(jLabel25);
+
+        jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel13.setText("Lịch sử");
+        jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+        lichsu.add(jLabel13);
+
+        jPanel1.add(lichsu);
 
         pnLeft.add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -357,6 +362,15 @@ public class StaffFrame extends javax.swing.JFrame {
         cardLayout.show(pnCenter, "THONGTIN");
     }//GEN-LAST:event_TrangChu1MouseClicked
 
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void lichsuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lichsuMouseClicked
+        // TODO add your handling code here:
+        cardLayout.show(pnCenter, "LICHSU");
+    }//GEN-LAST:event_lichsuMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -397,9 +411,11 @@ public class StaffFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -407,6 +423,7 @@ public class StaffFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel lichsu;
     private javax.swing.JPanel pnCenter;
     private javax.swing.JPanel pnLeft;
     // End of variables declaration//GEN-END:variables

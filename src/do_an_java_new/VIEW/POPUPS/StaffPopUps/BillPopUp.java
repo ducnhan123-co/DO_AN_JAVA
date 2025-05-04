@@ -24,15 +24,15 @@ import javax.swing.table.DefaultTableModel;
 public class BillPopUp extends javax.swing.JFrame {
 
     /** Creates new form BillPopUp */
-    public BillPopUp(HoaDonDTO hoadon, int tienGiam) {
+    public BillPopUp(HoaDonDTO hoadon) {
         initComponents();
 
         txtMaHD.setText(hoadon.getMaHD());
         txtMaNV.setText(hoadon.getMaNV());
         txtThoiGian.setText(hoadon.getThoiGian().toString());
         txtTongTien.setText(String.format("%d", hoadon.getTongTien()));
-        txtGiam.setText(String.format("%d", tienGiam));
-        txtTienTra.setText(String.format("%d", hoadon.getTongTien() - tienGiam));
+        txtGiam.setText(String.format("%d", hoadon.getTienGiam()));
+        txtTienTra.setText(String.format("%d", hoadon.getTongTien() - hoadon.getTienGiam()));
         
         renderTable(hoadon.getMaHD());
     }

@@ -6,11 +6,13 @@ package do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces;
 
 import do_an_java_new.BLL.KhuyenMaiBLL;
 import do_an_java_new.DTO.KhuyenMaiDTO;
-import do_an_java_new.VIEW.POPUPS.AdminPopUps.KhuyenMaiPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.SuaKhuyenMaiPopUp;
+import do_an_java_new.VIEW.POPUPS.AdminPopUps.ThemKhuyenMaiPopUp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Date;
 
 /**
  *
@@ -98,12 +100,14 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setBackground(new java.awt.Color(0, 173, 59));
         jPanel1.setMaximumSize(new java.awt.Dimension(0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(976, 97));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        btnInsert.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnInsert.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnInsert.setForeground(new java.awt.Color(255, 255, 255));
         btnInsert.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Add.png"))); // NOI18N
         btnInsert.setText("Thêm");
@@ -122,12 +126,18 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(btnInsert, gridBagConstraints);
 
-        btnDelete.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnDelete.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Delete.png"))); // NOI18N
         btnDelete.setText("Xoá");
         btnDelete.setToolTipText("");
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -136,7 +146,8 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(btnDelete, gridBagConstraints);
 
-        btnUpdate.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnUpdate.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Pencil.png"))); // NOI18N
         btnUpdate.setText("Sua");
         btnUpdate.setToolTipText("");
@@ -154,7 +165,8 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(btnUpdate, gridBagConstraints);
 
-        btnDetail.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnDetail.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnDetail.setForeground(new java.awt.Color(255, 255, 255));
         btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Info.png"))); // NOI18N
         btnDetail.setText("Chi tiết");
         btnDetail.setToolTipText("");
@@ -172,7 +184,8 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(btnDetail, gridBagConstraints);
 
-        jLabel29.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel29.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Google Sheets.png"))); // NOI18N
         jLabel29.setText("Xuất excel");
         jLabel29.setToolTipText("");
@@ -185,7 +198,8 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel29, gridBagConstraints);
 
-        jLabel30.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Document.png"))); // NOI18N
         jLabel30.setText("Nhập excel");
         jLabel30.setToolTipText("");
@@ -198,7 +212,7 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel30, gridBagConstraints);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sắp xếp", "A-Z", "Z-A", "Giá tăng dần", " " }));
@@ -256,11 +270,6 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
 
         jTextField6.setText("Tim thấy 50 sản phẩm");
         jTextField6.setMinimumSize(new java.awt.Dimension(120, 22));
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 2;
@@ -275,7 +284,7 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseClicked
-        KhuyenMaiPopUp popUp = new KhuyenMaiPopUp();
+        ThemKhuyenMaiPopUp popUp = new ThemKhuyenMaiPopUp();
         popUp.setVisible(true);
         
         popUp.addWindowListener(new WindowAdapter() {
@@ -289,21 +298,74 @@ public class KhuyenMaiPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnInsertMouseClicked
 
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
-       
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một khuyến mãi để sửa!");
+            return;
+        }
+
+        try {
+            String maKM = table.getValueAt(selectedRow, 0).toString();
+            String tenKM = table.getValueAt(selectedRow, 1).toString();
+            String noiDung = table.getValueAt(selectedRow, 2).toString();
+            Date ngayBD = java.sql.Date.valueOf(table.getValueAt(selectedRow, 3).toString());
+            Date ngayKT = java.sql.Date.valueOf(table.getValueAt(selectedRow, 4).toString());
+            String maSP = table.getValueAt(selectedRow, 5).toString();
+            int giaTri = (int) table.getValueAt(selectedRow, 6);
+            int soLuong = (int) table.getValueAt(selectedRow, 7);
+            String trangThai = table.getValueAt(selectedRow, 8).toString();
+
+            if (maSP.equals("Toàn sàn")) 
+                maSP = null;
+           
+            KhuyenMaiDTO khuyenMai = new KhuyenMaiDTO(maKM, tenKM, noiDung, maSP,  ngayBD, ngayKT, giaTri, soLuong, trangThai);
+
+            SuaKhuyenMaiPopUp popUp = new SuaKhuyenMaiPopUp(khuyenMai); 
+            popUp.setVisible(true);
+
+            popUp.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    super.windowClosed(e); 
+                    renderTable(); 
+                }
+            });
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,ex.getMessage());
+        }       
     }//GEN-LAST:event_btnUpdateMouseClicked
 
     private void btnDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDetailMouseClicked
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
-
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
         renderTable();
     }//GEN-LAST:event_jButton3MouseClicked
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Chọn khuyến mãi muốn xoá");
+            return;
+        } 
+        
+        if (JOptionPane.showConfirmDialog(null, "Bạn thật sự muốn xoá khuyến mãi?", "Xoá khuyến mãi", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            try {
+                String maKM = (String) table.getValueAt(selectedRow, 0);
+                
+                KhuyenMaiBLL.xoaKhuyenMai(maKM);
+                
+                JOptionPane.showMessageDialog(null, "Xoá khuyến mãi thành công");
+                renderTable();
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnDeleteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

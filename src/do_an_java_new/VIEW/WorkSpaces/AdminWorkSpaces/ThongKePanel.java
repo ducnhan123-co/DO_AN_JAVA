@@ -16,6 +16,8 @@ public class ThongKePanel extends javax.swing.JPanel {
     public ThongKePanel() {
         initComponents();
         sanpham.add(new ThongKeSanPhamPanel());
+        nhanvien.add(new ThongKeNhanVienPanel());
+        khachhang.add(new ThongKeKhachHangPanel());
     }
 
     /**

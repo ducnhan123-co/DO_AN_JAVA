@@ -70,4 +70,43 @@ public class KhuyenMaiDAO {
         st.setString(2, maKM);
         st.executeUpdate();
     }
+    
+    public static void updateKhuyenMai(KhuyenMaiDTO khuyenMai) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "UPDATE `khuyenmai` SET " +
+                "`TenKM` = ?, " +
+                "`MoTa` = ?, " +
+                "`NgayBatDau` = ?, " +
+                "`NgayKetThuc` = ?, " +
+                "`MaSP` = ?, " +
+                "`GiaTri` = ?, " +
+                "`SoLuong` = ?, " +
+                "`TrangThai` = ? " +
+                "WHERE `MaKM` = ?";
+
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, khuyenMai.getTenKM());
+        st.setString(2, khuyenMai.getNoiDung());
+        st.setDate(3, khuyenMai.getNgayBD());
+        st.setDate(4, khuyenMai.getNgayKT());
+        st.setString(5, khuyenMai.getMaSP());
+        st.setInt(6, khuyenMai.getGiaTri());
+        st.setInt(7, khuyenMai.getSoLuong());
+        st.setString(8, khuyenMai.getTrangThai());
+        st.setString(9, khuyenMai.getMaKM());
+
+        st.executeUpdate();
+    }
+    
+<<<<<<< Updated upstream
+=======
+    public static void xoaKhuyenMai(String maKM) throws SQLException {
+        Connection conn = ConnectionDAO.getConnection();
+        String query = "DELETE FROM `khuyenmai` WHERE `MaKM` = ?";
+
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, maKM);
+        st.executeUpdate();    
+    }
+>>>>>>> Stashed changes
 }

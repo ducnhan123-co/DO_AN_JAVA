@@ -43,4 +43,12 @@ public class ChiTietNhapHangBLL {
         ChiTietNhaphangDAO.themCTNH(dsCTNH);
         listOf_CTNH.addAll(dsCTNH);
     }
+    public static void xoaPhieuNhap(String maNH) throws SQLException {
+        if (listOf_CTNH == null)
+            listOf_CTNH = ChiTietNhaphangDAO.getDanhSachCTNH();
+
+        ChiTietNhaphangDAO.xoaPhieuNhap(maNH);
+
+        listOf_CTNH.removeIf(ctnh -> ctnh.getMaPhieu().equals(maNH));
+    }    
 }

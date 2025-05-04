@@ -3,8 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces;
+import do_an_java_new.BLL.HoaDonBLL;
 import do_an_java_new.BLL.SanPhamBLL;
-import do_an_java_new.DTO.ThongKeSanPhamDTO;
+import java.awt.BorderLayout;
 import java.sql.Date;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
@@ -12,9 +13,6 @@ import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
@@ -26,7 +24,6 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
     /**
      * Creates new form ThongKeSanPhamPanel
      */
-    private DefaultCategoryDataset dataset = new DefaultCategoryDataset();
     
     public ThongKeSanPhamPanel() {
         initComponents();
@@ -37,7 +34,7 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
                 end = Date.valueOf(String.format("%d-12-31", txtYear.getValue()));
 
         renderTable(begin, end);
-        renderChart();
+        renderChart(begin, end);
     }
     
     private void renderCountType(int option) {
@@ -68,39 +65,51 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
     private void renderTable(Date begin, Date end) {
         DefaultTableModel model = (DefaultTableModel) tbCount.getModel();
         model.setRowCount(0);
-        dataset.clear();
         
         try {
-            for (ThongKeSanPhamDTO thongKe: SanPhamBLL.getDanhSachThongKe(begin, end)){
-                model.addRow(new Object[] {
-                    thongKe.getMaSP(),
-                    thongKe.getTenSP(),
-                    thongKe.getSoLuong(),
-                    thongKe.getDoanhThu(), 
-                    thongKe.getLoiNhuan()
-                });
-                dataset.addValue(thongKe.getLoiNhuan(), "Sản phẩm", thongKe.getTenSP());
+            for (Object[] thongKe: SanPhamBLL.getDanhSachThongKe(begin, end)){
+                model.addRow(thongKe);
             }
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+
+    private DefaultCategoryDataset dataset = new DefaultCategoryDataset();
     
-    private void renderChart() {
-        JFreeChart chart = ChartFactory.createBarChart(
-            "Thống kê sản phẩm",
-            "Sản phẩm",
-            "Lợi nhuận",
-            dataset,     
-            PlotOrientation.HORIZONTAL, true, true, false
-        );
+    private void updateDataset(Date begin, Date end) {
+        dataset.clear();
+        try {
+            if (cbbCountType.getSelectedIndex() < 2) 
+                for (Object[] thongKe: HoaDonBLL.thongKeDoanhThu(begin, end)) 
+                    dataset.addValue((int)thongKe[1], "vnd", thongKe[0].toString());
+            else {
+                int year = txtYear.getYear();
+                Date thg1 = Date.valueOf(String.format("%d-1-1", year));
+                Date thg3 = Date.valueOf(String.format("%d-3-31", year));
+                Date thg4 = Date.valueOf(String.format("%d-4-1", year));
+                Date thg6 = Date.valueOf(String.format("%d-6-31", year));
+                Date thg7 = Date.valueOf(String.format("%d-7-1", year));
+                Date thg9 = Date.valueOf(String.format("%d-9-30", year));
+                Date thg10 = Date.valueOf(String.format("%d-10-1", year));
+                Date thg12 = Date.valueOf(String.format("%d-12-13", year));
+                dataset.addValue(HoaDonBLL.thongKeTongDoanhThu(thg1, thg3), "vnd", "Quý 1");
+                dataset.addValue(HoaDonBLL.thongKeTongDoanhThu(thg4, thg6), "vnd", "Quý 2");
+                dataset.addValue(HoaDonBLL.thongKeTongDoanhThu(thg7, thg9), "vnd", "Quý 3");
+                dataset.addValue(HoaDonBLL.thongKeTongDoanhThu(thg10, thg12), "vnd", "Quý 4");
+            }
+                
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void renderChart(Date begin, Date end) {
+        JFreeChart chart = ChartFactory.createLineChart("Doanh số", "Thời gian", "VND", dataset);
+        ChartPanel panel = new ChartPanel(chart);
         
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setMaximumBarWidth(0.2);
-        
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartScrollPane.setViewportView(chartPanel);
+        chartPanel.add(panel, BorderLayout.CENTER);
+        updateDataset(begin, end);
     }
 
     /**
@@ -134,7 +143,7 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
         btnCount = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCount = new javax.swing.JTable();
-        chartScrollPane = new javax.swing.JScrollPane();
+        chartPanel = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -245,8 +254,9 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        chartScrollPane.setPreferredSize(null);
-        add(chartScrollPane, java.awt.BorderLayout.PAGE_END);
+        chartPanel.setPreferredSize(new java.awt.Dimension(0, 250));
+        chartPanel.setLayout(new java.awt.BorderLayout());
+        add(chartPanel, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbbCountTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCountTypeActionPerformed
@@ -278,6 +288,7 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
         }
         
         renderTable(begin, end);
+        updateDataset(begin, end);
     }//GEN-LAST:event_btnCountMouseClicked
 
 
@@ -285,7 +296,7 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
     private javax.swing.JPanel beginDate;
     private javax.swing.JButton btnCount;
     private javax.swing.JComboBox<String> cbbCountType;
-    private javax.swing.JScrollPane chartScrollPane;
+    private javax.swing.JPanel chartPanel;
     private javax.swing.JPanel endDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

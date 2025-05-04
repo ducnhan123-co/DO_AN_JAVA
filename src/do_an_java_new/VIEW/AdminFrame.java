@@ -158,6 +158,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/desktop48.png"))); // NOI18N
         jLabel4.setText("<html>SIÊU QUẢN LÝ<br><small>ADMIN</small></html> ");
@@ -191,7 +192,7 @@ public class AdminFrame extends javax.swing.JFrame {
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
         TrangChu.setBackground(new java.awt.Color(153, 255, 153));
-        TrangChu.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
+        TrangChu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         TrangChu.setForeground(new java.awt.Color(255, 255, 255));
         TrangChu.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         TrangChu.setOpaque(true);
@@ -227,7 +228,7 @@ public class AdminFrame extends javax.swing.JFrame {
         jPanel1.add(TrangChu);
 
         Quan_ly_san_pham.setBackground(new java.awt.Color(153, 255, 153));
-        Quan_ly_san_pham.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
+        Quan_ly_san_pham.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_san_pham.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_san_pham.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_san_pham.setOpaque(true);
@@ -267,7 +268,7 @@ public class AdminFrame extends javax.swing.JFrame {
         jPanel1.add(Quan_ly_san_pham);
 
         Quan_ly_nhan_vien.setBackground(new java.awt.Color(153, 255, 153));
-        Quan_ly_nhan_vien.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
+        Quan_ly_nhan_vien.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_nhan_vien.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_nhan_vien.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_nhan_vien.setOpaque(true);
@@ -307,7 +308,7 @@ public class AdminFrame extends javax.swing.JFrame {
         jPanel1.add(Quan_ly_nhan_vien);
 
         Quan_ly_khach_hang.setBackground(new java.awt.Color(153, 255, 153));
-        Quan_ly_khach_hang.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
+        Quan_ly_khach_hang.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_khach_hang.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_khach_hang.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_khach_hang.setOpaque(true);
@@ -342,7 +343,7 @@ public class AdminFrame extends javax.swing.JFrame {
         jPanel1.add(Quan_ly_khach_hang);
 
         Quan_ly_khach_hang1.setBackground(new java.awt.Color(153, 255, 153));
-        Quan_ly_khach_hang1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
+        Quan_ly_khach_hang1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_khach_hang1.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_khach_hang1.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_khach_hang1.setOpaque(true);
@@ -382,7 +383,7 @@ public class AdminFrame extends javax.swing.JFrame {
         jPanel1.add(Quan_ly_khach_hang1);
 
         Quan_ly_hoa_don.setBackground(new java.awt.Color(153, 255, 153));
-        Quan_ly_hoa_don.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
+        Quan_ly_hoa_don.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_hoa_don.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_hoa_don.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_hoa_don.setOpaque(true);
@@ -422,7 +423,7 @@ public class AdminFrame extends javax.swing.JFrame {
         jPanel1.add(Quan_ly_hoa_don);
 
         Quan_ly_nhap_hang.setBackground(new java.awt.Color(153, 255, 153));
-        Quan_ly_nhap_hang.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
+        Quan_ly_nhap_hang.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_nhap_hang.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_nhap_hang.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_nhap_hang.setOpaque(true);
@@ -462,7 +463,7 @@ public class AdminFrame extends javax.swing.JFrame {
         jPanel1.add(Quan_ly_nhap_hang);
 
         Quan_ly_khuyen_mai.setBackground(new java.awt.Color(153, 255, 153));
-        Quan_ly_khuyen_mai.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
+        Quan_ly_khuyen_mai.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_khuyen_mai.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_khuyen_mai.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_khuyen_mai.setOpaque(true);
@@ -502,7 +503,7 @@ public class AdminFrame extends javax.swing.JFrame {
         jPanel1.add(Quan_ly_khuyen_mai);
 
         Quan_ly_thong_ke.setBackground(new java.awt.Color(153, 255, 153));
-        Quan_ly_thong_ke.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.black, java.awt.Color.darkGray));
+        Quan_ly_thong_ke.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Quan_ly_thong_ke.setForeground(new java.awt.Color(255, 255, 255));
         Quan_ly_thong_ke.setMaximumSize(new java.awt.Dimension(2147483647, 60));
         Quan_ly_thong_ke.setOpaque(true);
@@ -607,7 +608,7 @@ public class AdminFrame extends javax.swing.JFrame {
            SwingUtilities.invokeLater(() -> {
         CardLayout cardLayout = (CardLayout) pnCenter.getLayout();
         cardLayout.show(pnCenter, "NHANVIEN");
-currentPanel="NHANVIEN";
+        currentPanel="NHANVIEN";
         pnCenter.revalidate();  // Cập nhật layout ngay
         pnCenter.repaint();     // Vẽ lại giao diện nhanh hơn
     });

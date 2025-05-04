@@ -10,11 +10,14 @@ import do_an_java_new.BLL.NhapHangBLL;
 import do_an_java_new.DTO.ChiTietNhapHangDTO;
 import do_an_java_new.DTO.HangDTO;
 import do_an_java_new.DTO.NhapHangDTO;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -160,6 +163,11 @@ public class NhapHangPanel extends javax.swing.JPanel {
         btnDelete.setToolTipText("");
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -208,6 +216,11 @@ public class NhapHangPanel extends javax.swing.JPanel {
         jLabel29.setToolTipText("");
         jLabel29.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel29.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel29.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel29MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
@@ -222,6 +235,11 @@ public class NhapHangPanel extends javax.swing.JPanel {
         jLabel30.setToolTipText("");
         jLabel30.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel30.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel30MouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
@@ -229,8 +247,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel30, gridBagConstraints);
 
-        jPanel2.setBackground(new java.awt.Color(91, 187, 70));
-        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 3, new java.awt.Color(0, 0, 0)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         cbbSortOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "Tổng tiền tăng dần", "Tổng tiền giảm dần", "Thời gian ↑", "thời gian ↓" }));
@@ -466,6 +483,87 @@ public class NhapHangPanel extends javax.swing.JPanel {
         txtThoiGian.setText("");
         ((DefaultTableModel) tbChiTietNhapHang.getModel()).setRowCount(0);
     }//GEN-LAST:event_btnRefreshMouseClicked
+
+<<<<<<< Updated upstream
+    private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
+        // TODO add your handling code here:
+        JFileChooser jf = new JFileChooser();
+        jf.setDialogTitle("Chọn nơi lưu file Excel");
+        jf.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+        
+        int userSelection = jf.showSaveDialog(this);
+        if(userSelection == JFileChooser.APPROVE_OPTION) {
+            String filePath = jf.getSelectedFile().getAbsolutePath();
+            if(!filePath.endsWith(".xlsx")) {
+                filePath+=".xlsx";
+            }
+            try {
+                ExcelExporter.exportToExcel(table, "Danh sách hàng nhập", filePath);
+                JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: "+e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);  
+            }
+        }
+    }//GEN-LAST:event_jLabel29MouseClicked
+
+    private void jLabel30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MouseClicked
+        // TODO add your handling code here:
+        JFileChooser jf = new JFileChooser();
+        jf.setDialogTitle("Chọn file Excel để nhập");
+        jf.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Excel Files", "xlsx"));
+        
+        int userSelection = jf.showOpenDialog(this);
+        if(userSelection == JFileChooser.APPROVE_OPTION) {
+            String filePath = jf.getSelectedFile().getAbsolutePath();
+            
+            try {
+                List<List<String>> data = ExcelImporter.importFromExcel(filePath);
+                
+                for(int i=1 ; i<data.size(); i++) {
+                    List<String> row = data.get(i);
+                    String maPhieu = row.get(0);
+                    String maNCC = row.get(1);
+                    String maNV = row.get(2);
+                    int tongTien = Integer.parseInt(row.get(3));
+                    Date thoiGian = Date.valueOf(row.get(4));
+                    
+                    NhapHangBLL.themNhapHang(new NhapHangDTO(maPhieu, maNCC, maNV, tongTien, thoiGian));
+                }
+                
+                JOptionPane.showMessageDialog(this, "Nhập dữ liệu từ Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                renderTable();
+            } catch(IOException e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi đọc file Excel: " +e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi xử lý dữ liệu: "+e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jLabel30MouseClicked
+=======
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Chọn phiếu nhập hàng muốn xoá");
+            return;
+        } 
+        
+        if (JOptionPane.showConfirmDialog(null, "Bạn thật sự muốn xoá phiếu nhập hàng?", "Xoá phiếu nhập hàng", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            try {
+                String maPN = (String) table.getValueAt(selectedRow, 0);
+                
+                ChiTietNhapHangBLL.xoaPhieuNhap(maPN);
+                NhapHangBLL.xoaPhieuNhap(maPN);
+                
+                JOptionPane.showMessageDialog(null, "Xoá phiếu nhập hàng thành công");
+                renderTable();
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }        
+        
+    }//GEN-LAST:event_btnDeleteMouseClicked
+>>>>>>> Stashed changes
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

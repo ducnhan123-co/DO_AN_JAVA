@@ -8,10 +8,8 @@ import do_an_java_new.BLL.ChiTietHoaDonBLL;
 import do_an_java_new.BLL.HangBLL;
 import do_an_java_new.BLL.HoaDonBLL;
 import do_an_java_new.BLL.KhuyenMaiBLL;
-import do_an_java_new.BLL.SanPhamBLL;
 import do_an_java_new.DTO.ChiTietHoaDonDTO;
 import do_an_java_new.DTO.HoaDonDTO;
-import do_an_java_new.DTO.SanPhamDTO;
 import do_an_java_new.VIEW.POPUPS.StaffPopUps.BillPopUp;
 import do_an_java_new.VIEW.POPUPS.StaffPopUps.ChangeAmountPopUp;
 import do_an_java_new.VIEW.POPUPS.StaffPopUps.TimHangPopUp;
@@ -390,12 +388,14 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Danh sách chi tiết hoá đơn đang bị trống, không thể tạo hoá đơn");
             return;
         }
+        
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yymmddhhmmss");
         String 
                 maHD = String.format("HD.%s.%s", maNhanVien, LocalDateTime.now().format(timeFormatter)),
                 maKH = txtMaKhachHang.getText().trim();
+        int tienGiam = tongTien*giamGia/100;
         
-        HoaDonDTO hoaDon = new HoaDonDTO(maHD, maKH, maNhanVien, tongTien, Date.valueOf(LocalDate.now()), txtMaKM.getText() == "" ? null : txtMaKM.getText());
+        HoaDonDTO hoaDon = new HoaDonDTO(maHD, maKH, maNhanVien, tongTien, tienGiam, Date.valueOf(LocalDate.now()), txtMaKM.getText().trim().equals("") ? null : txtMaKM.getText());
         
         for (ChiTietHoaDonDTO ct: dsChiTietHoaDon) {
             ct.setMaHD(maHD);
@@ -411,8 +411,7 @@ public class LapHoaDonPanel extends javax.swing.JPanel {
             
             ChiTietHoaDonBLL.themCTHD(dsChiTietHoaDon);
             
-            int tienGiam = tongTien*giamGia/100;
-            new BillPopUp(hoaDon, tienGiam).setVisible(true);
+            new BillPopUp(hoaDon).setVisible(true);
             
             clearData();
         } catch (Exception e) {

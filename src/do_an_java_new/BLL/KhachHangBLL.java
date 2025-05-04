@@ -7,6 +7,7 @@ package do_an_java_new.BLL;
 
 import do_an_java_new.DAO.KhachHangDAO;
 import do_an_java_new.DTO.KhachHangDTO;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -123,5 +124,11 @@ public class KhachHangBLL {
         for (int i = 0 ; i < listOf_khachHang.size() ; i++) 
             if (listOf_khachHang.get(i).getMaKH().equals(makh))
                 listOf_khachHang.remove(i);
+    }
+    public static ArrayList<Object[]> thongKeKhachHang(Date beginDate, Date endDate) throws SQLException, Exception {
+        if (beginDate.compareTo(endDate) >= 0) 
+            throw new Exception("Thời gian thống kê không hợp lệ");
+        
+        return KhachHangDAO.thongKeKhachHang(beginDate, endDate);
     }
 }
