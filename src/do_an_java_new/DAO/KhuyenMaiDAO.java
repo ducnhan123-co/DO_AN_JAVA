@@ -98,8 +98,6 @@ public class KhuyenMaiDAO {
         st.executeUpdate();
     }
     
-<<<<<<< Updated upstream
-=======
     public static void xoaKhuyenMai(String maKM) throws SQLException {
         Connection conn = ConnectionDAO.getConnection();
         String query = "DELETE FROM `khuyenmai` WHERE `MaKM` = ?";
@@ -108,5 +106,4 @@ public class KhuyenMaiDAO {
         st.setString(1, maKM);
         st.executeUpdate();    
     }
->>>>>>> Stashed changes
 }

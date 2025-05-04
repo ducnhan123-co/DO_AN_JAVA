@@ -262,13 +262,8 @@ public class HoaDonPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel30, gridBagConstraints);
 
-<<<<<<< Updated upstream
-        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
-        jPanel2.setLayout(new java.awt.GridBagLayout());
-=======
         filterPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         filterPanel.setLayout(new java.awt.GridBagLayout());
->>>>>>> Stashed changes
 
         cbbSortOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "Giá tăng dần", "Giá giảm dần", "Thời gian ↑", "Thời gian ↓" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -527,7 +522,6 @@ public class HoaDonPanel extends javax.swing.JPanel {
  
     }//GEN-LAST:event_tableMouseClicked
 
-<<<<<<< Updated upstream
     private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
@@ -581,13 +575,12 @@ public class HoaDonPanel extends javax.swing.JPanel {
                 }
 
                 JOptionPane.showMessageDialog(this, "Nhập dữ liệu từ Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                rendertable(); // Refresh lại bảng
+                renderTable(); // Refresh lại bảng
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Lỗi khi nhập dữ liệu từ Excel: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jLabel30MouseClicked
-=======
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
         // TODO add your handling code here:
         int selectedRow = table.getSelectedRow();
@@ -610,7 +603,6 @@ public class HoaDonPanel extends javax.swing.JPanel {
             }
         }        
     }//GEN-LAST:event_btnDeleteMouseClicked
->>>>>>> Stashed changes
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

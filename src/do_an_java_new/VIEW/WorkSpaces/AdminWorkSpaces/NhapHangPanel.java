@@ -486,7 +486,6 @@ public class NhapHangPanel extends javax.swing.JPanel {
         ((DefaultTableModel) tbChiTietNhapHang.getModel()).setRowCount(0);
     }//GEN-LAST:event_btnRefreshMouseClicked
 
-<<<<<<< Updated upstream
     private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
         // TODO add your handling code here:
         JFileChooser jf = new JFileChooser();
@@ -541,7 +540,6 @@ public class NhapHangPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jLabel30MouseClicked
-=======
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
         // TODO add your handling code here:
         int selectedRow = table.getSelectedRow();
@@ -565,7 +563,6 @@ public class NhapHangPanel extends javax.swing.JPanel {
         }        
         
     }//GEN-LAST:event_btnDeleteMouseClicked
->>>>>>> Stashed changes
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

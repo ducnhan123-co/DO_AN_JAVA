@@ -51,22 +51,6 @@ public class HoaDonDAO {
 //        return result;
 //    }
 
-<<<<<<< Updated upstream
-    public int delete(int maHD) {
-        int result=0;
-        try {
-            Connection cn = ConnectionDAO.getConnection();
-            String sql = ("delete from hoaDon where MaHD="+maHD);
-            
-            PreparedStatement st = cn.prepareStatement(sql);
-            result = st.executeUpdate();
-            
-            System.out.println("Số dòng đã bị thay đổi: "+result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-=======
     public static void xoaHoaDon(String maHD) throws SQLException {
         Connection conn = ConnectionDAO.getConnection();
         String sql = ("DELETE FROM hoadon\n" +
@@ -76,7 +60,6 @@ public class HoaDonDAO {
         st.setString(1, maHD);
         
         st.executeUpdate();
->>>>>>> Stashed changes
     }
 
     //Lấy tất cả dl của hoadon từ database

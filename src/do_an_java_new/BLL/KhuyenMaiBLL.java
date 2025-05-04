@@ -67,8 +67,6 @@ public class KhuyenMaiBLL {
         }
     }
     
-<<<<<<< Updated upstream
-=======
     public static void xoaKhuyenMai(String maKM) throws SQLException {
         if (listOf_khuyenMai == null)
         listOf_khuyenMai = KhuyenMaiDAO.getDanhSachKhuyenMai();
@@ -77,5 +75,4 @@ public class KhuyenMaiBLL {
 
         listOf_khuyenMai.removeIf(km -> km.getMaKM().equals(maKM));
     }    
->>>>>>> Stashed changes
 }
