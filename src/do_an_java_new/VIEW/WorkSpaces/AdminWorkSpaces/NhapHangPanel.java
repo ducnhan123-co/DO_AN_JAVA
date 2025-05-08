@@ -579,6 +579,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jLabel30MouseClicked
 
+    // Hàm In phiếu nhập hàng PDF
     private void btnExportPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportPDFMouseClicked
         // TODO add your handling code here:
         int selectedRow = table.getSelectedRow();

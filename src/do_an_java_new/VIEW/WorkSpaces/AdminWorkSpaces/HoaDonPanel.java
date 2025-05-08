@@ -230,7 +230,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         btnDetail.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnDetail.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDetailMouseClicked(evt);
+                btnExportPDF(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -584,31 +584,6 @@ public class HoaDonPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         }
-        // Dữ liệu mẫu (thay bằng dữ liệu thực tế từ bảng hoặc cơ sở dữ liệu)
-//        String title = "Danh Sách Hóa Đơn";
-//        String[] headers = {"Mã Hóa Đơn", "Tên Khách Hàng", "Ngày Lập", "Tổng Tiền"};
-//        String[][] data = {
-//                {"HD001", "Nguyễn Văn A", "2025-05-01", "1,000,000"},
-//                {"HD002", "Trần Thị B", "2025-05-02", "2,500,000"},
-//                {"HD003", "Lê Văn C", "2025-05-03", "3,200,000"}
-//        };
-
-//        // Chọn nơi lưu file
-//        JFileChooser fileChooser = new JFileChooser();
-//        fileChooser.setDialogTitle("Lưu file PDF");
-//        int userSelection = fileChooser.showSaveDialog(this);
-//
-//        if (userSelection == JFileChooser.APPROVE_OPTION) {
-//            try {
-//                String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".pdf";
-//                PDFExporter pdfExporter = new PDFExporter();
-//                pdfExporter.exportToFile(filePath, title, headers, data);
-//                JOptionPane.showMessageDialog(this, "Xuất file PDF thành công!");
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file PDF: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-//            }
-//        }
     }//GEN-LAST:event_jLabel29MouseClicked
 
     private void jLabel30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MouseClicked
@@ -647,8 +622,9 @@ public class HoaDonPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jLabel30MouseClicked
-
-    private void btnDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailMouseClicked
+    
+    // Hàm In Hóa Đơn PDF 
+    private void btnExportPDF(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportPDF
         // TODO add your handling code here:
         int selectedRow = table.getSelectedRow();
         if (selectedRow >= 0) {
@@ -761,7 +737,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để in PDF!", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_btnDetailMouseClicked
+    }//GEN-LAST:event_btnExportPDF
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
