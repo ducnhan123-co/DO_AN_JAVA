@@ -650,7 +650,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
                         tablePDF.addCell(new PdfPCell(new Phrase(ctnh.getMaHang(), normalFont)));
                         tablePDF.addCell(new PdfPCell(new Phrase(hang.getTenSP(), normalFont)));
                         tablePDF.addCell(new PdfPCell(new Phrase(String.valueOf(ctnh.getSoLuong()), normalFont)));
-                        tablePDF.addCell(new PdfPCell(new Phrase(String.format("%,.0fđ", (double) ctnh.getDonGia()), normalFont)));
+                        tablePDF.addCell(new PdfPCell(new Phrase(String.format("%,.0f VNĐ", (double) ctnh.getDonGia()), normalFont)));
                     }
 
                     document.add(tablePDF);
