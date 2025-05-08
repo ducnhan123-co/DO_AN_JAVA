@@ -224,7 +224,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         btnDetail.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnDetail.setForeground(new java.awt.Color(255, 255, 255));
         btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/pdf1.png"))); // NOI18N
-        btnDetail.setText("Xuất PDF");
+        btnDetail.setText("In PDF");
         btnDetail.setToolTipText("");
         btnDetail.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDetail.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
