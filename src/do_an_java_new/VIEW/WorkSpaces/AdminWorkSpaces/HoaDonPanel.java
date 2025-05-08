@@ -228,6 +228,11 @@ public class HoaDonPanel extends javax.swing.JPanel {
         btnDetail.setToolTipText("");
         btnDetail.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDetail.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDetail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDetailMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
@@ -642,6 +647,121 @@ public class HoaDonPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jLabel30MouseClicked
+
+    private void btnDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow >= 0) {
+            try {
+                // Lấy thông tin hóa đơn từ bảng
+                String maHD = table.getValueAt(selectedRow, 0).toString();
+                String maKH = table.getValueAt(selectedRow, 1).toString();
+                String maNV = table.getValueAt(selectedRow, 2).toString();
+                String tongTien = table.getValueAt(selectedRow, 3).toString();
+                String tienGiam = table.getValueAt(selectedRow, 4).toString();
+                String thoiGian = table.getValueAt(selectedRow, 5).toString();
+                String maKM = table.getValueAt(selectedRow, 6).toString();
+
+                // Lấy thông tin chi tiết hóa đơn
+                ArrayList<ChiTietHoaDonDTO> dsCTHD = ChiTietHoaDonBLL.getCTHD(maHD);
+
+                // Chọn nơi lưu file PDF
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Lưu file PDF");
+                int userSelection = fileChooser.showSaveDialog(this);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".pdf";
+
+                    // Tạo nội dung PDF
+                    Document document = new Document();
+                    PdfWriter.getInstance(document, new FileOutputStream(filePath));
+                    document.open();
+
+                    // Font hỗ trợ tiếng Việt
+                    BaseFont baseFont = BaseFont.createFont("lib/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                    Font titleFont = new Font(baseFont, 16, Font.BOLD);
+                    Font normalFont = new Font(baseFont, 12, Font.NORMAL);
+                    Font totalFont = new Font(baseFont, 12, Font.BOLD);
+
+                    // Tiêu đề hóa đơn
+                    Paragraph title = new Paragraph("CỬA HÀNG THỰC PHẨM\nHóa Đơn Bán Hàng", titleFont);
+                    title.setAlignment(Element.ALIGN_CENTER);
+                    document.add(title);
+
+                    document.add(Chunk.NEWLINE);
+
+                    // Thông tin hóa đơn
+                    document.add(new Paragraph("Mã hóa đơn: " + maHD, normalFont));
+                    document.add(new Paragraph("Ngày lập: " + thoiGian, normalFont));
+                    document.add(new Paragraph("Nhân viên: " + maNV, normalFont));
+                    document.add(new Paragraph("Khách hàng: " + maKH, normalFont));
+                    document.add(new Paragraph("Khuyến mãi: " + maKM, normalFont));
+
+                    document.add(Chunk.NEWLINE);
+
+                    // Bảng danh sách sản phẩm
+                    PdfPTable tablePDF = new PdfPTable(5);
+                    Paragraph productTitle = new Paragraph("\nDANH SÁCH SẢN PHẨM MUA", titleFont);
+                    productTitle.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                    document.add(productTitle);
+                    tablePDF.setWidthPercentage(100);
+                    tablePDF.setSpacingBefore(10f);
+                    tablePDF.setSpacingAfter(10f);
+
+                    // Tiêu đề cột
+                    String[] headers = {"Tên sản phẩm", "Số lượng", "Đơn giá", "Giảm giá", "Thành tiền"};
+                    for (String header : headers) {
+                        PdfPCell cell = new PdfPCell(new Phrase(header, normalFont));
+                        cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        tablePDF.addCell(cell);
+                    }
+
+                    // Dữ liệu chi tiết hóa đơn
+                    for (ChiTietHoaDonDTO cthd : dsCTHD) {
+                        HangDTO hang = HangBLL.timHang(cthd.getMaHang());
+                        KhuyenMaiDTO khuyenMai = KhuyenMaiBLL.timKhuyenMai(maKM); // Lấy thông tin khuyến mãi
+
+                        int giamGia = khuyenMai != null ? khuyenMai.getGiaTri() : 0;
+                        double thanhTien = cthd.getSoLuong() * cthd.getDonGia() * (1 - giamGia / 100);
+
+                        tablePDF.addCell(new PdfPCell(new Phrase(hang.getTenSP(), normalFont)));
+                        tablePDF.addCell(new PdfPCell(new Phrase(String.valueOf(cthd.getSoLuong()), normalFont)));
+                        tablePDF.addCell(new PdfPCell(new Phrase(String.format("%,.0f VNĐ", (double) cthd.getDonGia()), normalFont)));
+                        tablePDF.addCell(new PdfPCell(new Phrase(String.format("%d%%", giamGia), normalFont)));
+                        tablePDF.addCell(new PdfPCell(new Phrase(String.format("%,.0f VNĐ", thanhTien), normalFont)));
+                    }
+
+                    document.add(tablePDF);
+
+                    // Tổng tiền
+                    Paragraph total = new Paragraph("Tổng tiền: " +tongTien + " VNĐ", totalFont);
+                    total.add(new Chunk("\nTiền giảm: "+tienGiam+" VNĐ", totalFont));
+                    int tienTra = Integer.parseInt(tongTien) - Integer.parseInt(tienGiam);
+                    total.add(new Chunk("\nTổng tiền phải trả: "+tienTra+" VNĐ", totalFont));
+                    total.setAlignment(Element.ALIGN_RIGHT);
+                    document.add(total);
+
+                    document.add(Chunk.NEWLINE);
+
+                    // Lời cảm ơn
+                    Paragraph thankYou = new Paragraph("XIN CẢM ƠN QUÝ KHÁCH!", titleFont);
+                    thankYou.setAlignment(Element.ALIGN_CENTER);
+                    document.add(thankYou);
+
+                    // Đóng tài liệu
+                    document.close();
+
+                    JOptionPane.showMessageDialog(this, "Xuất file PDF thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi tạo PDF: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hóa đơn để in PDF!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDetailMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
