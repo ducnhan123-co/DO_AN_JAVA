@@ -183,9 +183,9 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/do_an_java_new/Resources/Info.png"/>
+              <Image iconType="3" name="/do_an_java_new/Resources/pdf1.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Chi ti&#x1ebf;t"/>
+            <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t PDF"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>

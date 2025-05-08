@@ -342,7 +342,6 @@ public abstract class KhachHangPopUp extends javax.swing.JFrame {
         jPanel3.add(btnXacNhan);
 
         btnHuy.setBackground(new java.awt.Color(165, 214, 167));
-        btnHuy.setForeground(new java.awt.Color(0, 0, 0));
         btnHuy.setText("Huy");
         btnHuy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

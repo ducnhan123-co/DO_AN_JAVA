@@ -5,13 +5,27 @@
 package do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces;
 
 import do_an_java_new.BLL.ChiTietHoaDonBLL;
-import do_an_java_new.BLL.ExcelExporter;
-import do_an_java_new.BLL.ExcelImporter;
+import do_an_java_new.ExcelExporter;
+import do_an_java_new.ExcelImporter;
 import do_an_java_new.BLL.HangBLL;
 import do_an_java_new.BLL.HoaDonBLL;
 import do_an_java_new.DTO.ChiTietHoaDonDTO;
 import do_an_java_new.DTO.HangDTO;
 import do_an_java_new.DTO.HoaDonDTO;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import do_an_java_new.BLL.KhuyenMaiBLL;
+import do_an_java_new.DTO.KhuyenMaiDTO;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -209,8 +223,8 @@ public class HoaDonPanel extends javax.swing.JPanel {
         btnDetail.setBackground(new java.awt.Color(255, 255, 255));
         btnDetail.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnDetail.setForeground(new java.awt.Color(255, 255, 255));
-        btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Info.png"))); // NOI18N
-        btnDetail.setText("Chi tiết");
+        btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/pdf1.png"))); // NOI18N
+        btnDetail.setText("Xuất PDF");
         btnDetail.setToolTipText("");
         btnDetail.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDetail.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -565,6 +579,31 @@ public class HoaDonPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Lỗi khi xuất file Excel: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         }
+        // Dữ liệu mẫu (thay bằng dữ liệu thực tế từ bảng hoặc cơ sở dữ liệu)
+//        String title = "Danh Sách Hóa Đơn";
+//        String[] headers = {"Mã Hóa Đơn", "Tên Khách Hàng", "Ngày Lập", "Tổng Tiền"};
+//        String[][] data = {
+//                {"HD001", "Nguyễn Văn A", "2025-05-01", "1,000,000"},
+//                {"HD002", "Trần Thị B", "2025-05-02", "2,500,000"},
+//                {"HD003", "Lê Văn C", "2025-05-03", "3,200,000"}
+//        };
+
+//        // Chọn nơi lưu file
+//        JFileChooser fileChooser = new JFileChooser();
+//        fileChooser.setDialogTitle("Lưu file PDF");
+//        int userSelection = fileChooser.showSaveDialog(this);
+//
+//        if (userSelection == JFileChooser.APPROVE_OPTION) {
+//            try {
+//                String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".pdf";
+//                PDFExporter pdfExporter = new PDFExporter();
+//                pdfExporter.exportToFile(filePath, title, headers, data);
+//                JOptionPane.showMessageDialog(this, "Xuất file PDF thành công!");
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//                JOptionPane.showMessageDialog(this, "Lỗi khi xuất file PDF: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
     }//GEN-LAST:event_jLabel29MouseClicked
 
     private void jLabel30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MouseClicked
