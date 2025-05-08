@@ -5,13 +5,25 @@
 package do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces;
 
 import do_an_java_new.BLL.ChiTietNhapHangBLL;
-import do_an_java_new.BLL.ExcelExporter;
-import do_an_java_new.BLL.ExcelImporter;
+import do_an_java_new.ExcelExporter;
+import do_an_java_new.ExcelImporter;
 import do_an_java_new.BLL.HangBLL;
 import do_an_java_new.BLL.NhapHangBLL;
 import do_an_java_new.DTO.ChiTietNhapHangDTO;
 import do_an_java_new.DTO.HangDTO;
 import do_an_java_new.DTO.NhapHangDTO;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -80,7 +92,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
         btnInsert = new javax.swing.JLabel();
         btnDelete = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JLabel();
-        btnDetail = new javax.swing.JLabel();
+        btnExportPDF = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -197,19 +209,21 @@ public class NhapHangPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(btnUpdate, gridBagConstraints);
 
-        btnDetail.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        btnDetail.setForeground(new java.awt.Color(255, 255, 255));
-        btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/Info.png"))); // NOI18N
-        btnDetail.setText("Chi tiết");
-        btnDetail.setToolTipText("");
-        btnDetail.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnDetail.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(btnDetail, gridBagConstraints);
+        btnExportPDF.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        btnExportPDF.setForeground(new java.awt.Color(255, 255, 255));
+        btnExportPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/do_an_java_new/Resources/pdf1.png"))); // NOI18N
+        btnExportPDF.setText("In PDF");
+        btnExportPDF.setToolTipText("");
+        btnExportPDF.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExportPDF.setMaximumSize(new java.awt.Dimension(79, 87));
+        btnExportPDF.setMinimumSize(new java.awt.Dimension(79, 87));
+        btnExportPDF.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExportPDF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExportPDFMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnExportPDF, new java.awt.GridBagConstraints());
 
         jLabel29.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
@@ -565,10 +579,104 @@ public class NhapHangPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jLabel30MouseClicked
 
+    private void btnExportPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExportPDFMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow >= 0) {
+            try {
+                // Lấy thông tin phiếu nhập hàng từ bảng
+                String maPhieu = table.getValueAt(selectedRow, 0).toString();
+                String maNCC = table.getValueAt(selectedRow, 1).toString();
+                String maNV = table.getValueAt(selectedRow, 2).toString();
+                String tongTien = table.getValueAt(selectedRow, 3).toString();
+                String thoiGian = table.getValueAt(selectedRow, 4).toString();
+
+                // Lấy thông tin chi tiết nhập hàng
+                ArrayList<ChiTietNhapHangDTO> dsCTNH = ChiTietNhapHangBLL.getCTNH(maPhieu);
+
+                // Chọn nơi lưu file PDF
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Lưu file PDF");
+                int userSelection = fileChooser.showSaveDialog(this);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".pdf";
+
+                    // Tạo nội dung PDF
+                    Document document = new Document();
+                    PdfWriter.getInstance(document, new FileOutputStream(filePath));
+                    document.open();
+
+                    // Font hỗ trợ tiếng Việt
+                    BaseFont baseFont = BaseFont.createFont("lib/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                    Font titleFont = new Font(baseFont, 16, Font.BOLD);
+                    Font normalFont = new Font(baseFont, 12, Font.NORMAL);
+                    Font totalFont = new Font(baseFont, 12, Font.BOLD);
+
+                    // Tiêu đề phiếu nhập hàng
+                    Paragraph title = new Paragraph("CỬA HÀNG THỰC PHẨM\nPhiếu Nhập Hàng", titleFont);
+                    title.setAlignment(Element.ALIGN_CENTER);
+                    document.add(title);
+
+                    document.add(Chunk.NEWLINE);
+
+                    // Thông tin phiếu nhập hàng
+                    document.add(new Paragraph("Mã phiếu: " + maPhieu, normalFont));
+                    document.add(new Paragraph("Ngày nhập: " + thoiGian, normalFont));
+                    document.add(new Paragraph("Nhân viên nhập: " + maNV, normalFont));
+                    document.add(new Paragraph("Nhà cung cấp: " + maNCC, normalFont));
+
+                    document.add(Chunk.NEWLINE);
+
+                    // Bảng danh sách sản phẩm nhập
+                    PdfPTable tablePDF = new PdfPTable(4);
+                    tablePDF.setWidthPercentage(100);
+                    tablePDF.setSpacingBefore(10f);
+                    tablePDF.setSpacingAfter(10f);
+
+                    // Tiêu đề cột
+                    String[] headers = {"Mã hàng", "Tên sản phẩm", "Số lượng", "Đơn giá"};
+                    for (String header : headers) {
+                        PdfPCell cell = new PdfPCell(new Phrase(header, normalFont));
+                        cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        tablePDF.addCell(cell);
+                    }
+
+                    // Dữ liệu chi tiết nhập hàng
+                    for (ChiTietNhapHangDTO ctnh : dsCTNH) {
+                        HangDTO hang = HangBLL.timHang(ctnh.getMaHang());
+
+                        tablePDF.addCell(new PdfPCell(new Phrase(ctnh.getMaHang(), normalFont)));
+                        tablePDF.addCell(new PdfPCell(new Phrase(hang.getTenSP(), normalFont)));
+                        tablePDF.addCell(new PdfPCell(new Phrase(String.valueOf(ctnh.getSoLuong()), normalFont)));
+                        tablePDF.addCell(new PdfPCell(new Phrase(String.format("%,.0fđ", (double) ctnh.getDonGia()), normalFont)));
+                    }
+
+                    document.add(tablePDF);
+
+                    // Tổng tiền
+                    Paragraph total = new Paragraph("Tổng tiền: " + tongTien + " VNĐ", totalFont);
+                    total.setAlignment(Element.ALIGN_RIGHT);
+                    document.add(total);
+
+                    // Đóng tài liệu
+                    document.close();
+
+                    JOptionPane.showMessageDialog(this, "Xuất file PDF thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi khi tạo PDF: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một phiếu nhập hàng để in PDF!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnExportPDFMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnDelete;
-    private javax.swing.JLabel btnDetail;
+    private javax.swing.JLabel btnExportPDF;
     private javax.swing.JLabel btnInsert;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnReset;
