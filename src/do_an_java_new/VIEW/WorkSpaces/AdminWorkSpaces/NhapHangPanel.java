@@ -613,6 +613,7 @@ public class NhapHangPanel extends javax.swing.JPanel {
                     Font titleFont = new Font(baseFont, 16, Font.BOLD);
                     Font normalFont = new Font(baseFont, 12, Font.NORMAL);
                     Font totalFont = new Font(baseFont, 12, Font.BOLD);
+                    Font chuKyFont = new Font(baseFont, 14, Font.ITALIC);
 
                     // Tiêu đề phiếu nhập hàng
                     Paragraph title = new Paragraph("CỬA HÀNG THỰC PHẨM\nPhiếu Nhập Hàng", titleFont);
@@ -660,7 +661,14 @@ public class NhapHangPanel extends javax.swing.JPanel {
                     Paragraph total = new Paragraph("Tổng tiền: " + tongTien + " VNĐ", totalFont);
                     total.setAlignment(Element.ALIGN_RIGHT);
                     document.add(total);
-
+                    
+                    document.add(Chunk.NEWLINE);
+                    
+                    Paragraph chuKy = new Paragraph("Chữ ký của nhân viên nhập hàng                                 Chữ ký của quản lý", chuKyFont);
+                                chuKy.add(new Chunk("\n\n\n\n                   Họ và tên                                                            Họ và tên", chuKyFont));
+                    chuKy.setAlignment(Element.ALIGN_LEFT);
+                    document.add(chuKy);
+                    
                     // Đóng tài liệu
                     document.close();
 

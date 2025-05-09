@@ -96,7 +96,8 @@ public class HoaDonDAO {
         try {
             Connection cn = ConnectionDAO.getConnection();
             String sql = "SELECT `MaHD`, `MaKH`, `MaNV`, `TongTien`, `TienGiam`, `ThoiGian`, `KhuyenMai` \n" +
-                    "FROM `hoadon`";
+                    "FROM `hoadon`"+
+                    "WHERE `maHD` = ?";
             PreparedStatement st = cn.prepareStatement(sql);
             st.setString(1, id);
             System.out.println("Chạy câu lệnh: "+sql);
