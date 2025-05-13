@@ -17,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.JFileChooser;
 
@@ -32,6 +31,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
      */
     public KhachHangPanel() {
         initComponents();
+        advancedSearch.setVisible(false);
         
         renderTable();
     }
@@ -42,13 +42,39 @@ public class KhachHangPanel extends javax.swing.JPanel {
         String keyWord = txtKeyWord.getText().trim();
         
         if (buttonGroup.getSelection() != null) 
-            searchOption = searchOption_ma.isSelected() ? 1 : searchOption_ten.isSelected() ? 2 : searchOption_ho.isSelected() ? 3 : 4 ; 
+            searchOption = searchOption_ma.isSelected() ? 1 : 2 ; 
         
         DefaultTableModel model = (DefaultTableModel) tbKhachHang.getModel();
         model.setRowCount(0);
         
         try {
-            ArrayList<KhachHangDTO> listKhachHang = KhachHangBLL.getDanhSachKhachHang(sortOption, searchOption, keyWord);
+            ArrayList<KhachHangDTO> listKhachHang = new ArrayList<>();
+            
+            if (!advancedSearch.isVisible()) {
+                listKhachHang = KhachHangBLL.getDanhSachKhachHang(sortOption, searchOption, keyWord);
+            } else {
+                String 
+                        ten = txtTen.getText().trim(),
+                        ho = txtHo.getText().trim(),
+                        phai = nam.isSelected() ? "nam" : nu.isSelected() ? "nu" : "";
+
+                int diembd = (int) diemBD.getValue();
+                int diemkt = (int) diemKT.getValue();
+                
+                for (KhachHangDTO khachHang: KhachHangBLL.getDanhSachKhachHang(sortOption, searchOption, keyWord)) {
+                    if (!khachHang.getTen().contains(ten))
+                        continue;
+                    if (!khachHang.getHo().contains(ho))
+                        continue;
+                    if (khachHang.getPhai() != null && !"".equals(phai) && !khachHang.getPhai().equalsIgnoreCase(phai))
+                        continue;  
+                    if (khachHang.getDiem() < diembd || khachHang.getDiem() > diemkt)
+                        continue;   
+                    
+                    listKhachHang.add(khachHang);
+                }
+            }
+            
             txtResultCount.setText(String.format("Tìm thấy %d kết quả", listKhachHang.size()));
             for(KhachHangDTO khachHang: listKhachHang) {
                 model.addRow(new Object[] {
@@ -82,6 +108,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup = new javax.swing.ButtonGroup();
+        buttonGroupPhai = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbKhachHang = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -96,11 +123,29 @@ public class KhachHangPanel extends javax.swing.JPanel {
         txtKeyWord = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         searchOption_ma = new javax.swing.JRadioButton();
-        searchOption_ten = new javax.swing.JRadioButton();
-        searchOption_ho = new javax.swing.JRadioButton();
         txtResultCount = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
         searchOption_sdt = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
+        advancedSearch = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtHo = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtTen = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        nam = new javax.swing.JRadioButton();
+        nu = new javax.swing.JRadioButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        diemBD = new javax.swing.JSpinner();
+        diemKT = new javax.swing.JSpinner();
+        jPanel8 = new javax.swing.JPanel();
+        btnReset1 = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 800));
@@ -114,7 +159,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã khách hàng", "Họ", "Tên lót", "Tên", "Phái", "Ngày Sinh", "SDT", "Tỉnh", "Địa chỉ", "Ngày tham gia", "Điểm", "Trạng thái"
+                "Mã", "Họ", "Tên lót", "Tên", "Phái", "Ngày Sinh", "SDT", "Tỉnh", "Địa chỉ", "Ngày tham gia", "Điểm", "Trạng thái"
             }
         ));
         jScrollPane1.setViewportView(tbKhachHang);
@@ -246,7 +291,7 @@ public class KhachHangPanel extends javax.swing.JPanel {
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 3, new java.awt.Color(51, 51, 51)));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        cbbSortOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "A-Z", "Z-A", "Điểm tăng dần", "Điểm giảm dần", "" }));
+        cbbSortOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "A-Z", "Z-A", "Điểm tăng dần", "Điểm giảm dần" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
@@ -284,24 +329,6 @@ public class KhachHangPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         jPanel2.add(searchOption_ma, gridBagConstraints);
 
-        buttonGroup.add(searchOption_ten);
-        searchOption_ten.setText("Tên");
-        searchOption_ten.setMargin(new java.awt.Insets(2, 0, 3, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.weightx = 0.1;
-        jPanel2.add(searchOption_ten, gridBagConstraints);
-
-        buttonGroup.add(searchOption_ho);
-        searchOption_ho.setText("Họ");
-        searchOption_ho.setMargin(new java.awt.Insets(2, 0, 3, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel2.add(searchOption_ho, gridBagConstraints);
-
         txtResultCount.setText("Tìm thấy ... kết quả");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
@@ -323,16 +350,133 @@ public class KhachHangPanel extends javax.swing.JPanel {
         searchOption_sdt.setText("Số điện thoại");
         searchOption_sdt.setMargin(new java.awt.Insets(2, 0, 3, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 11;
+        gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         jPanel2.add(searchOption_sdt, gridBagConstraints);
+
+        jButton1.setText("Tìm nâng cao");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 11;
+        gridBagConstraints.gridy = 2;
+        jPanel2.add(jButton1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 60, 0, 0);
         jPanel1.add(jPanel2, gridBagConstraints);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        advancedSearch.setPreferredSize(new java.awt.Dimension(300, 120));
+        advancedSearch.setLayout(new javax.swing.BoxLayout(advancedSearch, javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setMaximumSize(new java.awt.Dimension(32767, 40));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Họ");
+        jPanel3.add(jLabel1);
+
+        txtHo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtHo.setPreferredSize(new java.awt.Dimension(130, 30));
+        jPanel3.add(txtHo);
+
+        advancedSearch.add(jPanel3);
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel4.setMaximumSize(new java.awt.Dimension(32767, 40));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Tên");
+        jPanel4.add(jLabel2);
+
+        txtTen.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTen.setPreferredSize(new java.awt.Dimension(130, 30));
+        jPanel4.add(txtTen);
+
+        advancedSearch.add(jPanel4);
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel6.setMaximumSize(new java.awt.Dimension(32767, 40));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("Phái     ");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        jPanel6.add(jLabel6);
+
+        buttonGroupPhai.add(nam);
+        nam.setText("nam");
+        jPanel6.add(nam);
+
+        buttonGroupPhai.add(nu);
+        nu.setText("nữ");
+        jPanel6.add(nu);
+
+        advancedSearch.add(jPanel6);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel5.setMaximumSize(new java.awt.Dimension(32767, 70));
+        jPanel5.setLayout(new java.awt.GridBagLayout());
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("từ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        jPanel5.add(jLabel3, gridBagConstraints);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("đến");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        jPanel5.add(jLabel4, gridBagConstraints);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Điểm");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        jPanel5.add(jLabel5, gridBagConstraints);
+
+        diemBD.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 100000));
+        diemBD.setPreferredSize(new java.awt.Dimension(100, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        jPanel5.add(diemBD, gridBagConstraints);
+
+        diemKT.setModel(new javax.swing.SpinnerNumberModel(500, 0, null, 10));
+        diemKT.setPreferredSize(new java.awt.Dimension(100, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        jPanel5.add(diemKT, gridBagConstraints);
+
+        advancedSearch.add(jPanel5);
+
+        jPanel8.setMaximumSize(new java.awt.Dimension(32767, 40));
+
+        btnReset1.setText("Đặt lại");
+        btnReset1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReset1MouseClicked(evt);
+            }
+        });
+        jPanel8.add(btnReset1);
+
+        advancedSearch.add(jPanel8);
+
+        add(advancedSearch, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseClicked
@@ -490,27 +634,65 @@ public class KhachHangPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jLabel30MouseClicked
 
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        buttonGroupPhai.clearSelection();
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void btnReset1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReset1MouseClicked
+        // TODO add your handling code here:
+        txtHo.setText("");
+        txtTen.setText("");
+        buttonGroupPhai.clearSelection();
+        diemBD.setValue(0);
+        diemKT.setValue(100000000);
+    }//GEN-LAST:event_btnReset1MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        advancedSearch.setVisible(!advancedSearch.isVisible());
+    }//GEN-LAST:event_jButton1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel advancedSearch;
     private javax.swing.JLabel btnDelete;
     private javax.swing.JLabel btnDetail;
     private javax.swing.JLabel btnInsert;
     private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnReset1;
     private javax.swing.JLabel btnUpdate;
     private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.ButtonGroup buttonGroupPhai;
     private javax.swing.JComboBox<String> cbbSortOption;
+    private javax.swing.JSpinner diemBD;
+    private javax.swing.JSpinner diemKT;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton searchOption_ho;
+    private javax.swing.JRadioButton nam;
+    private javax.swing.JRadioButton nu;
     private javax.swing.JRadioButton searchOption_ma;
     private javax.swing.JRadioButton searchOption_sdt;
-    private javax.swing.JRadioButton searchOption_ten;
     private javax.swing.JTable tbKhachHang;
+    private javax.swing.JTextField txtHo;
     private javax.swing.JTextField txtKeyWord;
     private javax.swing.JLabel txtResultCount;
+    private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
 }

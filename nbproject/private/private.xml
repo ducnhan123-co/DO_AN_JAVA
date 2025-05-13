@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/LENOVO%20VN/Desktop/DoAn_Java/src/do_an_java_new/DTO/ChiTietHoaDonDTO.java</file>
-            <file>file:/C:/Users/LENOVO%20VN/Desktop/DoAn_Java/src/do_an_java_new/DTO/KhuyenMaiDTO.java</file>
-            <file>file:/C:/Users/LENOVO%20VN/Desktop/DoAn_Java/src/do_an_java_new/BLL/KhuyenMaiBLL.java</file>
-            <file>file:/C:/Users/LENOVO%20VN/Desktop/DoAn_Java/src/do_an_java_new/VIEW/WorkSpaces/AdminWorkSpaces/NhapHangPanel.java</file>
-            <file>file:/C:/Users/LENOVO%20VN/Desktop/DoAn_Java/src/do_an_java_new/VIEW/WorkSpaces/AdminWorkSpaces/HoaDonPanel.java</file>
+            <file>file:/F:/Study/university/Nam2/Java/Doan_final/DO_AN_JAVA-master/src/do_an_java_new/DAO/HoaDonDAO.java</file>
+            <file>file:/F:/Study/university/Nam2/Java/Doan_final/DO_AN_JAVA-master/src/do_an_java_new/VIEW/WorkSpaces/AdminWorkSpaces/ThongKeSanPhamPanel.java</file>
+            <file>file:/F:/Study/university/Nam2/Java/Doan_final/DO_AN_JAVA-master/src/do_an_java_new/BLL/HoaDonBLL.java</file>
         </group>
     </open-files>
 </project-private>

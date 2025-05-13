@@ -32,6 +32,7 @@ public class NhanVienPanel extends javax.swing.JPanel {
     public NhanVienPanel() {
         initComponents();
         
+        advancedSearch.setVisible(false);
         renderTable();
     }
     
@@ -41,13 +42,43 @@ public class NhanVienPanel extends javax.swing.JPanel {
         String keyWord = txtKeyWord.getText().trim();
         
         if (buttonGroup.getSelection() != null) 
-            searchOption = searchOption_ma.isSelected() ? 1 : searchOption_ten.isSelected() ? 2 : searchOption_ho.isSelected() ? 3 : 4 ;
+            searchOption = searchOption_ma.isSelected() ? 1 : 2 ;
         
         DefaultTableModel model = (DefaultTableModel) tbNhanVien.getModel();
         model.setRowCount(0);
         
         try {
-            ArrayList<NhanVienDTO> listNhanVien = NhanVienBLL.getDanhSachNhanVien(sortOption, searchOption, keyWord);
+            ArrayList<NhanVienDTO> listNhanVien = null;
+            
+            if (!advancedSearch.isVisible()) 
+                listNhanVien = NhanVienBLL.getDanhSachNhanVien(sortOption, searchOption, keyWord);
+            else {
+                String 
+                        ten = txtTen.getText().trim(),
+                        ho = txtHo.getText().trim(),
+                        phai = nam.isSelected() ? "nam" : nu.isSelected() ? "nu" : "",
+                        chuc = nv.isSelected() ? "nv" : ql.isSelected() ? "ql" : "";
+
+                int luongbd = (int) luongBD.getValue();
+                int luongkt = (int) luongKT.getValue();
+                
+                listNhanVien = new ArrayList<>();
+                for (NhanVienDTO nhanVien: NhanVienBLL.getDanhSachNhanVien(sortOption, searchOption, keyWord)) {
+                    if (!ten.equals("") && !nhanVien.getTen().contains(ten))
+                        continue;
+                    if (!ho.equals("") && !nhanVien.getHo().contains(ho))
+                        continue;
+                    if (nhanVien.getPhai() == null || (!"".equals(phai) && !nhanVien.getPhai().equalsIgnoreCase(phai)))
+                        continue;
+                    if (!chuc.equals("") && !nhanVien.getChucVu().equalsIgnoreCase(chuc))
+                        continue;
+                    if (nhanVien.getLuong() < luongbd || nhanVien.getLuong() > luongkt)
+                        continue;
+                    
+                    listNhanVien.add(nhanVien);
+                }
+            }
+            
             txtResultCount.setText(String.format("Tìm thấy %d kết quả", listNhanVien.size()));
             for (NhanVienDTO nhanvien: listNhanVien) {
                 model.addRow(new Object[] {
@@ -82,6 +113,8 @@ public class NhanVienPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup = new javax.swing.ButtonGroup();
+        buttonGroupPhai = new javax.swing.ButtonGroup();
+        buttonGroupChuc = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbNhanVien = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -96,11 +129,33 @@ public class NhanVienPanel extends javax.swing.JPanel {
         txtKeyWord = new javax.swing.JTextField();
         btnRefresh = new javax.swing.JButton();
         searchOption_ma = new javax.swing.JRadioButton();
-        searchOption_ten = new javax.swing.JRadioButton();
-        searchOption_ho = new javax.swing.JRadioButton();
         searchOption_sdt = new javax.swing.JRadioButton();
         txtResultCount = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
+        btnAdvancedSearch = new javax.swing.JButton();
+        advancedSearch = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtHo = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtTen = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        nam = new javax.swing.JRadioButton();
+        nu = new javax.swing.JRadioButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        nv = new javax.swing.JRadioButton();
+        ql = new javax.swing.JRadioButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        luongBD = new javax.swing.JSpinner();
+        luongKT = new javax.swing.JSpinner();
+        jPanel8 = new javax.swing.JPanel();
+        btnReset1 = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 800));
@@ -283,33 +338,15 @@ public class NhanVienPanel extends javax.swing.JPanel {
         searchOption_ma.setText("Mã");
         searchOption_ma.setMargin(new java.awt.Insets(2, 0, 3, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
+        gridBagConstraints.gridx = 9;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         jPanel5.add(searchOption_ma, gridBagConstraints);
 
-        buttonGroup.add(searchOption_ten);
-        searchOption_ten.setText("Tên");
-        searchOption_ten.setMargin(new java.awt.Insets(2, 0, 3, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.weightx = 0.1;
-        jPanel5.add(searchOption_ten, gridBagConstraints);
-
-        buttonGroup.add(searchOption_ho);
-        searchOption_ho.setText("Họ");
-        searchOption_ho.setMargin(new java.awt.Insets(2, 0, 3, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel5.add(searchOption_ho, gridBagConstraints);
-
         buttonGroup.add(searchOption_sdt);
         searchOption_sdt.setText("SDT");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 11;
+        gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 1;
         jPanel5.add(searchOption_sdt, gridBagConstraints);
 
@@ -330,11 +367,150 @@ public class NhanVienPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         jPanel5.add(btnReset, gridBagConstraints);
 
+        btnAdvancedSearch.setText("Tìm nâng cao");
+        btnAdvancedSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAdvancedSearchMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 11;
+        gridBagConstraints.gridy = 2;
+        jPanel5.add(btnAdvancedSearch, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 60, 0, 0);
         jPanel4.add(jPanel5, gridBagConstraints);
 
         add(jPanel4, java.awt.BorderLayout.PAGE_START);
+
+        advancedSearch.setPreferredSize(new java.awt.Dimension(300, 120));
+        advancedSearch.setLayout(new javax.swing.BoxLayout(advancedSearch, javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setMaximumSize(new java.awt.Dimension(32767, 40));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Họ");
+        jPanel1.add(jLabel1);
+
+        txtHo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtHo.setPreferredSize(new java.awt.Dimension(130, 30));
+        jPanel1.add(txtHo);
+
+        advancedSearch.add(jPanel1);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setMaximumSize(new java.awt.Dimension(32767, 40));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Tên");
+        jPanel2.add(jLabel2);
+
+        txtTen.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTen.setPreferredSize(new java.awt.Dimension(130, 30));
+        jPanel2.add(txtTen);
+
+        advancedSearch.add(jPanel2);
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel6.setMaximumSize(new java.awt.Dimension(32767, 40));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("Phái     ");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        jPanel6.add(jLabel6);
+
+        buttonGroupPhai.add(nam);
+        nam.setText("nam");
+        jPanel6.add(nam);
+
+        buttonGroupPhai.add(nu);
+        nu.setText("nữ");
+        jPanel6.add(nu);
+
+        advancedSearch.add(jPanel6);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel7.setMaximumSize(new java.awt.Dimension(32767, 40));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setText("Chức vụ     ");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
+        jPanel7.add(jLabel7);
+
+        buttonGroupChuc.add(nv);
+        nv.setText("Nhân viên");
+        jPanel7.add(nv);
+
+        buttonGroupChuc.add(ql);
+        ql.setText("Quản lý");
+        jPanel7.add(ql);
+
+        advancedSearch.add(jPanel7);
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel3.setMaximumSize(new java.awt.Dimension(32767, 70));
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("từ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        jPanel3.add(jLabel3, gridBagConstraints);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("đến");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        jPanel3.add(jLabel4, gridBagConstraints);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Lương");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        jPanel3.add(jLabel5, gridBagConstraints);
+
+        luongBD.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 100000));
+        luongBD.setPreferredSize(new java.awt.Dimension(100, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        jPanel3.add(luongBD, gridBagConstraints);
+
+        luongKT.setModel(new javax.swing.SpinnerNumberModel(100000000, 0, null, 100000));
+        luongKT.setPreferredSize(new java.awt.Dimension(100, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        jPanel3.add(luongKT, gridBagConstraints);
+
+        advancedSearch.add(jPanel3);
+
+        jPanel8.setMaximumSize(new java.awt.Dimension(32767, 40));
+
+        btnReset1.setText("Đặt lại");
+        btnReset1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReset1MouseClicked(evt);
+            }
+        });
+        jPanel8.add(btnReset1);
+
+        advancedSearch.add(jPanel8);
+
+        add(advancedSearch, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseClicked
@@ -474,10 +650,9 @@ public class NhanVienPanel extends javax.swing.JPanel {
                     String diaChi = row.get(8);
                     double luong = Double.parseDouble(row.get(9));
                     String chucVu = row.get(10);
-                    String trangThai = row.get(11);
 
                     // Gọi BLL để lưu vào database
-                    NhanVienBLL.themNhanVien(new NhanVienDTO(maNV, ho, tenLot, ten, phai, ngaySinh, sdt, tinh, diaChi, (int) luong, chucVu, trangThai));
+                    NhanVienBLL.themNhanVien(new NhanVienDTO(maNV, ho, tenLot, ten, phai, ngaySinh, sdt, tinh, diaChi, (int) luong, chucVu, "active"));
                 }
 
                 JOptionPane.showMessageDialog(this, "Nhập dữ liệu từ Excel thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -490,27 +665,76 @@ public class NhanVienPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jLabel30MouseClicked
 
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        // TODO add your handling code here:
+        buttonGroupPhai.clearSelection();
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+        buttonGroupChuc.clearSelection();
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void btnAdvancedSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdvancedSearchMouseClicked
+        // TODO add your handling code here:
+        advancedSearch.setVisible(!advancedSearch.isVisible());
+    }//GEN-LAST:event_btnAdvancedSearchMouseClicked
+
+    private void btnReset1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReset1MouseClicked
+        // TODO add your handling code here:
+        txtHo.setText("");
+        txtTen.setText("");
+        buttonGroupPhai.clearSelection();
+        buttonGroupChuc.clearSelection();
+        luongBD.setValue(0);
+        luongKT.setValue(100000000);
+    }//GEN-LAST:event_btnReset1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel advancedSearch;
+    private javax.swing.JButton btnAdvancedSearch;
     private javax.swing.JLabel btnDelete;
     private javax.swing.JLabel btnDetail;
     private javax.swing.JLabel btnInsert;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnReset1;
     private javax.swing.JLabel btnUpdate;
     private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.ButtonGroup buttonGroupChuc;
+    private javax.swing.ButtonGroup buttonGroupPhai;
     private javax.swing.JComboBox<String> cbbSortOption;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton searchOption_ho;
+    private javax.swing.JSpinner luongBD;
+    private javax.swing.JSpinner luongKT;
+    private javax.swing.JRadioButton nam;
+    private javax.swing.JRadioButton nu;
+    private javax.swing.JRadioButton nv;
+    private javax.swing.JRadioButton ql;
     private javax.swing.JRadioButton searchOption_ma;
     private javax.swing.JRadioButton searchOption_sdt;
-    private javax.swing.JRadioButton searchOption_ten;
     private javax.swing.JTable tbNhanVien;
+    private javax.swing.JTextField txtHo;
     private javax.swing.JTextField txtKeyWord;
     private javax.swing.JLabel txtResultCount;
+    private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
 }

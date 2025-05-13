@@ -19,35 +19,22 @@ import java.util.Comparator;
 public class HoaDonBLL {
     private static ArrayList<HoaDonDTO> listOf_hoaDon = null;
     
-    public static ArrayList<HoaDonDTO> getDanhSachHoaDon(int sortOption, int searchOption, String keyWord) {
+    public static ArrayList<HoaDonDTO> getDanhSachHoaDon(int sortOption, String keyWord) {
         if (listOf_hoaDon == null) {
             listOf_hoaDon = HoaDonDAO.getDanhSachHoaDon() ;
         }
         
-        ArrayList<HoaDonDTO>res ;
-        if (searchOption != 0) {
-            res = new ArrayList<>();
-            switch(searchOption) {
-                case 1:
-                    for (HoaDonDTO hoadon: listOf_hoaDon) 
-                        if (hoadon.getMaHD().contains(keyWord))
-                            res.add(hoadon);
-                    break;
-                case 2:
-                    for (HoaDonDTO hoadon: listOf_hoaDon) 
-                        if (hoadon.getMaNV().contains(keyWord))
-                            res.add(hoadon);
-                    break;
-                case 3:
-                    for (HoaDonDTO hoadon: listOf_hoaDon) 
-                        if (hoadon.getMaKH().contains(keyWord))
-                            res.add(hoadon);
-                    break;
-                default:
-                    break;
-            }
-        } else 
-            res = new ArrayList<>(listOf_hoaDon);
+        ArrayList<HoaDonDTO> res = new ArrayList<>();
+       
+        if (keyWord.equals("")) 
+            res = listOf_hoaDon;
+        else 
+            for (HoaDonDTO hoadon: listOf_hoaDon) 
+                if (hoadon.getMaHD().equals(keyWord)) {
+                    res.add(hoadon);
+                    return res;
+                }
+            
         
         switch(sortOption) {
             case 1:
@@ -100,12 +87,9 @@ public class HoaDonBLL {
         return HoaDonDAO.thongKeDoanhThu(beginDate, endDate);        
     }
     
-    public static int thongKeTongDoanhThu(Date beginDate, Date endDate) throws SQLException {
-        if (beginDate.after(endDate)) {
-            throw new IllegalArgumentException("Ngày bắt đầu phải trước hoặc bằng ngày kết thúc.");
-        }
-
-        return HoaDonDAO.thongKeTongDoanhThu(beginDate, endDate);        
+    public static int[] thongKeTheoQuy(int year) throws SQLException {
+       
+        return HoaDonDAO.thongKeTheoQuy(year);        
         
     }    
 }

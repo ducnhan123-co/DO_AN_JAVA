@@ -40,10 +40,8 @@ public class LichSuHDPanel extends javax.swing.JPanel {
         try {
             int sortOption = cbbSortOption.getSelectedIndex();
             String keyWord = txtKeyWord.getText().trim();
-            int searchOption = 0;
-            searchOption = searchOption_ma.isSelected() ? 1 : searchOption_NV.isSelected() ? 2 : 3;
             
-            ArrayList<HoaDonDTO> dsHoaDon = HoaDonBLL.getDanhSachHoaDon(sortOption, searchOption, keyWord);
+            ArrayList<HoaDonDTO> dsHoaDon = HoaDonBLL.getDanhSachHoaDon(sortOption, keyWord);
             txtResultCount.setText(String.format("Tìm thấy %d kết quả", dsHoaDon.size()));
             
             DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -85,11 +83,9 @@ public class LichSuHDPanel extends javax.swing.JPanel {
         cbbSortOption = new javax.swing.JComboBox<>();
         txtKeyWord = new javax.swing.JTextField();
         btnRefresh = new javax.swing.JButton();
-        searchOption_ma = new javax.swing.JRadioButton();
-        searchOption_NV = new javax.swing.JRadioButton();
-        searchOption_KH = new javax.swing.JRadioButton();
         txtResultCount = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbChiTietHoaDon = new javax.swing.JTable();
@@ -150,7 +146,7 @@ public class LichSuHDPanel extends javax.swing.JPanel {
         txtKeyWord.setMinimumSize(new java.awt.Dimension(148, 22));
         txtKeyWord.setPreferredSize(new java.awt.Dimension(140, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
+        gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
@@ -163,37 +159,10 @@ public class LichSuHDPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 11;
+        gridBagConstraints.gridx = 12;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel2.add(btnRefresh, gridBagConstraints);
-
-        buttonGroup.add(searchOption_ma);
-        searchOption_ma.setText("Mã");
-        searchOption_ma.setMargin(new java.awt.Insets(2, 0, 3, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        jPanel2.add(searchOption_ma, gridBagConstraints);
-
-        buttonGroup.add(searchOption_NV);
-        searchOption_NV.setText("Mã nhân viên");
-        searchOption_NV.setMargin(new java.awt.Insets(2, 0, 3, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.weightx = 0.1;
-        jPanel2.add(searchOption_NV, gridBagConstraints);
-
-        buttonGroup.add(searchOption_KH);
-        searchOption_KH.setText("Mã khách hàng");
-        searchOption_KH.setMargin(new java.awt.Insets(2, 0, 3, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        jPanel2.add(searchOption_KH, gridBagConstraints);
 
         txtResultCount.setText("Tìm thấy ... kết quả");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -208,9 +177,15 @@ public class LichSuHDPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 0;
         jPanel2.add(btnReset, gridBagConstraints);
+
+        jLabel6.setText("Mã    ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 9;
+        gridBagConstraints.gridy = 0;
+        jPanel2.add(jLabel6, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 60, 0, 0);
@@ -398,15 +373,13 @@ public class LichSuHDPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JRadioButton searchOption_KH;
-    private javax.swing.JRadioButton searchOption_NV;
-    private javax.swing.JRadioButton searchOption_ma;
     private javax.swing.JTable table;
     private javax.swing.JTable tbChiTietHoaDon;
     private javax.swing.JTextField txtKeyWord;

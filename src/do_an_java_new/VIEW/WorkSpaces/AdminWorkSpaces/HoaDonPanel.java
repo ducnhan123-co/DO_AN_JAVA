@@ -47,20 +47,58 @@ public class HoaDonPanel extends javax.swing.JPanel {
      */
     public HoaDonPanel() {
         initComponents();
+        advancedSearch.setVisible(false);
         
         renderTable();
         ((DefaultTableModel)tbChiTietHoaDon.getModel()).setRowCount(0);
-        
     }
     
     public void renderTable() {
         try {
             int sortOption = cbbSortOption.getSelectedIndex();
             String keyWord = txtKeyWord.getText().trim();
-            int searchOption = 0;
-            searchOption = searchOption_ma.isSelected() ? 1 : searchOption_NV.isSelected() ? 2 : 3;
+            ArrayList<HoaDonDTO> dsHoaDon = null;
             
-            ArrayList<HoaDonDTO> dsHoaDon = HoaDonBLL.getDanhSachHoaDon(sortOption, searchOption, keyWord);
+            if (!advancedSearch.isVisible()) {
+                dsHoaDon = HoaDonBLL.getDanhSachHoaDon(sortOption, keyWord);
+            } else {
+                Date 
+                        ngayBD,
+                        ngayKT;
+                
+                if (thoiGianBD.getDate() == null)
+                    ngayBD = null;
+                else 
+                    ngayBD = new Date(thoiGianBD.getDate().getTime());
+                if (thoiGianKT.getDate() == null)
+                    ngayKT = null;
+                else 
+                    ngayKT = new Date(thoiGianBD.getDate().getTime());
+                
+                String maNV = txtNV.getText();
+                int 
+                        tienbd = (int) tienBD.getValue(),
+                        tienkt = (int) tienKT.getValue(),
+                        giambd = (int) giamBD.getValue(),
+                        giamkt = (int) giamKT.getValue();
+                
+                dsHoaDon = new ArrayList<>();
+                for (HoaDonDTO hoaDon: HoaDonBLL.getDanhSachHoaDon(sortOption, keyWord)) {
+                    Date ngayHoaDon = hoaDon.getThoiGian();
+
+                    if (ngayBD != null && ngayHoaDon.before(ngayBD)) continue;
+                    if (ngayKT != null && ngayHoaDon.after(ngayKT)) continue;
+
+                    if (!maNV.isEmpty() && !hoaDon.getMaNV().equals(maNV)) continue;
+
+                    if (hoaDon.getTongTien() < tienbd || hoaDon.getTongTien() > tienkt) continue;
+                    if (hoaDon.getTienGiam() < giambd || hoaDon.getTienGiam() > giamkt) continue;
+
+                    
+                    dsHoaDon.add(hoaDon);
+                }
+            }
+            
             txtResultCount.setText(String.format("Tìm thấy %d kết quả", dsHoaDon.size()));
             
             DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -94,8 +132,6 @@ public class HoaDonPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup = new javax.swing.ButtonGroup();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnInsert = new javax.swing.JLabel();
         btnDelete = new javax.swing.JLabel();
@@ -107,11 +143,37 @@ public class HoaDonPanel extends javax.swing.JPanel {
         cbbSortOption = new javax.swing.JComboBox<>();
         txtKeyWord = new javax.swing.JTextField();
         btnRefresh = new javax.swing.JButton();
-        searchOption_ma = new javax.swing.JRadioButton();
-        searchOption_NV = new javax.swing.JRadioButton();
-        searchOption_KH = new javax.swing.JRadioButton();
         txtResultCount = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        advancedSearch = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        thoiGianBD = new com.toedter.calendar.JDateChooser();
+        thoiGianKT = new com.toedter.calendar.JDateChooser();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        txtNV = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        tienBD = new javax.swing.JSpinner();
+        tienKT = new javax.swing.JSpinner();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        giamBD = new javax.swing.JSpinner();
+        giamKT = new javax.swing.JSpinner();
+        jPanel9 = new javax.swing.JPanel();
+        btnReset1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbChiTietHoaDon = new javax.swing.JTable();
@@ -131,26 +193,6 @@ public class HoaDonPanel extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(1080, 800));
         setPreferredSize(new java.awt.Dimension(1080, 240));
         setLayout(new java.awt.BorderLayout());
-
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Mã hoá đơn", "Mã khách hàng", "Mã nhân viên", "Tổng tiền", "Tiền giảm", "Thời gian", "Khuyến mãi"
-            }
-        ));
-        table.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(table);
-
-        add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jPanel1.setBackground(new java.awt.Color(0, 173, 59));
         jPanel1.setMaximumSize(new java.awt.Dimension(0, 0));
@@ -294,7 +336,7 @@ public class HoaDonPanel extends javax.swing.JPanel {
         txtKeyWord.setMinimumSize(new java.awt.Dimension(148, 22));
         txtKeyWord.setPreferredSize(new java.awt.Dimension(140, 26));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
+        gridBagConstraints.gridx = 10;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
@@ -307,37 +349,10 @@ public class HoaDonPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 11;
+        gridBagConstraints.gridx = 12;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         filterPanel.add(btnRefresh, gridBagConstraints);
-
-        buttonGroup.add(searchOption_ma);
-        searchOption_ma.setText("Mã");
-        searchOption_ma.setMargin(new java.awt.Insets(2, 0, 3, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        filterPanel.add(searchOption_ma, gridBagConstraints);
-
-        buttonGroup.add(searchOption_NV);
-        searchOption_NV.setText("Mã nhân viên");
-        searchOption_NV.setMargin(new java.awt.Insets(2, 0, 3, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.weightx = 0.1;
-        filterPanel.add(searchOption_NV, gridBagConstraints);
-
-        buttonGroup.add(searchOption_KH);
-        searchOption_KH.setText("Mã khách hàng");
-        searchOption_KH.setMargin(new java.awt.Insets(2, 0, 3, 0));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        filterPanel.add(searchOption_KH, gridBagConstraints);
 
         txtResultCount.setText("Tìm thấy ... kết quả");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -352,15 +367,204 @@ public class HoaDonPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
+        gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 0;
         filterPanel.add(btnReset, gridBagConstraints);
+
+        jButton1.setText("Tìm nâng cao");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 11;
+        gridBagConstraints.gridy = 2;
+        filterPanel.add(jButton1, gridBagConstraints);
+
+        jLabel6.setText("Mã");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 9;
+        gridBagConstraints.gridy = 0;
+        filterPanel.add(jLabel6, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 60, 0, 0);
         jPanel1.add(filterPanel, gridBagConstraints);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        advancedSearch.setPreferredSize(new java.awt.Dimension(300, 120));
+        advancedSearch.setLayout(new javax.swing.BoxLayout(advancedSearch, javax.swing.BoxLayout.Y_AXIS));
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel8.setMaximumSize(new java.awt.Dimension(32767, 80));
+        jPanel8.setLayout(new java.awt.GridBagLayout());
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setText("từ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        jPanel8.add(jLabel10, gridBagConstraints);
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel11.setText("đến");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        jPanel8.add(jLabel11, gridBagConstraints);
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel12.setText("Thời gian");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        jPanel8.add(jLabel12, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        jPanel8.add(thoiGianBD, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        jPanel8.add(thoiGianKT, gridBagConstraints);
+
+        advancedSearch.add(jPanel8);
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel12.setMaximumSize(new java.awt.Dimension(32767, 70));
+        jPanel12.setLayout(new java.awt.GridBagLayout());
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel21.setText("Mã nhân viên     ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        jPanel12.add(jLabel21, gridBagConstraints);
+
+        txtNV.setPreferredSize(new java.awt.Dimension(100, 26));
+        jPanel12.add(txtNV, new java.awt.GridBagConstraints());
+
+        advancedSearch.add(jPanel12);
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel10.setMaximumSize(new java.awt.Dimension(32767, 80));
+        jPanel10.setLayout(new java.awt.GridBagLayout());
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel13.setText("từ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        jPanel10.add(jLabel13, gridBagConstraints);
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel14.setText("đến");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        jPanel10.add(jLabel14, gridBagConstraints);
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel15.setText("Tổng tiền");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        jPanel10.add(jLabel15, gridBagConstraints);
+
+        tienBD.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 100000));
+        tienBD.setPreferredSize(new java.awt.Dimension(100, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        jPanel10.add(tienBD, gridBagConstraints);
+
+        tienKT.setModel(new javax.swing.SpinnerNumberModel(100000000, 0, null, 100000));
+        tienKT.setPreferredSize(new java.awt.Dimension(100, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        jPanel10.add(tienKT, gridBagConstraints);
+
+        advancedSearch.add(jPanel10);
+
+        jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel11.setMaximumSize(new java.awt.Dimension(32767, 80));
+        jPanel11.setLayout(new java.awt.GridBagLayout());
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel16.setText("từ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        jPanel11.add(jLabel16, gridBagConstraints);
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel17.setText("đến");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        jPanel11.add(jLabel17, gridBagConstraints);
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel18.setText("Tiền giảm");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        jPanel11.add(jLabel18, gridBagConstraints);
+
+        giamBD.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 100000));
+        giamBD.setPreferredSize(new java.awt.Dimension(100, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        jPanel11.add(giamBD, gridBagConstraints);
+
+        giamKT.setModel(new javax.swing.SpinnerNumberModel(100000000, 0, null, 100000));
+        giamKT.setPreferredSize(new java.awt.Dimension(100, 26));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        jPanel11.add(giamKT, gridBagConstraints);
+
+        advancedSearch.add(jPanel11);
+
+        jPanel9.setMaximumSize(new java.awt.Dimension(32767, 40));
+
+        btnReset1.setText("Đặt lại");
+        btnReset1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReset1MouseClicked(evt);
+            }
+        });
+        jPanel9.add(btnReset1);
+
+        advancedSearch.add(jPanel9);
+
+        add(advancedSearch, java.awt.BorderLayout.EAST);
+
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Mã hoá đơn", "Mã khách hàng", "Mã nhân viên", "Tổng tiền", "Tiền giảm", "Thời gian", "Khuyến mãi"
+            }
+        ));
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table);
+
+        jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jPanel3.setMaximumSize(new java.awt.Dimension(2147483647, 500));
         jPanel3.setPreferredSize(new java.awt.Dimension(456, 300));
@@ -468,7 +672,9 @@ public class HoaDonPanel extends javax.swing.JPanel {
 
         jPanel3.add(jPanel4, java.awt.BorderLayout.WEST);
 
-        add(jPanel3, java.awt.BorderLayout.PAGE_END);
+        jPanel2.add(jPanel3, java.awt.BorderLayout.SOUTH);
+
+        add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertMouseClicked
@@ -506,12 +712,13 @@ public class HoaDonPanel extends javax.swing.JPanel {
         String makh = (String) table.getValueAt(selectedRow, 1);
         String manv = (String) table.getValueAt(selectedRow, 2);
         int tongTien = (int) table.getValueAt(selectedRow, 3);
+        int tienGiam = (int) table.getValueAt(selectedRow, 4);
         Date thoiGian = (Date) table.getValueAt(selectedRow, 5);
         
         txtMaHD.setText(mahd);
         txtMaKh.setText(makh);
         txtMaNV.setText(manv);
-        txtTongTien.setText(String.format("%d", tongTien));
+        txtTongTien.setText(String.valueOf(tongTien-tienGiam));
         txtThoiGian.setText(thoiGian.toString());
         
         ArrayList<ChiTietHoaDonDTO> dsCTHD  = null;
@@ -739,38 +946,77 @@ public class HoaDonPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnExportPDF
 
+    private void btnReset1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReset1MouseClicked
+        // TODO add your handling code here:
+        tienBD.setValue(0);
+        tienKT.setValue(100000000);
+        giamBD.setValue(0);
+        giamKT.setValue(100000000);
+        thoiGianBD.setDate(null);
+        thoiGianKT.setDate(null);
+    }//GEN-LAST:event_btnReset1MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        advancedSearch.setVisible(!advancedSearch.isVisible());
+    }//GEN-LAST:event_jButton1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel advancedSearch;
     private javax.swing.JLabel btnDelete;
     private javax.swing.JLabel btnDetail;
     private javax.swing.JLabel btnInsert;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnReset1;
     private javax.swing.JLabel btnUpdate;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JComboBox<String> cbbSortOption;
     private javax.swing.JPanel filterPanel;
+    private javax.swing.JSpinner giamBD;
+    private javax.swing.JSpinner giamKT;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JRadioButton searchOption_KH;
-    private javax.swing.JRadioButton searchOption_NV;
-    private javax.swing.JRadioButton searchOption_ma;
     private javax.swing.JTable table;
     private javax.swing.JTable tbChiTietHoaDon;
+    private com.toedter.calendar.JDateChooser thoiGianBD;
+    private com.toedter.calendar.JDateChooser thoiGianKT;
+    private javax.swing.JSpinner tienBD;
+    private javax.swing.JSpinner tienKT;
     private javax.swing.JTextField txtKeyWord;
     private javax.swing.JTextField txtMaHD;
     private javax.swing.JTextField txtMaKh;
     private javax.swing.JTextField txtMaNV;
+    private javax.swing.JTextField txtNV;
     private javax.swing.JLabel txtResultCount;
     private javax.swing.JTextField txtThoiGian;
     private javax.swing.JTextField txtTongTien;

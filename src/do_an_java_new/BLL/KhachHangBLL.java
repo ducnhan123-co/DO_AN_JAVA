@@ -35,17 +35,10 @@ public class KhachHangBLL {
                     break;
                 case 2:
                     for (KhachHangDTO khachhang: listOf_khachHang) 
-                        if (khachhang.getTen().contains(keyWord))
-                            res.add(khachhang);
-                    break;
-                case 3:
-                    for (KhachHangDTO khachhang: listOf_khachHang) 
-                        if (khachhang.getHo().contains(keyWord))
-                            res.add(khachhang);
-                case 4: 
-                    for (KhachHangDTO khachhang: listOf_khachHang) 
                         if (khachhang.getSdt().contains(keyWord))
                             res.add(khachhang);
+                    break;
+                default:
                     break;
             }   
         } else 
@@ -87,10 +80,13 @@ public class KhachHangBLL {
             if (khach.getMaKH().equals(khachhang.getMaKH()))
                 throw new Exception("Mã khách hàng đã được sử dụng");
         
-        for (KhachHangDTO khachHang: listOf_khachHang) {
+        if (!khachhang.getSdt().matches("^0\\d{9}$"))
+            throw new Exception("Số điện thoại không hợp lệ");
+        
+        for (KhachHangDTO khachHang: listOf_khachHang) 
             if (khachHang.getSdt().equals(khachhang.getSdt()))
                 throw new Exception("Số điện thoại đã được dùng");
-        }
+        
         int maTinh = TinhThanhBLL.getMaTinh(khachhang.getTinh());
         
         KhachHangDAO.themKhachHang(khachhang, maTinh);

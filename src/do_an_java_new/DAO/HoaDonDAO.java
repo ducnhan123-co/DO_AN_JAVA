@@ -5,6 +5,7 @@
 package do_an_java_new.DAO;
 
 import do_an_java_new.DTO.HoaDonDTO;
+import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,24 +33,6 @@ public class HoaDonDAO {
                
         st.executeUpdate();
     }
-
-//    public int update(HoaDonDTO hoaDon) {
-//        int result = 0;
-//        try {
-//            Connection cn = ConnectionDAO.getConnection();
-//            String sql = "update hoaDon set MaHD=?, MaKH=?, MaNV=?, tongTien=?";
-//            PreparedStatement st = cn.prepareStatement(sql);
-//            st.setString(1, hoaDon.getMaHD());
-//            st.setString(2, hoaDon.getMaKH());
-//            st.setString(3, hoaDon.getMaNV());
-//            st.setInt(3, hoaDon.getTongTien());
-//            result = st.executeUpdate();
-//            System.out.println("Số dòng đã bị thay đổi: "+result);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
 
     public static void xoaHoaDon(String maHD) throws SQLException {
         Connection conn = ConnectionDAO.getConnection();
@@ -96,7 +79,8 @@ public class HoaDonDAO {
         try {
             Connection cn = ConnectionDAO.getConnection();
             String sql = "SELECT `MaHD`, `MaKH`, `MaNV`, `TongTien`, `TienGiam`, `ThoiGian`, `KhuyenMai` \n" +
-                    "FROM `hoadon`";
+                    "FROM `hoadon`"+
+                    "WHERE `maHD` = ?";
             PreparedStatement st = cn.prepareStatement(sql);
             st.setString(1, id);
             System.out.println("Chạy câu lệnh: "+sql);
@@ -141,21 +125,23 @@ public class HoaDonDAO {
         
         return result;
     }
-    public static int thongKeTongDoanhThu(Date beginDate, Date endDate) throws SQLException {
+    
+    public static int[] thongKeTheoQuy(int year) throws SQLException {
         Connection conn = ConnectionDAO.getConnection();
-        String query = "SELECT SUM(TongTien) as DoanhThu \n" +
-                       "FROM hoadon \n" +
-                       "WHERE ThoiGian BETWEEN ? AND ?";        
+        String query = "SELECT QUARTER(hoadon.ThoiGian), SUM(hoadon.TongTien)\n" +
+                "FROM hoadon\n" +
+                "WHERE YEAR(hoadon.ThoiGian) = ?\n" +
+                "GROUP BY QUARTER(hoadon.ThoiGian)";     
+        
         PreparedStatement st = conn.prepareStatement(query);
-        st.setDate(1, beginDate);
-        st.setDate(2, endDate);
+        st.setInt(1, year);
 
         ResultSet rs = st.executeQuery();
 
-        int result = 0;
-        if (rs.next()) 
-            result = rs.getInt("DoanhThu");
+        int result[] = new int[4];
+        while (rs.next()) 
+            result[rs.getInt(1)-1] = rs.getInt(2);
         
         return result;
-    }
+    }   
 }

@@ -34,16 +34,6 @@ public class NhanVienBLL {
                     break;
                 case 2:
                     for (NhanVienDTO nhanvien: listOf_nhanVien) 
-                        if (nhanvien.getTen().contains(keyWord))
-                            res.add(nhanvien);
-                    break;
-                case 3:
-                    for (NhanVienDTO nhanvien: listOf_nhanVien) 
-                        if (nhanvien.getHo().contains(keyWord))
-                            res.add(nhanvien);
-                    break;
-                case 4:
-                    for (NhanVienDTO nhanvien: listOf_nhanVien) 
                         if (nhanvien.getSdt().contains(keyWord))
                             res.add(nhanvien);
                     break;
@@ -87,9 +77,18 @@ public class NhanVienBLL {
         if (nhanvien.getLuong() < 0)
             throw new IllegalArgumentException("Luong khong duoc nho hon 0");
         int maTinh = TinhThanhBLL.getMaTinh(nhanvien.getTinh());
+        
         for (NhanVienDTO nhanVien: listOf_nhanVien) 
             if (nhanVien.getMaNV().equals(nhanvien.getMaNV()))
                 throw new Exception("Mã nhân viên đã được sử dụng");
+        
+        for (NhanVienDTO nv: listOf_nhanVien) 
+            if (nv.getSdt().equals(nhanvien.getSdt()))
+                throw new Exception("Số điện thoại đã được dùng");
+        
+        if (!nhanvien.getSdt().matches("^0\\d{9}$"))
+            throw new Exception("Số điện thoại không hợp lệ");
+        
         NhanVienDAO.themNhanVien(nhanvien, maTinh);
         listOf_nhanVien.add(nhanvien);
     }
