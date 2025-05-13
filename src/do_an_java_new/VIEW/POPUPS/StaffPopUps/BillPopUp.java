@@ -5,16 +5,32 @@
 
 package do_an_java_new.VIEW.POPUPS.StaffPopUps;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import do_an_java_new.BLL.ChiTietHoaDonBLL;
 import do_an_java_new.BLL.HangBLL;
+import do_an_java_new.BLL.KhuyenMaiBLL;
 import do_an_java_new.DTO.ChiTietHoaDonDTO;
 import do_an_java_new.DTO.HangDTO;
 import do_an_java_new.DTO.HoaDonDTO;
+import do_an_java_new.DTO.KhuyenMaiDTO;
 import do_an_java_new.VIEW.WorkSpaces.AdminWorkSpaces.HoaDonPanel;
+import java.io.FileOutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,8 +40,12 @@ import javax.swing.table.DefaultTableModel;
 public class BillPopUp extends javax.swing.JFrame {
 
     /** Creates new form BillPopUp */
+    HoaDonDTO hoaDon;
+    ArrayList<ChiTietHoaDonDTO> dsCTHD;
+    
     public BillPopUp(HoaDonDTO hoadon) {
         initComponents();
+        this.hoaDon = hoadon;
 
         txtMaHD.setText(hoadon.getMaHD());
         txtMaNV.setText(hoadon.getMaNV());
@@ -44,6 +64,7 @@ public class BillPopUp extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(HoaDonPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.dsCTHD = dsCTHD;
         
         DefaultTableModel model = (DefaultTableModel) tbChiTietHoaDon.getModel();
         model.setRowCount(0);
@@ -85,6 +106,7 @@ public class BillPopUp extends javax.swing.JFrame {
         txtThoiGian = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        btnPDF = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbChiTietHoaDon = new javax.swing.JTable();
@@ -153,6 +175,15 @@ public class BillPopUp extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
+
+        btnPDF.setBackground(new java.awt.Color(255, 153, 153));
+        btnPDF.setText("Xuất pdf");
+        btnPDF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPDFMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnPDF);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
@@ -230,8 +261,107 @@ public class BillPopUp extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void btnPDFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPDFMouseClicked
+        // TODO add your handling code here:
+        try {
+            // Chọn nơi lưu file PDF
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Lưu file PDF");
+            int userSelection = fileChooser.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".pdf";
+
+                // Tạo nội dung PDF
+                Document document = new Document();
+                PdfWriter.getInstance(document, new FileOutputStream(filePath));
+                document.open();
+
+                // Font hỗ trợ tiếng Việt
+                BaseFont baseFont = BaseFont.createFont("lib/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                Font titleFont = new Font(baseFont, 16, Font.BOLD);
+                Font normalFont = new Font(baseFont, 12, Font.NORMAL);
+                Font totalFont = new Font(baseFont, 12, Font.BOLD);
+
+                // Tiêu đề hóa đơn
+                Paragraph title = new Paragraph("CỬA HÀNG THỰC PHẨM\nHóa Đơn Bán Hàng", titleFont);
+                title.setAlignment(Element.ALIGN_CENTER);
+                document.add(title);
+
+                document.add(Chunk.NEWLINE);
+
+                // Thông tin hóa đơn
+                document.add(new Paragraph("Mã hóa đơn: " + hoaDon.getMaHD(), normalFont));
+                document.add(new Paragraph("Ngày lập: " + hoaDon.getThoiGian().toString(), normalFont));
+                document.add(new Paragraph("Nhân viên: " + hoaDon.getMaNV(), normalFont));
+                document.add(new Paragraph("Khách hàng: " + hoaDon.getMaKH(), normalFont));
+                document.add(new Paragraph("Khuyến mãi: " + hoaDon.getMaKM(), normalFont));
+
+                document.add(Chunk.NEWLINE);
+
+                // Bảng danh sách sản phẩm
+                PdfPTable tablePDF = new PdfPTable(5);
+                Paragraph productTitle = new Paragraph("\nDANH SÁCH SẢN PHẨM MUA", titleFont);
+                productTitle.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                document.add(productTitle);
+                tablePDF.setWidthPercentage(100);
+                tablePDF.setSpacingBefore(10f);
+                tablePDF.setSpacingAfter(10f);
+
+                // Tiêu đề cột
+                String[] headers = {"Tên sản phẩm", "Số lượng", "Đơn giá", "Giảm giá", "Thành tiền"};
+                for (String header : headers) {
+                    PdfPCell cell = new PdfPCell(new Phrase(header, normalFont));
+                    cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    tablePDF.addCell(cell);
+                }
+
+                // Dữ liệu chi tiết hóa đơn
+                for (ChiTietHoaDonDTO cthd : dsCTHD) {
+                    HangDTO hang = HangBLL.timHang(cthd.getMaHang());
+                    KhuyenMaiDTO khuyenMai = KhuyenMaiBLL.timKhuyenMai(hoaDon.getMaKM()); // Lấy thông tin khuyến mãi
+
+                    int giamGia = khuyenMai != null ? khuyenMai.getGiaTri() : 0;
+                    double thanhTien = cthd.getSoLuong() * cthd.getDonGia() * (1 - giamGia / 100);
+
+                    tablePDF.addCell(new PdfPCell(new Phrase(hang.getTenSP(), normalFont)));
+                    tablePDF.addCell(new PdfPCell(new Phrase(String.valueOf(cthd.getSoLuong()), normalFont)));
+                    tablePDF.addCell(new PdfPCell(new Phrase(String.format("%,.0f VNĐ", (double) cthd.getDonGia()), normalFont)));
+                    tablePDF.addCell(new PdfPCell(new Phrase(String.format("%d%%", giamGia), normalFont)));
+                    tablePDF.addCell(new PdfPCell(new Phrase(String.format("%,.0f VNĐ", thanhTien), normalFont)));
+                }
+
+                document.add(tablePDF);
+
+                // Tổng tiền
+                Paragraph total = new Paragraph("Tổng tiền: " +hoaDon.getTongTien() + " VNĐ", totalFont);
+                total.add(new Chunk("\nTiền giảm: "+hoaDon.getTienGiam()+" VNĐ", totalFont));
+                int tienTra =  hoaDon.getTongTien()-hoaDon.getTienGiam();
+                total.add(new Chunk("\nTổng tiền phải trả: "+tienTra+" VNĐ", totalFont));
+                total.setAlignment(Element.ALIGN_RIGHT);
+                document.add(total);
+
+                document.add(Chunk.NEWLINE);
+
+                // Lời cảm ơn
+                Paragraph thankYou = new Paragraph("XIN CẢM ƠN QUÝ KHÁCH!", titleFont);
+                thankYou.setAlignment(Element.ALIGN_CENTER);
+                document.add(thankYou);
+
+                // Đóng tài liệu
+                document.close();
+
+                JOptionPane.showMessageDialog(this, "Xuất file PDF thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi khi tạo PDF: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnPDFMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPDF;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

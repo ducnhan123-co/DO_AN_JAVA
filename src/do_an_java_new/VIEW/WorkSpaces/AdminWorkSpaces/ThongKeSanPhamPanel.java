@@ -85,18 +85,10 @@ public class ThongKeSanPhamPanel extends javax.swing.JPanel {
                     dataset.addValue((int)thongKe[1], "vnd", thongKe[0].toString());
             else {
                 int year = txtYear.getYear();
-                Date thg1 = Date.valueOf(String.format("%d-1-1", year));
-                Date thg3 = Date.valueOf(String.format("%d-3-31", year));
-                Date thg4 = Date.valueOf(String.format("%d-4-1", year));
-                Date thg6 = Date.valueOf(String.format("%d-6-31", year));
-                Date thg7 = Date.valueOf(String.format("%d-7-1", year));
-                Date thg9 = Date.valueOf(String.format("%d-9-30", year));
-                Date thg10 = Date.valueOf(String.format("%d-10-1", year));
-                Date thg12 = Date.valueOf(String.format("%d-12-13", year));
-                dataset.addValue(HoaDonBLL.thongKeTongDoanhThu(thg1, thg3), "vnd", "Quý 1");
-                dataset.addValue(HoaDonBLL.thongKeTongDoanhThu(thg4, thg6), "vnd", "Quý 2");
-                dataset.addValue(HoaDonBLL.thongKeTongDoanhThu(thg7, thg9), "vnd", "Quý 3");
-                dataset.addValue(HoaDonBLL.thongKeTongDoanhThu(thg10, thg12), "vnd", "Quý 4");
+                
+                int doanhThu[] = HoaDonBLL.thongKeTheoQuy(year);
+                for (int i = 0 ; i < 4 ; i++) 
+                    dataset.addValue(doanhThu[i], "vnd", String.format("Quý %d", i+1));
             }
                 
         } catch (Exception e) {
